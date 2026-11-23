@@ -1,0 +1,126 @@
+name: Build APK
+
+# Builds the "Aves Tagging" app (libre flavor, own app ID) on every push,
+# and publishes the APK as a GitHub release you can download on your phone.
+
+on:
+  push:
+    branches: [ "**" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build libre APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Set up JDK for Android Gradle plugin
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get Flutter packages (libre flavor)
+        run: |
+          ./flutterw --version
+          scripts/apply_flavor_libre.sh 2>&1 | tee -a ci.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Generate app localizations
+        run: |
+          ./flutterw gen-l10n 2>&1 | tee -a ci.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Static analysis (errors only fail the build later)
+        continue-on-error: true
+        run: |
+          ./flutterw analyze --no-fatal-infos --no-fatal-warnings 2>&1 | tee analyze.log
+          cat analyze.log >> ci.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Unit tests
+        continue-on-error: true
+        run: |
+          ./flutterw test 2>&1 | tee test.log
+          cat test.log >> ci.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Decrypt signing key
+        env:
+          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+        run: |
+          if [ -z "$SIGNING_PASSWORD" ]; then
+            echo "::warning::SIGNING_PASSWORD secret is not set: the APK will be unsigned and cannot be installed."
+            exit 0
+          fi
+          gpg -d --batch --pinentry-mode loopback --passphrase "$SIGNING_PASSWORD" signing/sorttag.jks.asc > "$RUNNER_TEMP/sorttag.jks"
+          {
+            echo "AVES_STORE_FILE=$RUNNER_TEMP/sorttag.jks"
+            echo "AVES_STORE_PASSWORD=$SIGNING_PASSWORD"
+            echo "AVES_KEY_ALIAS=sorttag"
+            echo "AVES_KEY_PASSWORD=$SIGNING_PASSWORD"
+          } >> "$GITHUB_ENV"
+
+      - name: Build APK
+        env:
+          AVES_GOOGLE_API_KEY: NONE
+        run: |
+          NDK_VERSION=28.2.13676358
+          export ANDROID_NDK=$ANDROID_SDK_ROOT/ndk/$NDK_VERSION
+          export ANDROID_NDK_HOME=$ANDROID_NDK
+          export ANDROID_NDK_ROOT=$ANDROID_NDK
+          # version code keeps increasing with every build, so each APK installs as an update
+          BASE_CODE=$(grep -E '^version:' pubspec.yaml | sed -E 's/.*\+([0-9]+).*/\1/')
+          BASE_NAME=$(grep -E '^version:' pubspec.yaml | sed -E 's/version: *([^+]+)\+.*/\1/')
+          BUILD_NUMBER=$(( BASE_CODE * 10000 + GITHUB_RUN_NUMBER ))
+          echo "BUILD_LABEL=${BASE_NAME}-tag.${GITHUB_RUN_NUMBER}" >> "$GITHUB_ENV"
+          ./flutterw build apk -t lib/main_libre.dart --flavor libre \
+            --build-name "${BASE_NAME}-tag.${GITHUB_RUN_NUMBER}" \
+            --build-number "$BUILD_NUMBER" 2>&1 | tee build.log
+          STATUS=${PIPESTATUS[0]}
+          cat build.log >> ci.log
+          exit $STATUS
+
+      - name: Publish APK as a release
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p out
+          cp build/app/outputs/flutter-apk/app-libre-release.apk "out/aves-tagging-${BUILD_LABEL}.apk"
+          cp ci.log out/ci.log
+          TAG="build-${GITHUB_RUN_NUMBER}"
+          NOTES="Branch: ${GITHUB_REF_NAME}
+          Commit: ${GITHUB_SHA::7} — $(git log -1 --format=%s)
+
+          Download the .apk below on your phone and open it to install or update."
+          gh release create "$TAG" out/*.apk out/ci.log \
+            --title "Aves Tagging ${BUILD_LABEL}" \
+            --notes "$NOTES" \
+            --target "$GITHUB_SHA" \
+            --latest
+
+      - name: Publish failure log
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # flag the most relevant lines as annotations
+          grep -E "error[:•]|Error:|ERROR|FAILURE|e: " ci.log | head -40 | while IFS= read -r line; do
+            echo "::error::${line}"
+          done || true
+          # keep the full log where it can be read without Actions access
+          gh release view ci-logs >/dev/null 2>&1 || \
+            gh release create ci-logs --prerelease --title "CI logs (failed builds)" --notes "Logs of failed builds." --target "$GITHUB_SHA"
+          cp ci.log "failed-run-${GITHUB_RUN_NUMBER}.log"
+          gh release upload ci-logs "failed-run-${GITHUB_RUN_NUMBER}.log" --clobber

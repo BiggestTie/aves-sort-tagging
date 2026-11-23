@@ -113,7 +113,7 @@ android {
             // check offending libraries with `fdroidserver`
             // cf https://f-droid.org/en/docs/Submitting_to_F-Droid_Quick_Start_Guide/
             dimension = "store"
-            applicationIdSuffix = ".libre"
+            applicationIdSuffix = ".sorttag"
         }
     }
 
