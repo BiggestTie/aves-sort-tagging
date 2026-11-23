@@ -7,6 +7,7 @@ import 'package:aves/model/device.dart';
 import 'package:aves/model/entry/entry.dart';
 import 'package:aves/model/entry/extensions/props.dart';
 import 'package:aves/model/metadata/date_modifier.dart';
+import 'package:aves/model/tags/tag_path.dart';
 import 'package:aves/ref/c2pa.dart';
 import 'package:aves/ref/metadata/exif.dart';
 import 'package:aves/ref/metadata/iptc.dart';
@@ -257,7 +258,11 @@ extension ExtraAvesEntryMetadataEdition on AvesEntry {
   // write:
   // - IPTC / keywords, if IPTC exists
   // - XMP / dc:subject
-  Future<Set<EntryDataType>> editTags(Set<String> tags) async {
+  // - XMP / lr:hierarchicalSubject, for nested tags
+  // nested tags (e.g. `A|B`) are stored as full paths in `lr:hierarchicalSubject`,
+  // and as flattened keywords (e.g. `A`, `B`) in `dc:subject` and IPTC keywords
+  Future<Set<EntryDataType>> editTags(Set<String> rawTags) async {
+    final tags = rawTags.map(TagPath.normalize).where((tag) => tag.isNotEmpty).toSet();
     final c2paActions = await _toEntryC2paActions([C2paActions.editedMetadata, AvesC2paActions.tags]);
     final dataTypes = <EntryDataType>{};
     final metadata = <MetadataType, dynamic>{};
@@ -265,7 +270,7 @@ extension ExtraAvesEntryMetadataEdition on AvesEntry {
     if (isIptcEditionSupported) {
       final iptc = await metadataFetchService.getIptc(this);
       if (iptc != null) {
-        editIptcValues(iptc, IPTC.applicationRecord, IPTC.keywordsTag, tags);
+        editIptcValues(iptc, IPTC.applicationRecord, IPTC.keywordsTag, TagPath.flatten(tags));
         metadata[MetadataType.iptc] = iptc;
       }
     }
@@ -373,13 +378,23 @@ extension ExtraAvesEntryMetadataEdition on AvesEntry {
 
   @visibleForTesting
   static bool editTagsXmp(List<XmlNode> descriptions, Set<String> tags) {
-    return XMP.setStringBag(
+    final hasNested = tags.any(TagPath.isNested);
+    var modified = XMP.setStringBag(
       descriptions,
       XmpElements.dcSubject,
-      tags,
+      hasNested ? TagPath.flatten(tags) : tags,
       namespaceUri: XmpNamespaces.dc,
       strat: XmpEditStrategy.always,
     );
+    // full paths, only kept when some tags are nested
+    modified |= XMP.setStringBag(
+      descriptions,
+      XmpElements.lrHierarchicalSubject,
+      hasNested ? tags : const <String>{},
+      namespaceUri: XmpNamespaces.lr,
+      strat: XmpEditStrategy.always,
+    );
+    return modified;
   }
 
   @visibleForTesting

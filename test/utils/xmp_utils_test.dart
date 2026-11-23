@@ -173,6 +173,49 @@ void main() {
     );
   });
 
+  test('Set nested tags to XMP', () async {
+    final modifyDate = DateTime.now();
+    final xmpDate = XMP.toXmpDate(modifyDate);
+
+    expect(
+      _toExpect(
+        await XMP.edit(
+          null,
+          toolkit,
+          (descriptions) => ExtraAvesEntryMetadataEdition.editTagsXmp(descriptions, {'Blue Archive|Asuna', 'Hair|Long'}),
+          modifyDate: modifyDate,
+        ),
+      ),
+      _toExpect('''
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="$toolkit">
+  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <rdf:Description rdf:about=""
+      xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xmlns:lr="http://ns.adobe.com/lightroom/1.0/"
+      xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+      xmp:MetadataDate="$xmpDate"
+      xmp:ModifyDate="$xmpDate">
+      <dc:subject>
+        <rdf:Bag>
+          <rdf:li>Blue Archive</rdf:li>
+          <rdf:li>Asuna</rdf:li>
+          <rdf:li>Hair</rdf:li>
+          <rdf:li>Long</rdf:li>
+        </rdf:Bag>
+      </dc:subject>
+      <lr:hierarchicalSubject>
+        <rdf:Bag>
+          <rdf:li>Blue Archive|Asuna</rdf:li>
+          <rdf:li>Hair|Long</rdf:li>
+        </rdf:Bag>
+      </lr:hierarchicalSubject>
+    </rdf:Description>
+  </rdf:RDF>
+</x:xmpmeta>
+'''),
+    );
+  });
+
   test('Set tags to XMP with ratings (multiple descriptions)', () async {
     final modifyDate = DateTime.now();
     final xmpDate = XMP.toXmpDate(modifyDate);

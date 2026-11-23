@@ -8,6 +8,7 @@ import 'package:aves/model/entry/extensions/props.dart';
 import 'package:aves/model/metadata/address.dart';
 import 'package:aves/model/metadata/catalog.dart';
 import 'package:aves/model/metadata/trash.dart';
+import 'package:aves/model/tags/tag_path.dart';
 import 'package:aves/ref/mime_types.dart';
 import 'package:aves/services/common/services.dart';
 import 'package:aves/services/media/enums.dart';
@@ -376,8 +377,16 @@ class AvesEntry with AvesEntryBase {
   Set<String>? _tags;
 
   Set<String> get tags {
-    _tags ??= _catalogMetadata?.xmpSubjects?.split(';').where((tag) => tag.isNotEmpty).toSet() ?? {};
+    _tags ??= _catalogMetadata?.xmpSubjects?.split(';').where((tag) => tag.isNotEmpty).map(TagPath.normalize).where((tag) => tag.isNotEmpty).toSet() ?? {};
     return _tags!;
+  }
+
+  Set<String>? _tagsWithAncestors;
+
+  // tags including their parent paths, e.g. `Blue Archive|Asuna` also yields `Blue Archive`
+  Set<String> get tagsWithAncestors {
+    _tagsWithAncestors ??= TagPath.expand(tags);
+    return _tagsWithAncestors!;
   }
 
   String? _bestTitle;
@@ -415,6 +424,7 @@ class AvesEntry with AvesEntryBase {
     _catalogMetadata = newMetadata;
     _bestTitle = null;
     _tags = null;
+    _tagsWithAncestors = null;
     metadataChangeNotifier.notify();
 
     _onVisualFieldChanged(
@@ -571,6 +581,7 @@ class AvesEntry with AvesEntryBase {
     _bestDate = null;
     _bestTitle = null;
     _tags = null;
+    _tagsWithAncestors = null;
 
     if (persist) {
       await localMediaDb.removeIds({id}, dataTypes: dataTypes);

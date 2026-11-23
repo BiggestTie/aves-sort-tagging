@@ -12,6 +12,7 @@ class XMP {
     XmpNamespaces.gContainer: 'Container',
     XmpNamespaces.dc: 'dc',
     XmpNamespaces.gCamera: 'GCamera',
+    XmpNamespaces.lr: 'lr',
     XmpNamespaces.microsoftPhoto: 'MicrosoftPhoto',
     XmpNamespaces.rdf: 'rdf',
     XmpNamespaces.x: 'x',

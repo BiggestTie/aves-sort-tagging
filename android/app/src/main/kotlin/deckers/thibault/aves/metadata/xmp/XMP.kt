@@ -41,11 +41,13 @@ object XMP {
     // other namespaces
     private const val APPLE_HDRGM_NS_URI = "http://ns.apple.com/HDRGainMap/1.0/"
     private const val HDRGM_NS_URI = "http://ns.adobe.com/hdr-gain-map/1.0/"
+    private const val LR_NS_URI = "http://ns.adobe.com/lightroom/1.0/"
     private const val PMTM_NS_URI = "http://www.hdrsoft.com/photomatix_settings01"
 
     val DC_SUBJECT_PROP_NAME = XMPPropName(DC_NS_URI, "subject")
     val DC_DESCRIPTION_PROP_NAME = XMPPropName(DC_NS_URI, "description")
     val DC_TITLE_PROP_NAME = XMPPropName(DC_NS_URI, "title")
+    val LR_HIERARCHICAL_SUBJECT_PROP_NAME = XMPPropName(LR_NS_URI, "hierarchicalSubject")
     val MS_RATING_PROP_NAME = XMPPropName(MICROSOFTPHOTO_NS_URI, "Rating")
     val PS_DATE_CREATED_PROP_NAME = XMPPropName(PHOTOSHOP_NS_URI, "DateCreated")
     val XMP_CREATE_DATE_PROP_NAME = XMPPropName(XMP_NS_URI, "CreateDate")

@@ -8,6 +8,7 @@ import 'package:aves/model/metadata/catalog.dart';
 import 'package:aves/model/source/analysis_controller.dart';
 import 'package:aves/model/source/collection_source.dart';
 import 'package:aves/model/source/filter_summary.dart';
+import 'package:aves/model/tags/tag_path.dart';
 import 'package:aves/services/common/service_policy.dart';
 import 'package:aves/services/common/services.dart';
 import 'package:aves_model/aves_model.dart';
@@ -20,7 +21,7 @@ mixin TagMixin on SourceBase {
   List<String>? _sortedTags;
 
   List<String> get sortedTags {
-    _sortedTags ??= List.unmodifiable(visibleEntries.expand((entry) => entry.tags).toSet().toList()..sort(compareAsciiUpperCaseNatural));
+    _sortedTags ??= List.unmodifiable(visibleEntries.expand((entry) => entry.tagsWithAncestors).toSet().toList()..sort(compareAsciiUpperCaseNatural));
     return _sortedTags!;
   }
 
@@ -114,8 +115,10 @@ mixin TagMixin on SourceBase {
     } else {
       tags ??= {};
       if (entries != null) {
-        tags.addAll(entries.where((entry) => entry.isCatalogued).expand((entry) => entry.tags));
+        tags.addAll(entries.where((entry) => entry.isCatalogued).expand((entry) => entry.tagsWithAncestors));
       }
+      // nested tags also affect the counts of their parent tags
+      tags = TagPath.expand(tags);
       tags.map((v) => TagFilter(v).key).forEach(_filterSummary.remove);
 
       // clear entries for all groups
@@ -143,7 +146,7 @@ mixin TagMixin on SourceBase {
     final recentEntries = <String, AvesEntry?>{};
 
     sortedEntriesByDate.forEach((entry) {
-      final tags = entry.tags;
+      final tags = entry.tagsWithAncestors;
       tags.forEach((tag) {
         entryCounts[tag] = (entryCounts[tag] ?? 0) + 1;
         sizes[tag] = (sizes[tag] ?? 0) + (entry.sizeBytes ?? 0);

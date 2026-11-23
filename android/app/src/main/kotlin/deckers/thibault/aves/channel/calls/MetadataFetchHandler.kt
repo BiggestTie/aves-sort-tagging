@@ -689,6 +689,30 @@ class MetadataFetchHandler(private val context: Context) : MethodCallHandler {
         result.success(metadataMap)
     }
 
+    // nested tags are stored as full paths (e.g. `A|B|C`) in `lr:hierarchicalSubject`,
+    // with their segments duplicated as plain keywords in `dc:subject`.
+    // returns the full paths, plus any plain keyword that is not part of a path
+    private fun getXmpSubjects(xmpMeta: XMPMeta): List<String>? {
+        val dcSubjects = if (xmpMeta.doesPropExist(XMP.DC_SUBJECT_PROP_NAME)) {
+            xmpMeta.getPropArrayItemValues(XMP.DC_SUBJECT_PROP_NAME)
+        } else null
+
+        val hierarchicalSubjects = try {
+            if (xmpMeta.doesPropExist(XMP.LR_HIERARCHICAL_SUBJECT_PROP_NAME)) {
+                xmpMeta.getPropArrayItemValues(XMP.LR_HIERARCHICAL_SUBJECT_PROP_NAME)
+            } else null
+        } catch (e: Exception) {
+            Log.w(LOG_TAG, "failed to read hierarchical subjects", e)
+            null
+        }
+
+        if (hierarchicalSubjects.isNullOrEmpty()) return dcSubjects
+
+        val pathSegments = hierarchicalSubjects.flatMap { path -> path.split(HIERARCHICAL_SUBJECT_SEPARATOR).map { it.trim() } }.toSet()
+        val plainSubjects = dcSubjects?.filter { it.trim() !in pathSegments } ?: emptyList()
+        return hierarchicalSubjects + plainSubjects
+    }
+
     private fun getCatalogMetadataByMetadataExtractor(
         sourceContentAddress: ContentAddress,
         sizeBytes: Long?,
@@ -710,9 +734,9 @@ class MetadataFetchHandler(private val context: Context) : MethodCallHandler {
             if (foundXmp && !allowMultiple) return
             foundXmp = true
             try {
-                if (xmpMeta.doesPropExist(XMP.DC_SUBJECT_PROP_NAME)) {
-                    val values = xmpMeta.getPropArrayItemValues(XMP.DC_SUBJECT_PROP_NAME)
-                    metadataMap[EntryFields.XMP_SUBJECTS] = values.joinToString(XMP_SUBJECTS_SEPARATOR)
+                val subjects = getXmpSubjects(xmpMeta)
+                if (subjects != null) {
+                    metadataMap[EntryFields.XMP_SUBJECTS] = subjects.joinToString(XMP_SUBJECTS_SEPARATOR)
                 }
                 xmpMeta.getSafeLocalizedText(XMP.DC_TITLE_PROP_NAME, acceptBlank = false) { metadataMap[EntryFields.XMP_TITLE] = it }
                 if (!metadataMap.containsKey(EntryFields.DATE_MILLIS)) {
@@ -1693,6 +1717,7 @@ class MetadataFetchHandler(private val context: Context) : MethodCallHandler {
         private const val MASK_ARE_CREDENTIALS_VALID = 1 shl 9
         private const val MASK_ARE_CREDENTIALS_TRUSTED = 1 shl 10
         private const val XMP_SUBJECTS_SEPARATOR = ";"
+        private const val HIERARCHICAL_SUBJECT_SEPARATOR = "|"
 
         // additional media key
         private const val KEY_HAS_EMBEDDED_PICTURE = "Has Embedded Picture"
