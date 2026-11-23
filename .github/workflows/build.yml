@@ -22,13 +22,13 @@ jobs:
     timeout-minutes: 90
     steps:
       - name: Set up JDK for Android Gradle plugin
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '21'
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Get Flutter packages (libre flavor)
         run: |
@@ -44,7 +44,7 @@ jobs:
       - name: Static analysis (errors only fail the build later)
         continue-on-error: true
         run: |
-          ./flutterw analyze --no-fatal-infos --no-fatal-warnings 2>&1 | tee analyze.log
+          ./flutterw analyze --no-fatal-infos --no-fatal-warnings lib test 2>&1 | tee analyze.log
           cat analyze.log >> ci.log
           exit ${PIPESTATUS[0]}
 
@@ -86,7 +86,7 @@ jobs:
           echo "BUILD_LABEL=${BASE_NAME}-tag.${GITHUB_RUN_NUMBER}" >> "$GITHUB_ENV"
           ./flutterw build apk -t lib/main_libre.dart --flavor libre \
             --build-name "${BASE_NAME}-tag.${GITHUB_RUN_NUMBER}" \
-            --build-number "$BUILD_NUMBER" 2>&1 | tee build.log
+            --build-number "$BUILD_NUMBER" --split-per-abi 2>&1 | tee build.log
           STATUS=${PIPESTATUS[0]}
           cat build.log >> ci.log
           exit $STATUS
@@ -97,7 +97,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p out
-          cp build/app/outputs/flutter-apk/app-libre-release.apk "out/aves-tagging-${BUILD_LABEL}.apk"
+          # 64-bit ARM build, which fits nearly all current phones
+          cp build/app/outputs/flutter-apk/app-arm64-v8a-libre-release.apk "out/aves-tagging-${BUILD_LABEL}.apk"
           cp ci.log out/ci.log
           TAG="build-${GITHUB_RUN_NUMBER}"
           NOTES="Branch: ${GITHUB_REF_NAME}
