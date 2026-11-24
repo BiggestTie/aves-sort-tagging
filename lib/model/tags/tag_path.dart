@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 // Nested ("hierarchical") tags, e.g. `Blue Archive|Millennium|C&C|Asuna`.
 //
 // The full path is stored in XMP `lr:hierarchicalSubject` (the convention used by
@@ -47,6 +49,30 @@ class TagPath {
 
   // whether `tag` is `ancestor` or nested somewhere below it
   static bool isWithin(String tag, String ancestor) => tag == ancestor || tag.startsWith('$ancestor$separator');
+
+  // whether all words of the query appear somewhere in the full path,
+  // so `blue archive` matches `Blue Archive|Millennium|C&C|Asuna`
+  // and so does `millennium asuna`. `upQuery` must be upper case.
+  static bool matches(String tag, String upQuery) {
+    final words = upQuery.split(RegExp(r'\s+')).where((v) => v.isNotEmpty);
+    if (words.isEmpty) return true;
+    final upTag = tag.toUpperCase();
+    return words.every(upTag.contains);
+  }
+
+  // orders tags as a tree: each tag right before the tags nested below it
+  static int compare(String a, String b) {
+    final segmentsA = segments(a);
+    final segmentsB = segments(b);
+    final length = segmentsA.length < segmentsB.length ? segmentsA.length : segmentsB.length;
+    for (var i = 0; i < length; i++) {
+      final c = compareAsciiUpperCaseNatural(segmentsA[i], segmentsB[i]);
+      if (c != 0) return c;
+    }
+    return segmentsA.length.compareTo(segmentsB.length);
+  }
+
+  static int depth(String tag) => segments(tag).length - 1;
 
   // short label for chips, e.g. `Asuna · Blue Archive`
   static String label(String tag) {

@@ -16,6 +16,7 @@ import 'package:aves/widgets/common/identity/aves_filter_chip.dart';
 import 'package:aves/widgets/dialogs/aves_confirmation_dialog.dart';
 import 'package:aves/widgets/dialogs/aves_dialog.dart';
 import 'package:aves/widgets/dialogs/entry_editors/tag_implication_dialog.dart';
+import 'package:aves/widgets/tags/tag_tree_list.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
@@ -115,7 +116,8 @@ class _TagEditorPageState extends State<TagEditorPage> {
                 valueListenable: _newTagTextController,
                 builder: (context, value, child) {
                   final upQuery = value.text.trim().toUpperCase();
-                  bool containQuery(CollectionFilter v) => v.getLabel(context).toUpperCase().contains(upQuery);
+                  final source = context.read<CollectionSource?>();
+                  bool containQuery(CollectionFilter v) => v.matchLabel(context, upQuery);
                   final recentFilters = settings.recentTags.where(containQuery).toList();
                   final topTagFilters = _topTags.where(containQuery).toList();
                   final placeholderFilters = _placeholders.where(containQuery).toList();
@@ -213,6 +215,24 @@ class _TagEditorPageState extends State<TagEditorPage> {
                           duration: ADurations.tagEditorTransition,
                         ),
                       ),
+                      // while typing, all known tags matching the text, as a tree
+                      if (upQuery.isNotEmpty && source != null) ...[
+                        const ThinDivider(),
+                        TagTreeList(
+                          source: source,
+                          upQuery: upQuery,
+                          selected: _commonTags,
+                          // keeps the text, so several tags of the same franchise can be picked in a row
+                          onTap: (tag) {
+                            final filter = TagFilter(tag);
+                            if (_commonTags.contains(tag)) {
+                              _removeTag(filter);
+                            } else {
+                              _addTag(filter, clearQuery: false);
+                            }
+                          },
+                        ),
+                      ],
                       const ThinDivider(),
                       _FilterRow(
                         title: l10n.statsTopTagsSectionTitle,
@@ -272,6 +292,12 @@ class _TagEditorPageState extends State<TagEditorPage> {
     });
   }
 
+  // tags present on all edited items
+  Set<String> get _commonTags {
+    final tagSets = filtersByEntry.values.map((filters) => filters.whereType<TagFilter>().map((v) => v.tag).toSet());
+    return tagSets.isEmpty ? {} : tagSets.reduce((a, b) => a.intersection(b));
+  }
+
   bool get _isModified {
     for (final kv in filtersByEntry.entries) {
       final oldFilters = kv.key.tags.map(TagFilter.new).toSet();
@@ -299,7 +325,7 @@ class _TagEditorPageState extends State<TagEditorPage> {
     }
   }
 
-  void _addTag(CollectionFilter filter) {
+  void _addTag(CollectionFilter filter, {bool clearQuery = true}) {
     settings.recentTags = settings.recentTags
       ..remove(filter)
       ..insert(0, filter);
@@ -313,7 +339,9 @@ class _TagEditorPageState extends State<TagEditorPage> {
         ..add(filter)
         ..addAll(impliedFilters),
     );
-    _newTagTextController.clear();
+    if (clearQuery) {
+      _newTagTextController.clear();
+    }
     setState(() {});
   }
 

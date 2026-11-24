@@ -28,4 +28,17 @@ void main() {
     expect(TagPath.isWithin('A', 'A'), true);
     expect(TagPath.isWithin('AB', 'A'), false);
   });
+
+  test('match queries against full paths', () {
+    const tag = 'Blue Archive|Millennium|C&C|Asuna';
+    expect(TagPath.matches(tag, 'BLUE ARCHIVE'), true);
+    expect(TagPath.matches(tag, 'MILLENNIUM'), true);
+    expect(TagPath.matches(tag, 'MILLENNIUM ASUNA'), true);
+    expect(TagPath.matches(tag, 'GENSHIN'), false);
+  });
+
+  test('tree order', () {
+    final tags = ['Blue Archives', 'Blue Archive|Asuna', 'Azur Lane', 'Blue Archive']..sort(TagPath.compare);
+    expect(tags, ['Azur Lane', 'Blue Archive', 'Blue Archive|Asuna', 'Blue Archives']);
+  });
 }

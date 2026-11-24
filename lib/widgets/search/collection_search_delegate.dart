@@ -35,6 +35,7 @@ import 'package:aves/widgets/common/extensions/build_context.dart';
 import 'package:aves/widgets/common/identity/aves_filter_chip.dart';
 import 'package:aves/widgets/common/search/delegate.dart';
 import 'package:aves/widgets/common/search/page.dart';
+import 'package:aves/widgets/tags/tag_tree_list.dart';
 import 'package:aves/widgets/viewer/controls/notifications.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
@@ -147,6 +148,8 @@ class CollectionSearchDelegate extends AvesSearchDelegate with FeedbackMixin, Va
                       // but we also need to animate the query chip when it is selected by submitting the search query
                       heroTypeBuilder: (filter) => filter == queryFilter ? HeroType.always : HeroType.onTap,
                     ),
+                    // nested tags matching the query, as a tree, right at the top
+                    if (upQuery.isNotEmpty) _buildTagTree(context, upQuery),
                     if (upQuery.isEmpty && history.isNotEmpty)
                       _buildFilterRow(
                         context: context,
@@ -159,7 +162,7 @@ class CollectionSearchDelegate extends AvesSearchDelegate with FeedbackMixin, Va
                     _buildCountryFilters(isVisible),
                     _buildStateFilters(isVisible),
                     _buildPlaceFilters(isVisible),
-                    _buildTagFilters(isVisible),
+                    _buildTagFilters(isVisible, groupsOnly: upQuery.isNotEmpty),
                     _buildRatingFilters(context, isVisible),
                     _buildMetadataFilters(context, isVisible),
                     _buildCredentialsFilters(context, isVisible),
@@ -297,13 +300,46 @@ class CollectionSearchDelegate extends AvesSearchDelegate with FeedbackMixin, Va
     );
   }
 
-  Widget _buildTagFilters(CollectionFilterPredicate containQuery) {
+  Widget _buildTagTree(BuildContext context, String upQuery) {
+    return StreamBuilder<TagsChangedEvent>(
+      stream: source.eventBus.on<TagsChangedEvent>(),
+      builder: (context, _) {
+        final hiddenFilters = settings.hiddenFilters;
+        if (TagTreeList.matchingTags(source, upQuery).isEmpty) return const SizedBox();
+        return Column(
+          crossAxisAlignment: .stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsetsDirectional.only(start: 16, end: 16, top: 16, bottom: 4),
+              child: Text(
+                context.l10n.searchTagsSectionTitle,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            TagTreeList(
+              source: source,
+              upQuery: upQuery,
+              onTap: (tag) {
+                final filter = TagFilter(tag);
+                if (!hiddenFilters.contains(filter)) {
+                  _select(context, {filter});
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // when searching, plain tags are listed in the tag tree, so only tag groups remain here
+  Widget _buildTagFilters(CollectionFilterPredicate containQuery, {bool groupsOnly = false}) {
     return StreamBuilder<TagsChangedEvent>(
       stream: source.eventBus.on<TagsChangedEvent>(),
       builder: (context, _) {
         final filters = [
           ...tagGrouping.getGroups().map(tagGrouping.uriToFilter),
-          ...source.sortedTags.map(TagFilter.new),
+          if (!groupsOnly) ...source.sortedTags.map(TagFilter.new),
         ].nonNulls.where(containQuery).toList()..sort();
         return _buildFilterRow(
           context: context,

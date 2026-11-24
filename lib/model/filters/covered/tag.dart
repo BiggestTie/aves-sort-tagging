@@ -50,6 +50,11 @@ class TagFilter extends CollectionFilter with CoveredFilter, TagBaseFilter {
   @override
   String getLabel(BuildContext context) => tag.isEmpty ? context.l10n.filterNoTagLabel : TagPath.label(tag);
 
+  // also matches the full path of nested tags,
+  // e.g. `millennium` matches `Blue Archive|Millennium|C&C|Asuna`
+  @override
+  bool matchLabel(BuildContext context, String query) => super.matchLabel(context, query) || (tag.isNotEmpty && TagPath.matches(tag, query));
+
   @override
   Widget? iconBuilder(BuildContext context, double size, {bool allowGenericIcon = true}) {
     return allowGenericIcon ? Icon(tag.isEmpty ? AIcons.tagUntagged : AIcons.tag, size: size) : null;
