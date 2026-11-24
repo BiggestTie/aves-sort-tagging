@@ -751,7 +751,8 @@ class EntrySetActionDelegate with FeedbackMixin, PermissionAwareMixin, SizeAware
     await Future.forEach(entries, (entry) async {
       newTagsByEntry[entry] = {
         ...entry.tags,
-        ...await getTagsFromFilters(filters, entry),
+        // quick tags also add their implied tags
+        ...settings.tagImplications.apply(await getTagsFromFilters(filters, entry)),
       };
     });
 

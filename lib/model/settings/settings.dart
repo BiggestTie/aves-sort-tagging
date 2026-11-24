@@ -24,6 +24,7 @@ import 'package:aves/model/settings/modules/screen_saver.dart';
 import 'package:aves/model/settings/modules/slideshow.dart';
 import 'package:aves/model/settings/modules/viewer.dart';
 import 'package:aves/model/settings/modules/widget.dart';
+import 'package:aves/model/tags/tag_implications.dart';
 import 'package:aves/ref/bursts.dart';
 import 'package:aves/services/accessibility_service.dart';
 import 'package:aves/services/common/services.dart';
@@ -232,6 +233,10 @@ class Settings
 
   set tagEditorExpandedSection(String? newValue) => set(SettingKeys.tagEditorExpandedSectionKey, newValue);
 
+  TagImplications get tagImplications => TagImplications.fromJson(getString(SettingKeys.tagImplicationsKey));
+
+  set tagImplications(TagImplications newValue) => set(SettingKeys.tagImplicationsKey, newValue.isEmpty ? null : newValue.toJson());
+
   // converter
 
   String get convertMimeType => getString(SettingKeys.convertMimeTypeKey) ?? SettingsDefaults.convertMimeType;
@@ -435,6 +440,7 @@ class Settings
           case SettingKeys.tagSortFactorKey:
           case SettingKeys.albumGroupsKey:
           case SettingKeys.tagGroupsKey:
+          case SettingKeys.tagImplicationsKey:
           case SettingKeys.imageBackgroundKey:
           case SettingKeys.videoAutoPlayModeKey:
           case SettingKeys.videoBackgroundModeKey:

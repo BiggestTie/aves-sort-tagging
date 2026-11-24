@@ -4,6 +4,7 @@ import 'package:aves/model/filters/filters.dart';
 import 'package:aves/model/filters/placeholder.dart';
 import 'package:aves/model/settings/settings.dart';
 import 'package:aves/model/source/collection_source.dart';
+import 'package:aves/model/tags/tag_path.dart';
 import 'package:aves/theme/durations.dart';
 import 'package:aves/theme/icons.dart';
 import 'package:aves/theme/themes.dart';
@@ -13,6 +14,8 @@ import 'package:aves/widgets/common/expandable_filter_row.dart';
 import 'package:aves/widgets/common/extensions/build_context.dart';
 import 'package:aves/widgets/common/identity/aves_filter_chip.dart';
 import 'package:aves/widgets/dialogs/aves_confirmation_dialog.dart';
+import 'package:aves/widgets/dialogs/aves_dialog.dart';
+import 'package:aves/widgets/dialogs/entry_editors/tag_implication_dialog.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
@@ -199,7 +202,12 @@ class _TagEditorPageState extends State<TagEditorPage> {
                               }
                             },
                             onRemove: _removeTag,
-                            onLongPress: null,
+                            // long press a tag to choose the tags it implies
+                            onLongPress: (context, filter, tapPosition) {
+                              if (filter is TagFilter) {
+                                _editImplications(filter.tag);
+                              }
+                            },
                           ),
                           crossFadeState: sortedTags.isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                           duration: ADurations.tagEditorTransition,
@@ -285,9 +293,9 @@ class _TagEditorPageState extends State<TagEditorPage> {
   }
 
   void _addCustomTag(String newTag) {
-    newTag = newTag.trim();
-    if (newTag.isNotEmpty) {
-      _addTag(TagFilter(newTag));
+    final tag = TagPath.normalize(newTag);
+    if (tag.isNotEmpty) {
+      _addTag(TagFilter(tag));
     }
   }
 
@@ -298,8 +306,39 @@ class _TagEditorPageState extends State<TagEditorPage> {
     _userAddedFilters
       ..remove(filter)
       ..add(filter);
-    filtersByEntry.forEach((entry, tags) => tags.add(filter));
+    // also add the tags implied by this one, e.g. `C&C` for `Asuna`
+    final Set<CollectionFilter> impliedFilters = filter is TagFilter ? settings.tagImplications.added({filter.tag}).map(TagFilter.new).toSet() : {};
+    filtersByEntry.forEach(
+      (entry, tags) => tags
+        ..add(filter)
+        ..addAll(impliedFilters),
+    );
     _newTagTextController.clear();
+    setState(() {});
+  }
+
+  Future<void> _editImplications(String tag) async {
+    final implications = settings.tagImplications;
+    final implied = await showAvesDialog<Set<String>>(
+      context: context,
+      builder: (context) => TagImplicationDialog(
+        tag: tag,
+        implied: implications.impliedBy(tag),
+      ),
+      routeSettings: const RouteSettings(name: TagImplicationDialog.routeName),
+    );
+    if (implied == null || !mounted) return;
+
+    final updated = implications.withRule(tag, implied);
+    settings.tagImplications = updated;
+
+    // apply the rule right away to the items being edited
+    filtersByEntry.forEach((entry, filters) {
+      final tags = filters.whereType<TagFilter>().map((v) => v.tag).toSet();
+      if (tags.any((v) => TagPath.isWithin(v, tag))) {
+        filters.addAll(updated.added(tags).map(TagFilter.new));
+      }
+    });
     setState(() {});
   }
 

@@ -182,7 +182,8 @@ class EntryInfoActionDelegate with FeedbackMixin, PermissionAwareMixin, EntryEdi
   Future<void> quickTag(BuildContext context, AvesEntry targetEntry, Set<CollectionFilter> filters) async {
     final newTags = {
       ...targetEntry.tags,
-      ...await getTagsFromFilters(filters, targetEntry),
+      // quick tags also add their implied tags
+      ...settings.tagImplications.apply(await getTagsFromFilters(filters, targetEntry)),
     };
     await _applyTags(context, targetEntry, newTags);
   }
