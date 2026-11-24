@@ -217,6 +217,8 @@ class CoveredFilterChip<T extends CollectionFilter> extends StatelessWidget {
             style: textStyle,
           ),
         ],
+        // tags with nested tags below them open the next level
+        if (filter is TagFilter && source.hasNestedTags(filter.tag)) _buildDetailIcon(context, AIcons.group),
         if (filter is TagGroupFilter) ...[
           _buildDetailIcon(context, AIcons.tag, padding: detailIconTextPadding(extent)),
           Text(

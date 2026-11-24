@@ -25,6 +25,16 @@ mixin TagMixin on SourceBase {
     return _sortedTags!;
   }
 
+  Set<String>? _parentTags;
+
+  // tags that have other tags nested below them, e.g. `Blue Archive`
+  Set<String> get parentTags {
+    _parentTags ??= sortedTags.map(TagPath.parent).nonNulls.toSet();
+    return _parentTags!;
+  }
+
+  bool hasNestedTags(String tag) => parentTags.contains(tag);
+
   Future<void> loadCatalogMetadata({Set<int>? ids}) async {
     final saved = await (ids != null ? localMediaDb.loadCatalogMetadataById(ids) : localMediaDb.loadCatalogMetadata());
     saved.forEach((metadata) => getEntryById(metadata.id)?.catalogMetadata = metadata);
@@ -94,6 +104,7 @@ mixin TagMixin on SourceBase {
 
   void invalidateTags() {
     _sortedTags = null;
+    _parentTags = null;
     invalidateTagFilterSummary();
     eventBus.fire(TagsChangedEvent());
   }

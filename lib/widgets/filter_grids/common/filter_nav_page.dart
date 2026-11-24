@@ -33,6 +33,11 @@ class FilterNavigationPage<T extends CollectionFilter, CSAD extends ChipSetActio
   final Set<T>? newFilters;
   final Widget Function() emptyBuilder;
 
+  // when it returns true for a tapped filter, `onDrillDown` is called
+  // instead of opening the collection, e.g. to browse nested tags
+  final bool Function(T filter)? canDrillDown;
+  final void Function(BuildContext context, T filter)? onDrillDown;
+
   const new({
     super.key,
     required this.source,
@@ -43,6 +48,8 @@ class FilterNavigationPage<T extends CollectionFilter, CSAD extends ChipSetActio
     required this.filterSections,
     this.newFilters,
     required this.emptyBuilder,
+    this.canDrillDown,
+    this.onDrillDown,
   });
 
   @override
@@ -184,7 +191,10 @@ class _FilterNavigationPageState<T extends CollectionFilter, CSAD extends ChipSe
                   final filter = gridItem.filter;
                   if (!await unlockFilter(context, filter)) return;
 
-                  if (filter is GroupBaseFilter) {
+                  final onDrillDown = widget.onDrillDown;
+                  if (onDrillDown != null && (widget.canDrillDown?.call(filter) ?? false)) {
+                    onDrillDown(context, filter);
+                  } else if (filter is GroupBaseFilter) {
                     context.read<FilterGroupNotifier>().value = filter.uri;
                   } else {
                     navigate(_buildCollectionPageRoute(filter));

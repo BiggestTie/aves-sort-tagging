@@ -5,6 +5,7 @@ import 'package:aves/model/grouping/common.dart';
 import 'package:aves/model/settings/settings.dart';
 import 'package:aves/model/source/collection_source.dart';
 import 'package:aves/model/source/tag.dart';
+import 'package:aves/model/tags/tag_path.dart';
 import 'package:aves/theme/icons.dart';
 import 'package:aves/widgets/common/extensions/build_context.dart';
 import 'package:aves/widgets/common/identity/empty.dart';
@@ -23,9 +24,14 @@ class TagListPage extends StatelessWidget {
 
   final Uri? initialGroup;
 
+  // for nested tags: the parent tag whose direct children are listed,
+  // e.g. `Blue Archive`, or null for top level tags
+  final String? tagPath;
+
   const new({
     super.key,
     required this.initialGroup,
+    this.tagPath,
   });
 
   @override
@@ -53,10 +59,25 @@ class TagListPage extends StatelessWidget {
                   stream: source.eventBus.on<TagsChangedEvent>(),
                   builder: (context, _) {
                     final groupUri = context.watch<FilterGroupNotifier>().value;
-                    final gridItems = getGridItems(source, ChipType.values.toSet(), groupUri);
+                    final gridItems = getGridItems(source, ChipType.values.toSet(), groupUri, nested: true, tagPath: tagPath);
                     return FilterNavigationPage<TagBaseFilter, TagChipSetActionDelegate>(
                       source: source,
-                      title: context.l10n.tagPageTitle,
+                      title: tagPath != null ? TagPath.leaf(tagPath!) : context.l10n.tagPageTitle,
+                      // tapping a tag with nested tags opens the next level,
+                      // except for the current level itself, listed first to show all its items
+                      canDrillDown: (filter) => filter is TagFilter && filter.tag != tagPath && source.hasNestedTags(filter.tag),
+                      onDrillDown: (context, filter) {
+                        if (filter is! TagFilter) return;
+                        Navigator.maybeOf(context)?.push(
+                          MaterialPageRoute(
+                            settings: const RouteSettings(name: TagListPage.routeName),
+                            builder: (context) => TagListPage(
+                              initialGroup: null,
+                              tagPath: filter.tag,
+                            ),
+                          ),
+                        );
+                      },
                       sortFactor: settings.tagSortFactor,
                       showHeaders: settings.tagSectionFactor != ChipSectionFactor.none,
                       actionDelegate: TagChipSetActionDelegate(gridItems),
@@ -78,11 +99,15 @@ class TagListPage extends StatelessWidget {
 
   // common with picking page
 
+  // with `nested`, only tags directly below `tagPath` are listed
+  // (top level tags when `tagPath` is null), with `tagPath` itself listed first
   static List<FilterGridItem<TagBaseFilter>> getGridItems(
     CollectionSource source,
     Set<ChipType> chipTypes,
-    Uri? groupUri,
-  ) {
+    Uri? groupUri, {
+    bool nested = false,
+    String? tagPath,
+  }) {
     final groupContent = tagGrouping.getDirectChildren(groupUri);
 
     Set<T> whereTypeRecursively<T>(Set<CollectionFilter> filters) {
@@ -97,7 +122,14 @@ class TagListPage extends StatelessWidget {
       final allTags = source.sortedTags;
       if (groupUri == null) {
         final withinGroups = whereTypeRecursively<TagFilter>(groupContent).map((v) => v.tag).toSet();
-        listedTags.addAll(allTags.whereNot(withinGroups.contains));
+        var candidates = allTags.whereNot(withinGroups.contains);
+        if (nested) {
+          candidates = candidates.where((tag) => TagPath.parent(tag) == tagPath);
+          if (tagPath != null && allTags.contains(tagPath)) {
+            candidates = [tagPath, ...candidates];
+          }
+        }
+        listedTags.addAll(candidates);
       } else {
         // check that group content is listed from source, to prevent displaying hidden content
         listedTags.addAll(groupContent.whereType<TagFilter>().map((v) => v.tag).where(allTags.contains));
@@ -105,14 +137,28 @@ class TagListPage extends StatelessWidget {
     }
 
     // always show groups, which are needed to navigate to other types
-    final tagGroupFilters = groupContent.whereType<TagGroupFilter>().whereNot(settings.hiddenFilters.contains).toSet();
+    // (manual groups only appear at the top level when browsing nested tags)
+    final tagGroupFilters = nested && tagPath != null ? <TagGroupFilter>{} : groupContent.whereType<TagGroupFilter>().whereNot(settings.hiddenFilters.contains).toSet();
 
     final filters = <TagBaseFilter>{
       ...tagGroupFilters,
       ...listedTags.map(TagFilter.new),
     };
 
-    return FilterNavigationPage.sort(settings.tagSortFactor, settings.tagSortReverse, source, filters);
+    final sorted = FilterNavigationPage.sort(settings.tagSortFactor, settings.tagSortReverse, source, filters);
+    if (nested && tagPath != null) {
+      // list the current level first, to show all its items
+      final self = sorted.firstWhereOrNull((v) {
+        final filter = v.filter;
+        return filter is TagFilter && filter.tag == tagPath;
+      });
+      if (self != null) {
+        sorted
+          ..remove(self)
+          ..insert(0, self);
+      }
+    }
+    return sorted;
   }
 
   static Map<ChipSectionKey, List<FilterGridItem<TagBaseFilter>>> groupToSections(BuildContext context, Iterable<FilterGridItem<TagBaseFilter>> sortedMapEntries) {

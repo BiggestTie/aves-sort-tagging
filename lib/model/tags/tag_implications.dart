@@ -13,7 +13,7 @@ import 'package:flutter/foundation.dart';
 class TagImplications {
   final Map<String, Set<String>> rules;
 
-  const TagImplications(this.rules);
+  const new(this.rules);
 
   static const empty = TagImplications({});
 
