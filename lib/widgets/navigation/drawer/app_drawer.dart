@@ -32,6 +32,7 @@ import 'package:aves/widgets/navigation/drawer/page_nav_tile.dart';
 import 'package:aves/widgets/navigation/drawer/tile.dart';
 import 'package:aves/widgets/navigation/nav_item.dart';
 import 'package:aves/widgets/settings/settings_page.dart';
+import 'package:aves/widgets/tags/tag_conversion_page.dart';
 import 'package:aves_model/aves_model.dart';
 import 'package:aves_utils/aves_utils.dart';
 import 'package:collection/collection.dart';
@@ -122,6 +123,8 @@ class _AppDrawerState extends State<AppDrawer> with WidgetsBindingObserver {
       ..._buildTypeLinks(),
       _buildAlbumLinks(context),
       ..._buildPageLinks(context),
+      const Divider(),
+      convertTagsTile(context),
       if (settings.enableBin) ...[
         const Divider(),
         binTile(context),
@@ -400,6 +403,27 @@ class _AppDrawerState extends State<AppDrawer> with WidgetsBindingObserver {
         );
       }),
     ];
+  }
+
+  Widget convertTagsTile(BuildContext context) {
+    return SafeArea(
+      top: false,
+      bottom: false,
+      child: ListTile(
+        leading: const Icon(AIcons.tag),
+        title: const Text('Convert tags'),
+        onTap: () {
+          final navigator = Navigator.maybeOf(context);
+          navigator?.pop();
+          navigator?.push(
+            MaterialPageRoute(
+              settings: const RouteSettings(name: TagConversionPage.routeName),
+              builder: (context) => const TagConversionPage(),
+            ),
+          );
+        },
+      ),
+    );
   }
 
   Widget binTile(BuildContext context) {
