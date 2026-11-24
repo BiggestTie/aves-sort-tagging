@@ -51,9 +51,12 @@ class TagConversionPlanner {
 
   // `tagCounts`: flat tag -> number of items with it
   // `excludedFranchises`: franchise names (any case) not to use
+  // `catalogLookup`: full path of a known character, e.g.
+  // (`Blue Archive`, `Asuna`) -> `Blue Archive|Millennium|C&C|Asuna`
   static TagConversionPlan plan(
     Map<String, int> tagCounts, {
     Set<String> excludedFranchises = const {},
+    String? Function(String franchise, String name)? catalogLookup,
   }) {
     final flatTags = tagCounts.keys.where((tag) => !TagPath.isNested(tag)).toSet();
     final excluded = excludedFranchises.map(_key).toSet();
@@ -95,6 +98,11 @@ class TagConversionPlanner {
 
     void convert(String from, String to) {
       to = TagPath.normalize(to);
+      // use the full path of known characters, e.g. with their school and club
+      final segments = TagPath.segments(to);
+      if (catalogLookup != null && segments.length == 2) {
+        to = catalogLookup(segments.first, segments.last) ?? to;
+      }
       if (to.isNotEmpty && to != from) {
         conversions.add(TagConversion(from, to));
         final root = TagPath.root(to);

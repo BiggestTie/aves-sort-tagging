@@ -56,4 +56,11 @@ void main() {
       {'waifu', 'Blue Archive|Asuna', 'Blue Archive|C&C'},
     );
   });
+
+  test('uses catalog paths', () {
+    String? lookup(String franchise, String name) => franchise == 'Blue Archive' && name == 'Asuna' ? 'Blue Archive|Millennium|C&C|Asuna' : null;
+    final mapping = TagConversionPlanner.plan(counts, catalogLookup: lookup).mapping;
+    expect(mapping['Asuna-Blue Archive'], 'Blue Archive|Millennium|C&C|Asuna');
+    expect(mapping['Toki-Blue Archive'], 'Blue Archive|Toki');
+  });
 }

@@ -2,6 +2,7 @@ import 'package:aves/model/entry/entry.dart';
 import 'package:aves/model/entry/extensions/props.dart';
 import 'package:aves/model/source/collection_source.dart';
 import 'package:aves/model/tags/tag_backup.dart';
+import 'package:aves/model/tags/tag_catalog.dart';
 import 'package:aves/model/tags/tag_conversion.dart';
 import 'package:aves/model/tags/tag_path.dart';
 import 'package:aves/theme/icons.dart';
@@ -44,6 +45,12 @@ class _TagConversionPageState extends State<TagConversionPage> {
     super.initState();
     _countTags();
     _updatePlan();
+    // known characters give fuller paths, once loaded
+    TagCatalog.instance.ensureLoaded().then((_) {
+      if (!mounted) return;
+      _updatePlan();
+      setState(() {});
+    });
   }
 
   void _countTags() {
@@ -55,7 +62,11 @@ class _TagConversionPageState extends State<TagConversionPage> {
   }
 
   void _updatePlan() {
-    _plan = TagConversionPlanner.plan(_tagCounts, excludedFranchises: _excludedFranchises);
+    _plan = TagConversionPlanner.plan(
+      _tagCounts,
+      excludedFranchises: _excludedFranchises,
+      catalogLookup: TagCatalog.instance.find,
+    );
   }
 
   // final mapping: suggestions, minus skipped tags, plus manual targets

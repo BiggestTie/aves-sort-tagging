@@ -18,25 +18,34 @@ class TagTreeList extends StatelessWidget {
   // tags to show as already chosen (e.g. in the tag editor)
   final Set<String> selected;
 
+  // tags to offer even when not used yet (e.g. from the catalog)
+  final Set<String> extraTags;
+
   const new({
     super.key,
     required this.source,
     required this.upQuery,
     required this.onTap,
     this.selected = const {},
+    this.extraTags = const {},
   });
 
   // all tags to list, in tree order
-  static List<String> matchingTags(CollectionSource source, String upQuery) {
-    final matching = source.sortedTags.where((tag) => TagPath.matches(tag, upQuery));
+  static List<String> matchingTags(CollectionSource source, String upQuery, {Set<String> extraTags = const {}}) {
+    final candidates = extraTags.isEmpty ? source.sortedTags : {...source.sortedTags, ...extraTags};
+    final matching = candidates.where((tag) => TagPath.matches(tag, upQuery));
     final withParents = TagPath.expand(matching).toList()..sort(TagPath.compare);
     return withParents;
   }
 
   @override
   Widget build(BuildContext context) {
-    final tags = matchingTags(source, upQuery);
+    final tags = matchingTags(source, upQuery, extraTags: extraTags);
     if (tags.isEmpty) return const SizedBox();
+
+    // tags not used yet have no count
+    final usedTags = source.sortedTags.toSet();
+    final parents = {...source.parentTags, ...tags.map(TagPath.parent).nonNulls};
 
     final theme = Theme.of(context);
     final dimColor = theme.colorScheme.onSurface.withValues(alpha: .6);
@@ -48,7 +57,7 @@ class TagTreeList extends StatelessWidget {
         ...shown.map((tag) {
           final depth = TagPath.depth(tag);
           final isMatch = TagPath.matches(tag, upQuery);
-          final hasChildren = source.hasNestedTags(tag);
+          final hasChildren = parents.contains(tag);
           final isSelected = selected.contains(tag);
           return InkWell(
             onTap: () => onTap(tag),
@@ -73,10 +82,11 @@ class TagTreeList extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Text(
-                    '${source.count(TagFilter(tag))}',
-                    style: TextStyle(color: dimColor),
-                  ),
+                  if (usedTags.contains(tag))
+                    Text(
+                      '${source.count(TagFilter(tag))}',
+                      style: TextStyle(color: dimColor),
+                    ),
                 ],
               ),
             ),

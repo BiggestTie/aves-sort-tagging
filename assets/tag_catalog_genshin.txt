@@ -1,0 +1,126 @@
+Genshin|Fontaine|Charlotte
+Genshin|Fontaine|Chevreuse
+Genshin|Fontaine|Clorinde
+Genshin|Fontaine|Court of Fontaine|Emilie
+Genshin|Fontaine|Court of Fontaine|Furina
+Genshin|Fontaine|Court of Fontaine|Neuvillette
+Genshin|Fontaine|Escoffier
+Genshin|Fontaine|Hotel Bouffes d'ete|Freminet
+Genshin|Fontaine|Hotel Bouffes d'ete|Lynette
+Genshin|Fontaine|Hotel Bouffes d'ete|Lyney
+Genshin|Fontaine|Navia
+Genshin|Fontaine|Sigewinne
+Genshin|Fontaine|Wriothesley
+Genshin|Inazuma|Arataki Itto
+Genshin|Inazuma|Chiori
+Genshin|Inazuma|Gorou
+Genshin|Inazuma|Kaedehara Kazuha
+Genshin|Inazuma|Kirara
+Genshin|Inazuma|Kujou Sara
+Genshin|Inazuma|Kuki Shinobu
+Genshin|Inazuma|Raiden Shogun
+Genshin|Inazuma|Sangonomiya Kokomi
+Genshin|Inazuma|Sayu
+Genshin|Inazuma|Shikanoin Heizou
+Genshin|Inazuma|Yae Miko
+Genshin|Inazuma|Yashiro Commission|Kamisato Ayaka
+Genshin|Inazuma|Yashiro Commission|Kamisato Ayato
+Genshin|Inazuma|Yashiro Commission|Thoma
+Genshin|Inazuma|Yoimiya
+Genshin|Inazuma|Yumemizuki Mizuki
+Genshin|Liyue|Baizhu
+Genshin|Liyue|Beidou
+Genshin|Liyue|Chongyun
+Genshin|Liyue|Gaming
+Genshin|Liyue|Ganyu
+Genshin|Liyue|Hu Tao
+Genshin|Liyue|Lan Yan
+Genshin|Liyue|Liyue Qixing|Keqing
+Genshin|Liyue|Liyue Qixing|Ningguang
+Genshin|Liyue|Qiqi
+Genshin|Liyue|Shenhe
+Genshin|Liyue|Xiangling
+Genshin|Liyue|Xianyun
+Genshin|Liyue|Xiao
+Genshin|Liyue|Xingqiu
+Genshin|Liyue|Xinyan
+Genshin|Liyue|Yanfei
+Genshin|Liyue|Yaoyao
+Genshin|Liyue|Yelan
+Genshin|Liyue|Yun Jin
+Genshin|Liyue|Zhongli
+Genshin|Mondstadt|Adventurers' Guild|Bennett
+Genshin|Mondstadt|Adventurers' Guild|Fischl
+Genshin|Mondstadt|Church of Favonius|Barbara
+Genshin|Mondstadt|Church of Favonius|Dahlia
+Genshin|Mondstadt|Church of Favonius|Rosaria
+Genshin|Mondstadt|Diluc
+Genshin|Mondstadt|Diona
+Genshin|Mondstadt|Durin
+Genshin|Mondstadt|Knights of Favonius|Albedo
+Genshin|Mondstadt|Knights of Favonius|Amber
+Genshin|Mondstadt|Knights of Favonius|Eula
+Genshin|Mondstadt|Knights of Favonius|Jean
+Genshin|Mondstadt|Knights of Favonius|Kaeya
+Genshin|Mondstadt|Knights of Favonius|Klee
+Genshin|Mondstadt|Knights of Favonius|Lisa
+Genshin|Mondstadt|Knights of Favonius|Lohen
+Genshin|Mondstadt|Knights of Favonius|Mika
+Genshin|Mondstadt|Knights of Favonius|Noelle
+Genshin|Mondstadt|Knights of Favonius|Sucrose
+Genshin|Mondstadt|Knights of Favonius|Varka
+Genshin|Mondstadt|Mona
+Genshin|Mondstadt|Prune
+Genshin|Mondstadt|Razor
+Genshin|Mondstadt|Venti
+Genshin|Natlan|Chasca
+Genshin|Natlan|Citlali
+Genshin|Natlan|Iansan
+Genshin|Natlan|Ifa
+Genshin|Natlan|Kachina
+Genshin|Natlan|Kinich
+Genshin|Natlan|Mavuika
+Genshin|Natlan|Mualani
+Genshin|Natlan|Ororon
+Genshin|Natlan|Varesa
+Genshin|Natlan|Xilonen
+Genshin|Nod-Krai|Aino
+Genshin|Nod-Krai|Columbina
+Genshin|Nod-Krai|Flins
+Genshin|Nod-Krai|Illuga
+Genshin|Nod-Krai|Ineffa
+Genshin|Nod-Krai|Jahoda
+Genshin|Nod-Krai|Lauma
+Genshin|Nod-Krai|Linnea
+Genshin|Nod-Krai|Nefer
+Genshin|Other|Aether
+Genshin|Other|Aloy
+Genshin|Other|Lumine
+Genshin|Other|Manekin
+Genshin|Other|Manekina
+Genshin|Other|Nicole
+Genshin|Other|Skirk
+Genshin|Other|Zibai
+Genshin|Snezhnaya|Alyosha
+Genshin|Snezhnaya|Fatui|Arlecchino
+Genshin|Snezhnaya|Fatui|Sandrone
+Genshin|Snezhnaya|Fatui|Tartaglia
+Genshin|Snezhnaya|Mitya
+Genshin|Snezhnaya|Odette
+Genshin|Snezhnaya|Valeriy
+Genshin|Snezhnaya|Vesna
+Genshin|Snezhnaya|Vodyanitsa
+Genshin|Sumeru|Alhaitham
+Genshin|Sumeru|Candace
+Genshin|Sumeru|Collei
+Genshin|Sumeru|Cyno
+Genshin|Sumeru|Dehya
+Genshin|Sumeru|Dori
+Genshin|Sumeru|Faruzan
+Genshin|Sumeru|Kaveh
+Genshin|Sumeru|Layla
+Genshin|Sumeru|Nahida
+Genshin|Sumeru|Nilou
+Genshin|Sumeru|Sethos
+Genshin|Sumeru|Tighnari
+Genshin|Sumeru|Wanderer

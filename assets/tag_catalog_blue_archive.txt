@@ -1,0 +1,116 @@
+Blue Archive|Abydos|Abydos Student Council|Shiroko Terror
+Blue Archive|Abydos|Foreclosure Task Force|Ayane
+Blue Archive|Abydos|Foreclosure Task Force|Hoshino
+Blue Archive|Abydos|Foreclosure Task Force|Nonomi
+Blue Archive|Abydos|Foreclosure Task Force|Serika
+Blue Archive|Abydos|Foreclosure Task Force|Shiroko
+Blue Archive|Arius|Arius Squad|Atsuko
+Blue Archive|Arius|Arius Squad|Hiyori
+Blue Archive|Arius|Arius Squad|Misaki
+Blue Archive|Arius|Arius Squad|Saori
+Blue Archive|Gehenna|Gourmet Research Society|Akari
+Blue Archive|Gehenna|Gourmet Research Society|Haruna
+Blue Archive|Gehenna|Gourmet Research Society|Izumi
+Blue Archive|Gehenna|Gourmet Research Society|Junko
+Blue Archive|Gehenna|Hot Springs Department|Kasumi
+Blue Archive|Gehenna|Hot Springs Department|Megu
+Blue Archive|Gehenna|Medical Emergency Club|Sena
+Blue Archive|Gehenna|Pandemonium Society|Ibuki
+Blue Archive|Gehenna|Pandemonium Society|Iroha
+Blue Archive|Gehenna|Pandemonium Society|Makoto
+Blue Archive|Gehenna|Prefect Team|Ako
+Blue Archive|Gehenna|Prefect Team|Chinatsu
+Blue Archive|Gehenna|Prefect Team|Hina
+Blue Archive|Gehenna|Prefect Team|Iori
+Blue Archive|Gehenna|Problem Solver 68|Aru
+Blue Archive|Gehenna|Problem Solver 68|Haruka
+Blue Archive|Gehenna|Problem Solver 68|Kayoko
+Blue Archive|Gehenna|Problem Solver 68|Mutsuki
+Blue Archive|Gehenna|School Lunch Club|Fuuka
+Blue Archive|Gehenna|School Lunch Club|Juri
+Blue Archive|Gehenna|Sparkle Club|Kirara
+Blue Archive|Hyakkiyako|Festival Operations Department|Pina
+Blue Archive|Hyakkiyako|Festival Operations Department|Shizuko
+Blue Archive|Hyakkiyako|Festival Operations Department|Umika
+Blue Archive|Hyakkiyako|Hyakkaryouran Resolution Council|Kikyou
+Blue Archive|Hyakkiyako|Hyakkaryouran Resolution Council|Renge
+Blue Archive|Hyakkiyako|Hyakkaryouran Resolution Council|Yukari
+Blue Archive|Hyakkiyako|Inner Discipline Club|Kaede
+Blue Archive|Hyakkiyako|Inner Discipline Club|Mimori
+Blue Archive|Hyakkiyako|Inner Discipline Club|Tsubaki
+Blue Archive|Hyakkiyako|Ninjutsu Research Club|Izuna
+Blue Archive|Hyakkiyako|Ninjutsu Research Club|Michiru
+Blue Archive|Hyakkiyako|Ninjutsu Research Club|Tsukuyo
+Blue Archive|Hyakkiyako|Wakamo
+Blue Archive|Hyakkiyako|Yin-Yang Club|Chise
+Blue Archive|Hyakkiyako|Yin-Yang Club|Kaho
+Blue Archive|Millennium|Athletics Training Club|Sumire
+Blue Archive|Millennium|C&C|Akane
+Blue Archive|Millennium|C&C|Asuna
+Blue Archive|Millennium|C&C|Karin
+Blue Archive|Millennium|C&C|Neru
+Blue Archive|Millennium|C&C|Toki
+Blue Archive|Millennium|Engineering Department|Hibiki
+Blue Archive|Millennium|Engineering Department|Kotori
+Blue Archive|Millennium|Engineering Department|Utaha
+Blue Archive|Millennium|Game Development Department|Aris
+Blue Archive|Millennium|Game Development Department|Midori
+Blue Archive|Millennium|Game Development Department|Momoi
+Blue Archive|Millennium|Game Development Department|Yuzu
+Blue Archive|Millennium|Seminar|Koyuki
+Blue Archive|Millennium|Seminar|Noa
+Blue Archive|Millennium|Seminar|Yuuka
+Blue Archive|Millennium|Super Phenomenon Task Force|Eimi
+Blue Archive|Millennium|Super Phenomenon Task Force|Himari
+Blue Archive|Millennium|Veritas|Chihiro
+Blue Archive|Millennium|Veritas|Hare
+Blue Archive|Millennium|Veritas|Kotama
+Blue Archive|Millennium|Veritas|Maki
+Blue Archive|Other|Hatsune Miku
+Blue Archive|Red Winter|Knowledge Liberation Front|Meru
+Blue Archive|Red Winter|Knowledge Liberation Front|Momiji
+Blue Archive|Red Winter|Labor Party|Minori
+Blue Archive|Red Winter|Red Winter Office|Cherino
+Blue Archive|Red Winter|Red Winter Office|Marina
+Blue Archive|Red Winter|Red Winter Office|Tomoe
+Blue Archive|Red Winter|Spec Ops No. 227|Nodoka
+Blue Archive|Red Winter|Spec Ops No. 227|Shigure
+Blue Archive|Sakugawa|Saten Ruiko
+Blue Archive|Shanhaijing|Black Tortoise Promenade|Rumi
+Blue Archive|Shanhaijing|Eastern Alchemy Society|Saya
+Blue Archive|Shanhaijing|Genryumon|Mina
+Blue Archive|Shanhaijing|Plum Blossom Garden|Kokona
+Blue Archive|Shanhaijing|Plum Blossom Garden|Shun
+Blue Archive|SRT|RABBIT Squad|Miyako
+Blue Archive|SRT|RABBIT Squad|Miyu
+Blue Archive|SRT|RABBIT Squad|Moe
+Blue Archive|SRT|RABBIT Squad|Saki
+Blue Archive|Tokiwadai|Misaka Mikoto
+Blue Archive|Tokiwadai|Shokuhou Misaki
+Blue Archive|Trinity|After-School Sweets Club|Airi
+Blue Archive|Trinity|After-School Sweets Club|Kazusa
+Blue Archive|Trinity|After-School Sweets Club|Natsu
+Blue Archive|Trinity|After-School Sweets Club|Yoshimi
+Blue Archive|Trinity|Justice Task Force|Hasumi
+Blue Archive|Trinity|Justice Task Force|Ichika
+Blue Archive|Trinity|Justice Task Force|Mashiro
+Blue Archive|Trinity|Justice Task Force|Tsurugi
+Blue Archive|Trinity|Library Committee|Shimiko
+Blue Archive|Trinity|Library Committee|Ui
+Blue Archive|Trinity|Make-Up Work Club|Azusa
+Blue Archive|Trinity|Make-Up Work Club|Hanako
+Blue Archive|Trinity|Make-Up Work Club|Hifumi
+Blue Archive|Trinity|Make-Up Work Club|Koharu
+Blue Archive|Trinity|Remedial Knights|Hanae
+Blue Archive|Trinity|Remedial Knights|Mine
+Blue Archive|Trinity|Remedial Knights|Serina
+Blue Archive|Trinity|Tea Party|Mika
+Blue Archive|Trinity|Tea Party|Nagisa
+Blue Archive|Trinity|The Sisterhood|Hinata
+Blue Archive|Trinity|The Sisterhood|Mari
+Blue Archive|Trinity|The Sisterhood|Sakurako
+Blue Archive|Trinity|Trinity's Vigilante Crew|Reisa
+Blue Archive|Trinity|Trinity's Vigilante Crew|Suzumi
+Blue Archive|Valkyrie|Public Peace Bureau|Kanna
+Blue Archive|Valkyrie|Public Safety Bureau|Fubuki
+Blue Archive|Valkyrie|Public Safety Bureau|Kirino

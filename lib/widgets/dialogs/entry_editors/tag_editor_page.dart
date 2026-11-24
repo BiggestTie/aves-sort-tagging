@@ -4,6 +4,7 @@ import 'package:aves/model/filters/filters.dart';
 import 'package:aves/model/filters/placeholder.dart';
 import 'package:aves/model/settings/settings.dart';
 import 'package:aves/model/source/collection_source.dart';
+import 'package:aves/model/tags/tag_catalog.dart';
 import 'package:aves/model/tags/tag_path.dart';
 import 'package:aves/theme/durations.dart';
 import 'package:aves/theme/icons.dart';
@@ -51,6 +52,10 @@ class _TagEditorPageState extends State<TagEditorPage> {
     _expandedSectionNotifier.value = settings.tagEditorExpandedSection;
     _expandedSectionNotifier.addListener(() => settings.tagEditorExpandedSection = _expandedSectionNotifier.value);
     _initTopTags();
+    // known characters are offered while typing, once loaded
+    TagCatalog.instance.ensureLoaded().then((_) {
+      if (mounted) setState(() {});
+    });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       final source = context.read<CollectionSource?>();
@@ -222,6 +227,7 @@ class _TagEditorPageState extends State<TagEditorPage> {
                           source: source,
                           upQuery: upQuery,
                           selected: _commonTags,
+                          extraTags: TagCatalog.instance.tags,
                           // keeps the text, so several tags of the same franchise can be picked in a row
                           onTap: (tag) {
                             final filter = TagFilter(tag);
