@@ -1,0 +1,5 @@
+# nicknames commonly used for Genshin characters
+Genshin|Inazuma|Raiden Shogun ; Raiden Ei ; Ei
+Genshin|Snezhnaya|Fatui|Tartaglia ; Childe
+Genshin|Sumeru|Wanderer ; Scaramouche
+Genshin|Fontaine|Court of Fontaine|Furina ; Focalors

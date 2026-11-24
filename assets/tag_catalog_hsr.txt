@@ -1,0 +1,84 @@
+# Honkai: Star Rail characters by faction (hand-maintained, November 2026)
+# alternate versions are listed as nicknames of the base character
+HSR|Astral Express|Trailblazer ; Caelus ; Stelle
+HSR|Astral Express|March 7th ; March
+HSR|Astral Express|Dan Heng ; Imbibitor Lunae ; Dan Heng • Imbibitor Lunae ; Permansor Terrae ; Dan Heng • Permansor Terrae
+HSR|Astral Express|Himeko ; Himeko • Nova ; Nova
+HSR|Astral Express|Welt
+HSR|Stellaron Hunters|Kafka
+HSR|Stellaron Hunters|Silver Wolf ; Silver Wolf LV.999
+HSR|Stellaron Hunters|Blade ; Mortenax Blade
+HSR|Stellaron Hunters|Firefly ; Sam
+HSR|Genius Society|Herta
+HSR|Genius Society|The Herta ; Madam Herta
+HSR|Genius Society|Ruan Mei
+HSR|Herta Space Station|Arlan
+HSR|Herta Space Station|Asta
+HSR|Belobog|Bronya
+HSR|Belobog|Seele
+HSR|Belobog|Serval
+HSR|Belobog|Gepard
+HSR|Belobog|Natasha
+HSR|Belobog|Pela
+HSR|Belobog|Clara
+HSR|Belobog|Sampo
+HSR|Belobog|Hook
+HSR|Belobog|Lynx
+HSR|Belobog|Luka
+HSR|Xianzhou Alliance|Bailu
+HSR|Xianzhou Alliance|Feixiao
+HSR|Xianzhou Alliance|Fu Xuan
+HSR|Xianzhou Alliance|Fugue
+HSR|Xianzhou Alliance|Guinaifen
+HSR|Xianzhou Alliance|Hanya
+HSR|Xianzhou Alliance|Huohuo
+HSR|Xianzhou Alliance|Jiaoqiu
+HSR|Xianzhou Alliance|Jing Yuan
+HSR|Xianzhou Alliance|Jingliu
+HSR|Xianzhou Alliance|Lingsha
+HSR|Xianzhou Alliance|Moze
+HSR|Xianzhou Alliance|Qingque
+HSR|Xianzhou Alliance|Sushang
+HSR|Xianzhou Alliance|Tingyun
+HSR|Xianzhou Alliance|Xueyi
+HSR|Xianzhou Alliance|Yanqing
+HSR|Xianzhou Alliance|Yao Guang
+HSR|Xianzhou Alliance|Yukong
+HSR|Xianzhou Alliance|Yunli
+HSR|IPC|Aventurine ; Aventurine • Waveflair ; Waveflair
+HSR|IPC|Jade
+HSR|IPC|Pearl
+HSR|IPC|Topaz ; Topaz & Numby
+HSR|Penacony|Gallagher
+HSR|Penacony|Misha
+HSR|Penacony|Robin ; Robin • Summeretto ; Summeretto
+HSR|Penacony|Sunday
+HSR|Masked Fools|Sparkle
+HSR|Galaxy Rangers|Acheron
+HSR|Galaxy Rangers|Boothill
+HSR|Garden of Recollection|Black Swan
+HSR|Intelligentsia Guild|Dr. Ratio ; Ratio
+HSR|Knights of Beauty|Argenti
+HSR|Amphoreus|Aglaea
+HSR|Amphoreus|Anaxa
+HSR|Amphoreus|Castorice
+HSR|Amphoreus|Cerydra
+HSR|Amphoreus|Cipher
+HSR|Amphoreus|Cyrene
+HSR|Amphoreus|Evernight
+HSR|Amphoreus|Hyacine
+HSR|Amphoreus|Hysilens
+HSR|Amphoreus|Mydei
+HSR|Amphoreus|Phainon
+HSR|Amphoreus|Tribbie
+HSR|Planarcadia|Ashveil
+HSR|Planarcadia|Evanescia
+HSR|Planarcadia|Nihilux
+HSR|Planarcadia|Sparxie
+HSR|Other|Luocha
+HSR|Other|Rappa
+HSR|Other|The Dahlia ; Dahlia ; Constance
+HSR|Collab|Fate|Archer
+HSR|Collab|Fate|Gilgamesh
+HSR|Collab|Fate|Rin Tohsaka
+HSR|Collab|Fate|Saber

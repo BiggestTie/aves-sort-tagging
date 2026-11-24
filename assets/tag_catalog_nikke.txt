@@ -1,0 +1,158 @@
+# Goddess of Victory: NIKKE characters by squad (hand-maintained, November 2026)
+# alternate versions are listed as nicknames of the base character
+Nikke|2nd Airborne Squad|Raven
+Nikke|5th Airborne Squad|Lily
+Nikke|777|Blanc
+Nikke|777|Noir
+Nikke|777|Rouge
+Nikke|7th Airborne Squad|EVE
+Nikke|A.C.P.U.|Miranda
+Nikke|A.C.P.U.|Poli
+Nikke|A.C.P.U.|Quiry
+Nikke|Absolute|Emma ; Emma: Tactical Upgrade
+Nikke|Absolute|Eunhwa ; Eunhwa: Tactical Upgrade
+Nikke|Absolute|Vesti ; Vesti: Tactical Upgrade
+Nikke|Academia|Marciana ; Marciana: Marine Study
+Nikke|Aegis|Anchor ; Anchor: Innocent Maid
+Nikke|Aegis|Helm ; Helm: Aquamarine
+Nikke|Aegis|Mast ; Mast: Romantic Maid
+Nikke|Ark Rangers|Ark Ranger Black
+Nikke|Best Seller|Arcana ; Arcana: Fortune Mate
+Nikke|Best Seller|Label
+Nikke|Best Seller|Phantom
+Nikke|Botanic Garden|Flora
+Nikke|Botanic Garden|Trina
+Nikke|Cafe Sweety|Frima
+Nikke|Cafe Sweety|Milk ; Milk: Blooming Bunny
+Nikke|Cafe Sweety|Sugar
+Nikke|Collab|Chainsaw Man|Devil Hunter|Himeno
+Nikke|Collab|Chainsaw Man|Devil Hunter|Makima
+Nikke|Collab|Chainsaw Man|Devil Hunter|Power
+Nikke|Collab|Evangelion|NERV|Asuka Shikinami Langley ; Asuka ; Asuka: WILLE
+Nikke|Collab|Evangelion|NERV|Mari Makinami Illustrious
+Nikke|Collab|Evangelion|NERV|Misato Katsuragi
+Nikke|Collab|Evangelion|NERV|Rei Ayanami ; Rei Ayanami (Tentative Name)
+Nikke|Collab|Evangelion|WILLE|Sakura Suzuhara
+Nikke|Collab|Lycoris Recoil|Café LycoReco|Chisato Nishikigi
+Nikke|Collab|Lycoris Recoil|Café LycoReco|Kurumi
+Nikke|Collab|Lycoris Recoil|Café LycoReco|Takina Inoue
+Nikke|Collab|NieR Automata|Machine Lifeform|Pascal
+Nikke|Collab|NieR Automata|YoRHa|2B
+Nikke|Collab|NieR Automata|YoRHa|A2
+Nikke|Collab|Persona 3|Specialized Extracurricular Execution Squad|Aigis
+Nikke|Collab|Persona 4|Self-Proclaimed Special Investigation Team|Yukiko Amagi
+Nikke|Collab|Persona 5|Phantom Thieves of Hearts|Queen ; Makoto Niijima ; Queen (Makoto Niijima)
+Nikke|Collab|Re:Zero|Emilia's Faction|Emilia
+Nikke|Collab|Re:Zero|Emilia's Faction|Ram
+Nikke|Collab|Re:Zero|Emilia's Faction|Rem
+Nikke|Collab|Resident Evil|B.S.T.|Ada Wong
+Nikke|Collab|Resident Evil|B.S.T.|Claire Redfield
+Nikke|Collab|Resident Evil|B.S.T.|Jill Valentine
+Nikke|Cooking Oil|Bready
+Nikke|Cooking Oil|Crust
+Nikke|Counters|Anis ; Anis: Sparkling Summer ; Anis: Star
+Nikke|Counters|Marian
+Nikke|Counters|Neon ; Neon: Blue Ocean ; Neon: Vision Eye
+Nikke|Counters|Rapi ; Rapi: Red Hood
+Nikke|Dazzling Pearl|Naga
+Nikke|Dazzling Pearl|Tia
+Nikke|Electric Shock|Elegg ; Elegg: Boom and Shock
+Nikke|Electric Shock|Trony
+Nikke|Exotic|Crow
+Nikke|Exotic|E.H.
+Nikke|Exotic|Jackal
+Nikke|Exotic|Viper
+Nikke|Extrinsic|Guillotine ; Guillotine: Winter Slayer
+Nikke|Extrinsic|Maiden ; Maiden: Ice Rose
+Nikke|Goddess|Red Hood
+Nikke|Happy Zoo|Biscuit
+Nikke|Happy Zoo|Leona
+Nikke|Happy Zoo|Nero
+Nikke|Heavy Gram|Kilo
+Nikke|Heretic|Liberalio
+Nikke|Heretic|Modernia
+Nikke|Heretic|Nihilister
+Nikke|Incubator|Mori
+Nikke|Infinity Rail|Brid ; Brid: Silent Track
+Nikke|Infinity Rail|Diesel ; Diesel: Winter Sweets
+Nikke|Infinity Rail|Soline ; Soline: Frost Ticket
+Nikke|Inherit|Dorothy ; Dorothy: Serendipity
+Nikke|Inherit|Harran
+Nikke|Inherit|Isabel
+Nikke|Inherit|Noah
+Nikke|M.M.R.|Ether
+Nikke|M.M.R.|Mana
+Nikke|Maid For You|Ade ; Ade: Agent Bunny
+Nikke|Maid For You|Cocoa
+Nikke|Maid For You|Soda ; Soda: Twinkling Bunny
+Nikke|Maid For You|Velvet
+Nikke|Master Hand|Julia
+Nikke|Matis|Drake ; Drake: Great Villain
+Nikke|Matis|Laplace ; Laplace: Ultimate Hero
+Nikke|Matis|Maxwell ; Maxwell: Ordinary Mechanic
+Nikke|Mighty Tools|Centi
+Nikke|Mighty Tools|Liter
+Nikke|Nepenthe|Epinel
+Nikke|Nepenthe|Folkwang
+Nikke|Nepenthe|Rumani
+Nikke|Old Tales|Cinderella ; Cinderella: Crystal Wave
+Nikke|Old Tales|Grave
+Nikke|Old Tales|Little Mermaid
+Nikke|Over the Horizon|Sora
+Nikke|Overseer|Avistar
+Nikke|Perilous Siege|D ; D: Killer Wife
+Nikke|Perilous Siege|K
+Nikke|Pioneer|Nayuta
+Nikke|Pioneer|Rapunzel ; Rapunzel: Pure Grace
+Nikke|Pioneer|Scarlet ; Scarlet: Black Shadow
+Nikke|Pioneer|Snow White ; Snow White: Heavy Arms ; Snow White: Innocent Days
+Nikke|Prima Donna|Aria
+Nikke|Prima Donna|Noise
+Nikke|Prima Donna|Volume
+Nikke|Protocol|Exia
+Nikke|Protocol|Novel
+Nikke|Real Kindness|Guilty ; Guilty: Mighty Bunny
+Nikke|Real Kindness|Quency ; Quency: Escape Queen
+Nikke|Real Kindness|Sin ; Sin: Swift Bunny
+Nikke|Recall & Release|Anne ; Anne: Miracle Fairy
+Nikke|Recall & Release|N102
+Nikke|Replace|IDoll Flower
+Nikke|Replace|IDoll Ocean
+Nikke|Replace|IDoll Sun
+Nikke|Replace|Product 08
+Nikke|Replace|Product 12
+Nikke|Replace|Product 23
+Nikke|Replace|Soldier EG
+Nikke|Replace|Soldier FA
+Nikke|Replace|Soldier OW
+Nikke|Rewind|Bay
+Nikke|Rewind|Clay
+Nikke|School Circle|Ein
+Nikke|School Circle|Rei
+Nikke|School Circle|Zwei
+Nikke|Seraphim|Mary ; Mary: Bay Goddess
+Nikke|Seraphim|Pepper
+Nikke|T.T. STAR|Mint
+Nikke|T.T. STAR|Prika
+Nikke|Talentum|Dolla
+Nikke|Talentum|Rupee ; Rupee: Winter Shopper
+Nikke|Talentum|Yan
+Nikke|The Carronades|Belorta
+Nikke|The Carronades|Mica ; Mica: Snow Buddy
+Nikke|The Scouts|Delta ; Delta: Ninja Thief
+Nikke|The Scouts|Signal
+Nikke|Triangle|Admi
+Nikke|Triangle|Privaty ; Privaty: Unkind Maid
+Nikke|Triangle|Yulha
+Nikke|Underworld Queen|Moran
+Nikke|Underworld Queen|Rosanna ; Rosanna: Chic Ocean
+Nikke|Underworld Queen|Sakura ; Sakura: Bloom in Summer
+Nikke|Unlimited|Alice ; Alice: Wonderland Bunny
+Nikke|Unlimited|Ludmilla ; Ludmilla: Winter Owner
+Nikke|Unlimited|Neve
+Nikke|Unlimited|Tove
+Nikke|Veiled Order|Snow Crane
+Nikke|Wardress|Mihara ; Mihara: Bonding Chain
+Nikke|Wardress|Yuni
+Nikke|White Knight|Chime
+Nikke|White Knight|Crown

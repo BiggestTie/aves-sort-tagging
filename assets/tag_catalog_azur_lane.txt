@@ -2,8 +2,23 @@ Azur Lane|Collab|Atelier Ryza|Kala Ideas
 Azur Lane|Collab|Atelier Ryza|Klaudia Valentz
 Azur Lane|Collab|Atelier Ryza|Lila Decyrus
 Azur Lane|Collab|Atelier Ryza|Patricia Abelheim
+Azur Lane|Collab|Atelier Ryza|Reisalin Stout
 Azur Lane|Collab|Atelier Ryza|Reisalin Stout
 Azur Lane|Collab|Atelier Ryza|Serri Glaus
+Azur Lane|Collab|Atelier Yumia|Isla von Duerer
+Azur Lane|Collab|Atelier Yumia|Lenja
+Azur Lane|Collab|Atelier Yumia|Nina Friede
+Azur Lane|Collab|Atelier Yumia|Yumia Liessfeldt
+Azur Lane|Collab|Black Rock Shooter|BLACK★ROCK SHOOTER
+Azur Lane|Collab|Black Rock Shooter|DEAD MASTER
+Azur Lane|Collab|DanMachi|Hestia
+Azur Lane|Collab|DanMachi|Ryu Lion
+Azur Lane|Collab|Date A Live|Kaguya Yamai・Yuzuru Yamai
+Azur Lane|Collab|Date A Live|Kotori Itsuka
+Azur Lane|Collab|Date A Live|Kurumi Tokisaki
+Azur Lane|Collab|Date A Live|Origami Tobiichi
+Azur Lane|Collab|Date A Live|Tohka Yatogami
+Azur Lane|Collab|Date A Live|Yoshino
 Azur Lane|Collab|Hololive|Minato Aqua
 Azur Lane|Collab|Hololive|Murasaki Shion
 Azur Lane|Collab|Hololive|Nakiri Ayame
@@ -18,17 +33,25 @@ Azur Lane|Collab|Kizuna AI|Super Gamer Kizuna AI
 Azur Lane|Collab|Neptunia|Black Heart
 Azur Lane|Collab|Neptunia|Blanc
 Azur Lane|Collab|Neptunia|Green Heart
-Azur Lane|Collab|Neptunia|Neptune
 Azur Lane|Collab|Neptunia|Noire
 Azur Lane|Collab|Neptunia|Purple Heart
 Azur Lane|Collab|Neptunia|Vert
 Azur Lane|Collab|Neptunia|White Heart
+Azur Lane|Collab|Senran Kagura|Asuka
+Azur Lane|Collab|Senran Kagura|Homura
+Azur Lane|Collab|Senran Kagura|Ikaruga
+Azur Lane|Collab|Senran Kagura|Murasaki
+Azur Lane|Collab|Senran Kagura|Yumi
+Azur Lane|Collab|Senran Kagura|Yūyaki
 Azur Lane|Collab|SSSS|Akane Shinjo
 Azur Lane|Collab|SSSS|Chise Asukagawa
 Azur Lane|Collab|SSSS|Hass
 Azur Lane|Collab|SSSS|Mujina
 Azur Lane|Collab|SSSS|Namiko
+Azur Lane|Collab|SSSS|Princess Hime
 Azur Lane|Collab|SSSS|Rikka Takarada
+Azur Lane|Collab|SSSS|Rogue Kaiser Gridman
+Azur Lane|Collab|SSSS|The 2nd
 Azur Lane|Collab|SSSS|Yume Minami
 Azur Lane|Collab|The Idolmaster|Ami Futami
 Azur Lane|Collab|The Idolmaster|Azusa Miura
@@ -37,28 +60,53 @@ Azur Lane|Collab|The Idolmaster|Haruka Amami
 Azur Lane|Collab|The Idolmaster|Iori Minase
 Azur Lane|Collab|The Idolmaster|Mami Futami
 Azur Lane|Collab|The Idolmaster|Ritsuko Akizuki
+Azur Lane|Collab|To LOVE-Ru|Golden Darkness
+Azur Lane|Collab|To LOVE-Ru|Haruna Sairenji
+Azur Lane|Collab|To LOVE-Ru|Lala Satalin Deviluke
+Azur Lane|Collab|To LOVE-Ru|Momo Belia Deviluke
+Azur Lane|Collab|To LOVE-Ru|Nana Astar Deviluke
+Azur Lane|Collab|To LOVE-Ru|Yui Kotegawa
 Azur Lane|Collab|Utawarerumono|Fumiruiru
 Azur Lane|Collab|Utawarerumono|Kuon
 Azur Lane|Collab|Utawarerumono|Nekone
 Azur Lane|Collab|Utawarerumono|Rurutie
 Azur Lane|Collab|Utawarerumono|Saraana
 Azur Lane|Collab|Utawarerumono|Uruuru
+Azur Lane|Collab|Venus Vacation|Elise
 Azur Lane|Collab|Venus Vacation|Honoka
-Azur Lane|Collab|Venus Vacation|Kasumi
+Azur Lane|Collab|Venus Vacation|Luna
 Azur Lane|Collab|Venus Vacation|Marie Rose
 Azur Lane|Collab|Venus Vacation|Misaki
 Azur Lane|Collab|Venus Vacation|Monica
 Azur Lane|Collab|Venus Vacation|Nagisa
 Azur Lane|Collab|Venus Vacation|Nyotengu
+Azur Lane|Collab|Venus Vacation|Patty
+Azur Lane|Collab|Venus Vacation|Shandy
+Azur Lane|Collab|Venus Vacation|Shizuku
+Azur Lane|Collab|Venus Vacation|Tamaki
+Azur Lane|Collab|Venus Vacation|Tsukushi
+Azur Lane|Collab|Venus Vacation|Yukino
 Azur Lane|Dragon Empery|An Shan
+Azur Lane|Dragon Empery|Belfas
 Azur Lane|Dragon Empery|Chang Chun
+Azur Lane|Dragon Empery|Chang Feng
+Azur Lane|Dragon Empery|Chang Wu
 Azur Lane|Dragon Empery|Chao Ho
 Azur Lane|Dragon Empery|Chen Hai
+Azur Lane|Dragon Empery|Chi An
+Azur Lane|Dragon Empery|Chien Wu
+Azur Lane|Dragon Empery|Fei Yuen
+Azur Lane|Dragon Empery|Fu Po
 Azur Lane|Dragon Empery|Fu Shun
 Azur Lane|Dragon Empery|Hai Chi
+Azur Lane|Dragon Empery|Hai Chou
 Azur Lane|Dragon Empery|Hai Tien
+Azur Lane|Dragon Empery|Hai Yung
 Azur Lane|Dragon Empery|Harbin
+Azur Lane|Dragon Empery|Hu Pen
+Azur Lane|Dragon Empery|Huan Ch'ang
 Azur Lane|Dragon Empery|Hwah Jah
+Azur Lane|Dragon Empery|Lung Wu
 Azur Lane|Dragon Empery|Ning Hai
 Azur Lane|Dragon Empery|Ping Hai
 Azur Lane|Dragon Empery|Tai Yuan
@@ -67,7 +115,6 @@ Azur Lane|Dragon Empery|Yat Sen
 Azur Lane|Dragon Empery|Ying Swei
 Azur Lane|Eagle Union|Alabama
 Azur Lane|Eagle Union|Albacore
-Azur Lane|Eagle Union|Albacore μ
 Azur Lane|Eagle Union|Allen M. Sumner
 Azur Lane|Eagle Union|Anchorage
 Azur Lane|Eagle Union|Archerfish
@@ -79,8 +126,8 @@ Azur Lane|Eagle Union|Aylwin
 Azur Lane|Eagle Union|Bache
 Azur Lane|Eagle Union|Bailey
 Azur Lane|Eagle Union|Baltimore
-Azur Lane|Eagle Union|Baltimore μ
 Azur Lane|Eagle Union|Bataan
+Azur Lane|Eagle Union|Bell
 Azur Lane|Eagle Union|Benson
 Azur Lane|Eagle Union|Biloxi
 Azur Lane|Eagle Union|Birmingham
@@ -98,13 +145,15 @@ Azur Lane|Eagle Union|Cassin
 Azur Lane|Eagle Union|Cavalla
 Azur Lane|Eagle Union|Charles Ausburne
 Azur Lane|Eagle Union|Chicago
+Azur Lane|Eagle Union|Clarence K. Bronson
 Azur Lane|Eagle Union|Clevelad
 Azur Lane|Eagle Union|Cleveland
-Azur Lane|Eagle Union|Cleveland μ
 Azur Lane|Eagle Union|Colorado
 Azur Lane|Eagle Union|Columbia
 Azur Lane|Eagle Union|Concord
+Azur Lane|Eagle Union|Constellation
 Azur Lane|Eagle Union|Cooper
+Azur Lane|Eagle Union|Cowpens
 Azur Lane|Eagle Union|Craven
 Azur Lane|Eagle Union|Dace
 Azur Lane|Eagle Union|Denver
@@ -113,42 +162,57 @@ Azur Lane|Eagle Union|Downes
 Azur Lane|Eagle Union|Eldridge
 Azur Lane|Eagle Union|Enterprise
 Azur Lane|Eagle Union|Essex
+Azur Lane|Eagle Union|Fargo
+Azur Lane|Eagle Union|Flasher
 Azur Lane|Eagle Union|Fletcher
 Azur Lane|Eagle Union|Foote
+Azur Lane|Eagle Union|Franklin
 Azur Lane|Eagle Union|Georgia
 Azur Lane|Eagle Union|Gridley
+Azur Lane|Eagle Union|Guam
+Azur Lane|Eagle Union|Halford
 Azur Lane|Eagle Union|Halsey Powell
 Azur Lane|Eagle Union|Hammann
 Azur Lane|Eagle Union|Hammann II
 Azur Lane|Eagle Union|Hazelwood
 Azur Lane|Eagle Union|Helena
+Azur Lane|Eagle Union|Herring
 Azur Lane|Eagle Union|Hobby
 Azur Lane|Eagle Union|Honolulu
 Azur Lane|Eagle Union|Hornet
 Azur Lane|Eagle Union|Hornet II
 Azur Lane|Eagle Union|Houston
+Azur Lane|Eagle Union|Houston II
 Azur Lane|Eagle Union|Independence
+Azur Lane|Eagle Union|Indiana
 Azur Lane|Eagle Union|Indianapolis
 Azur Lane|Eagle Union|Ingraham
 Azur Lane|Eagle Union|Intrepid
 Azur Lane|Eagle Union|Jenkins
 Azur Lane|Eagle Union|Juneau
 Azur Lane|Eagle Union|Kalk
+Azur Lane|Eagle Union|Kansas
+Azur Lane|Eagle Union|Kearsarge
 Azur Lane|Eagle Union|Kimberly
 Azur Lane|Eagle Union|Laffey
+Azur Lane|Eagle Union|Laffey II
 Azur Lane|Eagle Union|Langley
 Azur Lane|Eagle Union|Langley II
 Azur Lane|Eagle Union|Lena
 Azur Lane|Eagle Union|Lexington
+Azur Lane|Eagle Union|Lexington II
 Azur Lane|Eagle Union|Li'l Sandy
+Azur Lane|Eagle Union|Little Anchorage
 Azur Lane|Eagle Union|Little Enterprise
 Azur Lane|Eagle Union|Long Island
+Azur Lane|Eagle Union|Louisville
 Azur Lane|Eagle Union|Marblehead
 Azur Lane|Eagle Union|Maryland
 Azur Lane|Eagle Union|Massachusetts
 Azur Lane|Eagle Union|Maury
 Azur Lane|Eagle Union|McCall
 Azur Lane|Eagle Union|Memphis
+Azur Lane|Eagle Union|Miller
 Azur Lane|Eagle Union|Minneapolis
 Azur Lane|Eagle Union|Montpelier
 Azur Lane|Eagle Union|Morrison
@@ -161,11 +225,14 @@ Azur Lane|Eagle Union|Nicholas
 Azur Lane|Eagle Union|North Carolina
 Azur Lane|Eagle Union|Northampton
 Azur Lane|Eagle Union|Northampton II
+Azur Lane|Eagle Union|Observer zero
 Azur Lane|Eagle Union|Oklahoma
 Azur Lane|Eagle Union|Omaha
+Azur Lane|Eagle Union|Pasadena
 Azur Lane|Eagle Union|Pennsylvania
 Azur Lane|Eagle Union|Pensacola
 Azur Lane|Eagle Union|Phoenix
+Azur Lane|Eagle Union|Pittsburgh
 Azur Lane|Eagle Union|Portland
 Azur Lane|Eagle Union|Princeton
 Azur Lane|Eagle Union|Quincy
@@ -177,9 +244,12 @@ Azur Lane|Eagle Union|Richmond
 Azur Lane|Eagle Union|Salt Lake City
 Azur Lane|Eagle Union|San Diego
 Azur Lane|Eagle Union|San Francisco
+Azur Lane|Eagle Union|San Jacinto
 Azur Lane|Eagle Union|San Juan
+Azur Lane|Eagle Union|Santa Fe
 Azur Lane|Eagle Union|Saratoga
 Azur Lane|Eagle Union|Seattle
+Azur Lane|Eagle Union|Seven Seas of Rest
 Azur Lane|Eagle Union|Shangri-La
 Azur Lane|Eagle Union|Sims
 Azur Lane|Eagle Union|Smalley
@@ -197,65 +267,94 @@ Azur Lane|Eagle Union|Washington
 Azur Lane|Eagle Union|Wasp
 Azur Lane|Eagle Union|West Virginia
 Azur Lane|Eagle Union|Wichita
+Azur Lane|Eagle Union|William D. Porter
 Azur Lane|Eagle Union|Yorktown
 Azur Lane|Eagle Union|Yorktown II
+Azur Lane|Iris Libre|Alsace
+Azur Lane|Iris Libre|Bayard
+Azur Lane|Iris Libre|Bois Belleau
+Azur Lane|Iris Libre|Brennus
 Azur Lane|Iris Libre|Brest
 Azur Lane|Iris Libre|Béarn
 Azur Lane|Iris Libre|Champagne
+Azur Lane|Iris Libre|Duguay-Trouin
+Azur Lane|Iris Libre|Duquesne
 Azur Lane|Iris Libre|Forbin
+Azur Lane|Iris Libre|Guichen
 Azur Lane|Iris Libre|Jeanne d'Arc
 Azur Lane|Iris Libre|L'Opiniâtre
+Azur Lane|Iris Libre|Le Hardi
 Azur Lane|Iris Libre|Le Terrible
 Azur Lane|Iris Libre|Le Triomphant
 Azur Lane|Iris Libre|Le Téméraire
+Azur Lane|Iris Libre|Lyon
 Azur Lane|Iris Libre|Maillé Brézé
+Azur Lane|Iris Libre|Masséna
+Azur Lane|Iris Libre|Painlevé
 Azur Lane|Iris Libre|Richelieu
 Azur Lane|Iris Libre|Saint Louis
+Azur Lane|Iris Libre|Suffren
 Azur Lane|Iris Libre|Surcouf
 Azur Lane|Iris Libre|Émile Bertin
 Azur Lane|Iron Blood|Admiral Graf Spee
 Azur Lane|Iron Blood|Admiral Hipper
-Azur Lane|Iron Blood|Admiral Hipper μ
+Azur Lane|Iron Blood|Admiral Zenker
+Azur Lane|Iron Blood|Alvitr
 Azur Lane|Iron Blood|August von Parseval
 Azur Lane|Iron Blood|Bismarck
+Azur Lane|Iron Blood|Bismarck Zwei
 Azur Lane|Iron Blood|Blücher
 Azur Lane|Iron Blood|Brünhilde
 Azur Lane|Iron Blood|Deutschland
+Azur Lane|Iron Blood|Duisburg
 Azur Lane|Iron Blood|Elbe
 Azur Lane|Iron Blood|Elbing
 Azur Lane|Iron Blood|Emden
+Azur Lane|Iron Blood|Felix Schultz
+Azur Lane|Iron Blood|Friedrich Carl
+Azur Lane|Iron Blood|Friedrich der Grosse
 Azur Lane|Iron Blood|Friedrich der Große
+Azur Lane|Iron Blood|Fritz Rumey
 Azur Lane|Iron Blood|Gneisenau
 Azur Lane|Iron Blood|Graf Zeppelin
+Azur Lane|Iron Blood|Hindenburg
+Azur Lane|Iron Blood|Jade
 Azur Lane|Iron Blood|Karlsruhe
 Azur Lane|Iron Blood|Köln
 Azur Lane|Iron Blood|Königsberg
 Azur Lane|Iron Blood|Leipzig
+Azur Lane|Iron Blood|Little Friedrich
 Azur Lane|Iron Blood|Little Prinz Eugen
 Azur Lane|Iron Blood|Little Spee
+Azur Lane|Iron Blood|Little Ägir
 Azur Lane|Iron Blood|Lützow
 Azur Lane|Iron Blood|Magdeburg
 Azur Lane|Iron Blood|Mainz
+Azur Lane|Iron Blood|Mecklenburg
 Azur Lane|Iron Blood|Nürnberg
 Azur Lane|Iron Blood|Odin
+Azur Lane|Iron Blood|Otto von Alvensleben
 Azur Lane|Iron Blood|Peter Strasser
 Azur Lane|Iron Blood|Prinz Adalbert
 Azur Lane|Iron Blood|Prinz Eugen
 Azur Lane|Iron Blood|Prinz Heinrich
 Azur Lane|Iron Blood|Prinz Rupprecht
+Azur Lane|Iron Blood|Regensburg
 Azur Lane|Iron Blood|Roon
-Azur Lane|Iron Blood|Roon μ
 Azur Lane|Iron Blood|Scharnhorst
 Azur Lane|Iron Blood|Seydlitz
 Azur Lane|Iron Blood|Thüringen
 Azur Lane|Iron Blood|Tirpitz
+Azur Lane|Iron Blood|Tone
 Azur Lane|Iron Blood|U-101
 Azur Lane|Iron Blood|U-110
 Azur Lane|Iron Blood|U-1206
+Azur Lane|Iron Blood|U-31
 Azur Lane|Iron Blood|U-37
 Azur Lane|Iron Blood|U-410
 Azur Lane|Iron Blood|U-47
 Azur Lane|Iron Blood|U-522
+Azur Lane|Iron Blood|U-552
 Azur Lane|Iron Blood|U-556
 Azur Lane|Iron Blood|U-557
 Azur Lane|Iron Blood|U-73
@@ -265,6 +364,8 @@ Azur Lane|Iron Blood|Ulrich von Hutten
 Azur Lane|Iron Blood|Weser
 Azur Lane|Iron Blood|Yorck
 Azur Lane|Iron Blood|Z1
+Azur Lane|Iron Blood|Z11
+Azur Lane|Iron Blood|Z13
 Azur Lane|Iron Blood|Z16
 Azur Lane|Iron Blood|Z18
 Azur Lane|Iron Blood|Z19
@@ -278,39 +379,55 @@ Azur Lane|Iron Blood|Z26
 Azur Lane|Iron Blood|Z28
 Azur Lane|Iron Blood|Z35
 Azur Lane|Iron Blood|Z36
+Azur Lane|Iron Blood|Z43
+Azur Lane|Iron Blood|Z43—幼儿园
 Azur Lane|Iron Blood|Z46
+Azur Lane|Iron Blood|Z47
+Azur Lane|Iron Blood|Z47—幼儿园
+Azur Lane|Iron Blood|Z52
+Azur Lane|Iron Blood|Z9
 Azur Lane|Iron Blood|Zeppy
 Azur Lane|Iron Blood|Ägir
-Azur Lane|META|Hiryu.META
-Azur Lane|META|Royal.META
+Azur Lane|Kingdom of Tulipa|De Zeven Provinciën
+Azur Lane|Kingdom of Tulipa|Evertsen
+Azur Lane|Kingdom of Tulipa|Gouden Leeuw
+Azur Lane|Northern Parliament|Admiral Nakhimov
 Azur Lane|Northern Parliament|Arkhangelsk
 Azur Lane|Northern Parliament|Avrora
+Azur Lane|Northern Parliament|Bogatyr
 Azur Lane|Northern Parliament|Chapayev
 Azur Lane|Northern Parliament|Chkalov
+Azur Lane|Northern Parliament|Dmitri Donskoi
 Azur Lane|Northern Parliament|Gangut
 Azur Lane|Northern Parliament|Gremyashchy
 Azur Lane|Northern Parliament|Gromky
 Azur Lane|Northern Parliament|Grozny
+Azur Lane|Northern Parliament|Kazan
 Azur Lane|Northern Parliament|Kiev
 Azur Lane|Northern Parliament|Kirov
+Azur Lane|Northern Parliament|Krasny Kavkaz
 Azur Lane|Northern Parliament|Kronshtadt
+Azur Lane|Northern Parliament|Kursk
 Azur Lane|Northern Parliament|Kuybyshev
 Azur Lane|Northern Parliament|Minsk
+Azur Lane|Northern Parliament|Moskva
 Azur Lane|Northern Parliament|Murmansk
+Azur Lane|Northern Parliament|Ognevoy
+Azur Lane|Northern Parliament|Oleg
+Azur Lane|Northern Parliament|Ozornoy
 Azur Lane|Northern Parliament|Pamiat' Merkuria
+Azur Lane|Northern Parliament|Poltava
+Azur Lane|Northern Parliament|Sevastopol
 Azur Lane|Northern Parliament|Soobrazitelny
 Azur Lane|Northern Parliament|Sovetskaya Belorussiya
 Azur Lane|Northern Parliament|Sovetskaya Rossiya
+Azur Lane|Northern Parliament|Sovetsky Soyuz
 Azur Lane|Northern Parliament|Stremitelny
+Azur Lane|Northern Parliament|Svirepy
 Azur Lane|Northern Parliament|Tallinn
 Azur Lane|Northern Parliament|Tashkent
-Azur Lane|Northern Parliament|Tashkent μ
 Azur Lane|Northern Parliament|Volga
-Azur Lane|Other|22
-Azur Lane|Other|33
-Azur Lane|Other|Prototype Bulin MKII
-Azur Lane|Other|Specialized Bulin Custom MKIII
-Azur Lane|Other|Universal Bulin
+Azur Lane|Northern Parliament|Voroshilov
 Azur Lane|Royal Navy|Abercrombie
 Azur Lane|Royal Navy|Acasta
 Azur Lane|Royal Navy|Achilles
@@ -319,6 +436,7 @@ Azur Lane|Royal Navy|Albion
 Azur Lane|Royal Navy|Amazon
 Azur Lane|Royal Navy|Ardent
 Azur Lane|Royal Navy|Arethusa
+Azur Lane|Royal Navy|Argus
 Azur Lane|Royal Navy|Ark Royal
 Azur Lane|Royal Navy|Aurora
 Azur Lane|Royal Navy|Beagle
@@ -330,20 +448,20 @@ Azur Lane|Royal Navy|Centaur
 Azur Lane|Royal Navy|Charybdis
 Azur Lane|Royal Navy|Chaser
 Azur Lane|Royal Navy|Cheshire
+Azur Lane|Royal Navy|Cleopatra
 Azur Lane|Royal Navy|Comet
 Azur Lane|Royal Navy|Crescent
 Azur Lane|Royal Navy|Curacoa
 Azur Lane|Royal Navy|Curlew
 Azur Lane|Royal Navy|Cygnet
+Azur Lane|Royal Navy|Devonshire
 Azur Lane|Royal Navy|Dido
-Azur Lane|Royal Navy|Dido μ
 Azur Lane|Royal Navy|Dorsetshire
 Azur Lane|Royal Navy|Drake
 Azur Lane|Royal Navy|Duke of York
 Azur Lane|Royal Navy|Eagle
 Azur Lane|Royal Navy|Echo
 Azur Lane|Royal Navy|Edinburgh
-Azur Lane|Royal Navy|Enterprise
 Azur Lane|Royal Navy|Erebus
 Azur Lane|Royal Navy|Eskimo
 Azur Lane|Royal Navy|Exeter
@@ -352,6 +470,7 @@ Azur Lane|Royal Navy|Formidable
 Azur Lane|Royal Navy|Fortune
 Azur Lane|Royal Navy|Foxhound
 Azur Lane|Royal Navy|Galatea
+Azur Lane|Royal Navy|Gallant
 Azur Lane|Royal Navy|Glasgow
 Azur Lane|Royal Navy|Glorious
 Azur Lane|Royal Navy|Gloucester
@@ -360,12 +479,13 @@ Azur Lane|Royal Navy|Grenville
 Azur Lane|Royal Navy|Hardy
 Azur Lane|Royal Navy|Hermes
 Azur Lane|Royal Navy|Hermione
+Azur Lane|Royal Navy|Hero
 Azur Lane|Royal Navy|Hood
 Azur Lane|Royal Navy|Howe
 Azur Lane|Royal Navy|Hunter
 Azur Lane|Royal Navy|Icarus
 Azur Lane|Royal Navy|Illustrious
-Azur Lane|Royal Navy|Illustrious μ
+Azur Lane|Royal Navy|Implacable
 Azur Lane|Royal Navy|Indomitable
 Azur Lane|Royal Navy|Jamaica
 Azur Lane|Royal Navy|Janus
@@ -377,10 +497,13 @@ Azur Lane|Royal Navy|Jupiter
 Azur Lane|Royal Navy|Kent
 Azur Lane|Royal Navy|King George V
 Azur Lane|Royal Navy|Leander
+Azur Lane|Royal Navy|Lion
 Azur Lane|Royal Navy|Little Bel
 Azur Lane|Royal Navy|Little Cheshire
+Azur Lane|Royal Navy|Little Formidable
 Azur Lane|Royal Navy|Little Illustrious
 Azur Lane|Royal Navy|Little Renown
+Azur Lane|Royal Navy|Liverpool
 Azur Lane|Royal Navy|London
 Azur Lane|Royal Navy|Manchester
 Azur Lane|Royal Navy|Matchless
@@ -390,6 +513,7 @@ Azur Lane|Royal Navy|Nelson
 Azur Lane|Royal Navy|Neptune
 Azur Lane|Royal Navy|Newcastle
 Azur Lane|Royal Navy|Norfolk
+Azur Lane|Royal Navy|Nubian
 Azur Lane|Royal Navy|Penelope
 Azur Lane|Royal Navy|Perseus
 Azur Lane|Royal Navy|Plymouth
@@ -399,8 +523,9 @@ Azur Lane|Royal Navy|Renown
 Azur Lane|Royal Navy|Repulse
 Azur Lane|Royal Navy|Revenge
 Azur Lane|Royal Navy|Rodney
+Azur Lane|Royal Navy|Royal Oak
+Azur Lane|Royal Navy|Scylla
 Azur Lane|Royal Navy|Sheffield
-Azur Lane|Royal Navy|Sheffield μ
 Azur Lane|Royal Navy|Shropshire
 Azur Lane|Royal Navy|Sirius
 Azur Lane|Royal Navy|Southampton
@@ -409,6 +534,8 @@ Azur Lane|Royal Navy|Sussex
 Azur Lane|Royal Navy|Swiftsure
 Azur Lane|Royal Navy|Terror
 Azur Lane|Royal Navy|Theseus
+Azur Lane|Royal Navy|Trafalgar
+Azur Lane|Royal Navy|Trinidad
 Azur Lane|Royal Navy|Unicorn
 Azur Lane|Royal Navy|Valiant
 Azur Lane|Royal Navy|Vampire
@@ -419,29 +546,36 @@ Azur Lane|Royal Navy|York
 Azur Lane|Sakura Empire|Abukuma
 Azur Lane|Sakura Empire|Agano
 Azur Lane|Sakura Empire|Akagi
-Azur Lane|Sakura Empire|Akagi μ
 Azur Lane|Sakura Empire|Akagi-chan
 Azur Lane|Sakura Empire|Akashi
 Azur Lane|Sakura Empire|Akatsuki
 Azur Lane|Sakura Empire|Amagi
+Azur Lane|Sakura Empire|Amagi(CV)
 Azur Lane|Sakura Empire|Amagi-chan
 Azur Lane|Sakura Empire|Aoba
 Azur Lane|Sakura Empire|Arashio
 Azur Lane|Sakura Empire|Ariake
+Azur Lane|Sakura Empire|Asama
+Azur Lane|Sakura Empire|Asanagi
 Azur Lane|Sakura Empire|Asashio
 Azur Lane|Sakura Empire|Ashigara
 Azur Lane|Sakura Empire|Atago
 Azur Lane|Sakura Empire|Ayanami
+Azur Lane|Sakura Empire|Ayase
 Azur Lane|Sakura Empire|Azuma
+Azur Lane|Sakura Empire|Beach Rhapsody
 Azur Lane|Sakura Empire|Chikuma
 Azur Lane|Sakura Empire|Chitose
 Azur Lane|Sakura Empire|Chiyoda
 Azur Lane|Sakura Empire|Choukai
+Azur Lane|Sakura Empire|Daisen
 Azur Lane|Sakura Empire|Fubuki
+Azur Lane|Sakura Empire|Fujinami
 Azur Lane|Sakura Empire|Fumizuki
 Azur Lane|Sakura Empire|Furutaka
 Azur Lane|Sakura Empire|Fusou
 Azur Lane|Sakura Empire|Haguro
+Azur Lane|Sakura Empire|Hakuhou
 Azur Lane|Sakura Empire|Hakuryuu
 Azur Lane|Sakura Empire|Hamakaze
 Azur Lane|Sakura Empire|Hanazuki
@@ -450,6 +584,7 @@ Azur Lane|Sakura Empire|Harutsuki
 Azur Lane|Sakura Empire|Hatakaze
 Azur Lane|Sakura Empire|Hatsuharu
 Azur Lane|Sakura Empire|Hatsushimo
+Azur Lane|Sakura Empire|Hatsuzuki
 Azur Lane|Sakura Empire|Hibiki
 Azur Lane|Sakura Empire|Hiei
 Azur Lane|Sakura Empire|Hiei-chan
@@ -462,6 +597,7 @@ Azur Lane|Sakura Empire|I-168
 Azur Lane|Sakura Empire|I-19
 Azur Lane|Sakura Empire|I-25
 Azur Lane|Sakura Empire|I-26
+Azur Lane|Sakura Empire|I-404
 Azur Lane|Sakura Empire|I-56
 Azur Lane|Sakura Empire|I-58
 Azur Lane|Sakura Empire|Ibuki
@@ -490,6 +626,7 @@ Azur Lane|Sakura Empire|Kirishima
 Azur Lane|Sakura Empire|Kisaragi
 Azur Lane|Sakura Empire|Kitakaze
 Azur Lane|Sakura Empire|Kiyonami
+Azur Lane|Sakura Empire|Kizu
 Azur Lane|Sakura Empire|Kongou
 Azur Lane|Sakura Empire|Kumano
 Azur Lane|Sakura Empire|Kuroshio
@@ -500,6 +637,7 @@ Azur Lane|Sakura Empire|Michishio
 Azur Lane|Sakura Empire|Mikasa
 Azur Lane|Sakura Empire|Mikazuki
 Azur Lane|Sakura Empire|Mikuma
+Azur Lane|Sakura Empire|Minase
 Azur Lane|Sakura Empire|Minazuki
 Azur Lane|Sakura Empire|Miyuki
 Azur Lane|Sakura Empire|Mogami
@@ -513,11 +651,15 @@ Azur Lane|Sakura Empire|Nagara
 Azur Lane|Sakura Empire|Nagato
 Azur Lane|Sakura Empire|Nagatsuki
 Azur Lane|Sakura Empire|Naka
+Azur Lane|Sakura Empire|Natori
+Azur Lane|Sakura Empire|Nayoro
 Azur Lane|Sakura Empire|Niizuki
 Azur Lane|Sakura Empire|Noshiro
 Azur Lane|Sakura Empire|Nowaki
 Azur Lane|Sakura Empire|Oite
 Azur Lane|Sakura Empire|Ooshio
+Azur Lane|Sakura Empire|Oumi
+Azur Lane|Sakura Empire|Owari
 Azur Lane|Sakura Empire|Oyashio
 Azur Lane|Sakura Empire|Ryuuhou
 Azur Lane|Sakura Empire|Ryuujou
@@ -525,7 +667,9 @@ Azur Lane|Sakura Empire|Sakawa
 Azur Lane|Sakura Empire|Sendai
 Azur Lane|Sakura Empire|Shigure
 Azur Lane|Sakura Empire|Shimakaze
+Azur Lane|Sakura Empire|Shimanto
 Azur Lane|Sakura Empire|Shinano
+Azur Lane|Sakura Empire|Shinano-chan
 Azur Lane|Sakura Empire|Shiranui
 Azur Lane|Sakura Empire|Shiratsuyu
 Azur Lane|Sakura Empire|Shirayuki
@@ -533,19 +677,24 @@ Azur Lane|Sakura Empire|Shouhou
 Azur Lane|Sakura Empire|Shoukaku
 Azur Lane|Sakura Empire|Souryuu
 Azur Lane|Sakura Empire|Suruga
+Azur Lane|Sakura Empire|Suzunami
 Azur Lane|Sakura Empire|Suzutsuki
 Azur Lane|Sakura Empire|Suzuya
+Azur Lane|Sakura Empire|Taekaze
 Azur Lane|Sakura Empire|Taihou
-Azur Lane|Sakura Empire|Taihou μ
+Azur Lane|Sakura Empire|Taihou-chan
 Azur Lane|Sakura Empire|Takao
 Azur Lane|Sakura Empire|Tanikaze
 Azur Lane|Sakura Empire|Tosa
 Azur Lane|Sakura Empire|Umikaze
+Azur Lane|Sakura Empire|Unryuu
+Azur Lane|Sakura Empire|Unzen
 Azur Lane|Sakura Empire|Urakaze
 Azur Lane|Sakura Empire|Uranami
 Azur Lane|Sakura Empire|Uzuki
 Azur Lane|Sakura Empire|Wakaba
 Azur Lane|Sakura Empire|Wakatsuki
+Azur Lane|Sakura Empire|Watarase
 Azur Lane|Sakura Empire|Yamakaze
 Azur Lane|Sakura Empire|Yamashiro
 Azur Lane|Sakura Empire|Yoizuki
@@ -554,44 +703,80 @@ Azur Lane|Sakura Empire|Yura
 Azur Lane|Sakura Empire|Yuubari
 Azur Lane|Sakura Empire|Yuudachi
 Azur Lane|Sakura Empire|Yuugure
+Azur Lane|Sakura Empire|Zuihou
 Azur Lane|Sakura Empire|Zuikaku
+Azur Lane|Sardegna Empire|Alberto di Giussano
 Azur Lane|Sardegna Empire|Alfredo Oriani
+Azur Lane|Sardegna Empire|Andrea Doria
 Azur Lane|Sardegna Empire|Aquila
+Azur Lane|Sardegna Empire|Attilio Regolo
+Azur Lane|Sardegna Empire|Bartolomeo Colleoni
 Azur Lane|Sardegna Empire|Bolzano
 Azur Lane|Sardegna Empire|Carabiniere
 Azur Lane|Sardegna Empire|Conte di Cavour
 Azur Lane|Sardegna Empire|Duca degli Abruzzi
 Azur Lane|Sardegna Empire|Emanuele Pessagno
+Azur Lane|Sardegna Empire|Francesco Caracciolo
+Azur Lane|Sardegna Empire|Giosuè Carducci
 Azur Lane|Sardegna Empire|Giulio Cesare
 Azur Lane|Sardegna Empire|Giuseppe Garibaldi
+Azur Lane|Sardegna Empire|Gorizia
 Azur Lane|Sardegna Empire|Impero
 Azur Lane|Sardegna Empire|Leonardo da Vinci
 Azur Lane|Sardegna Empire|Libeccio
 Azur Lane|Sardegna Empire|Littorio
 Azur Lane|Sardegna Empire|Maestrale
+Azur Lane|Sardegna Empire|Maggiore Baracca
 Azur Lane|Sardegna Empire|Marco Polo
+Azur Lane|Sardegna Empire|Napoli
 Azur Lane|Sardegna Empire|Nicoloso da Recco
 Azur Lane|Sardegna Empire|Pola
 Azur Lane|Sardegna Empire|Pompeo Magno
+Azur Lane|Sardegna Empire|Raffaello
 Azur Lane|Sardegna Empire|Roma
 Azur Lane|Sardegna Empire|Torricelli
 Azur Lane|Sardegna Empire|Trento
 Azur Lane|Sardegna Empire|Trieste
+Azur Lane|Sardegna Empire|Ugolino Vivaldi
 Azur Lane|Sardegna Empire|Vincenzo Gioberti
+Azur Lane|Sardegna Empire|Vittorio Cuniberti
 Azur Lane|Sardegna Empire|Vittorio Veneto
 Azur Lane|Sardegna Empire|Zara
+Azur Lane|Tempesta|Adventure
+Azur Lane|Tempesta|Adventure Galley
+Azur Lane|Tempesta|Amity
+Azur Lane|Tempesta|Dolphin
+Azur Lane|Tempesta|Fancy
+Azur Lane|Tempesta|Ganj-i-Sawai
+Azur Lane|Tempesta|Golden Hind
+Azur Lane|Tempesta|Lyme
+Azur Lane|Tempesta|Mary Celeste
+Azur Lane|Tempesta|Pearl
+Azur Lane|Tempesta|Portsmouth Adventure
+Azur Lane|Tempesta|Queen Anne's Revenge
 Azur Lane|Tempesta|Royal Fortune
+Azur Lane|Tempesta|Royal James
+Azur Lane|Tempesta|São Martinho
+Azur Lane|Tempesta|Whydah
 Azur Lane|Vichya Dominion|Algérie
+Azur Lane|Vichya Dominion|Clemenceau
 Azur Lane|Vichya Dominion|Dunkerque
+Azur Lane|Vichya Dominion|Dupleix
+Azur Lane|Vichya Dominion|Flandre
+Azur Lane|Vichya Dominion|Fleuret
 Azur Lane|Vichya Dominion|Foch
 Azur Lane|Vichya Dominion|Gascogne
-Azur Lane|Vichya Dominion|Gascogne μ
 Azur Lane|Vichya Dominion|Jean Bart
 Azur Lane|Vichya Dominion|Joffre
+Azur Lane|Vichya Dominion|Kersaint
+Azur Lane|Vichya Dominion|L'Audacieux
 Azur Lane|Vichya Dominion|L'Indomptable
 Azur Lane|Vichya Dominion|La Galissonnière
 Azur Lane|Vichya Dominion|Le Malin
-Azur Lane|Vichya Dominion|Le Malin μ
 Azur Lane|Vichya Dominion|Le Mars
+Azur Lane|Vichya Dominion|Marseillaise
+Azur Lane|Vichya Dominion|Mogador
+Azur Lane|Vichya Dominion|Strasbourg
 Azur Lane|Vichya Dominion|Tartu
 Azur Lane|Vichya Dominion|Vauquelin
+Azur Lane|Vichya Dominion|Épée

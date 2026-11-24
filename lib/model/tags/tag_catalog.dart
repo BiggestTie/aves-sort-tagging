@@ -37,19 +37,28 @@ class TagCatalog {
   Future<void> ensureLoaded() => _loading ??= _load();
 
   Future<void> _load() async {
+    // lines are `path`, or `path ; nickname ; nickname` (nicknames only help finding the path)
     final entries = <String>{};
+    final nicknames = <String, String>{};
     for (final asset in _assets) {
       try {
         final content = await rootBundle.loadString(asset);
-        entries.addAll(content.split('\n').map((v) => v.trim()).where((v) => v.isNotEmpty && !v.startsWith('#')).map(TagPath.normalize));
+        final lines = content.split('\n').map((v) => v.trim()).where((v) => v.isNotEmpty && !v.startsWith('#'));
+        for (final line in lines) {
+          final parts = line.split(';').map((v) => v.trim()).toList();
+          final entry = TagPath.normalize(parts.first);
+          if (entry.isEmpty) continue;
+          entries.add(entry);
+          parts.skip(1).where((v) => v.isNotEmpty).forEach((nickname) => nicknames[_key(TagPath.root(entry), nickname)] = entry);
+        }
       } catch (error) {
         // a missing file only means that franchise is not covered yet
         debugPrint('failed to load tag catalog asset=$asset error=$error');
       }
     }
 
-    final byFranchiseAndName = <String, String>{};
-    // characters first, then groups (e.g. `C&C` -> `Blue Archive|Millennium|C&C`),
+    final byFranchiseAndName = <String, String>{...nicknames};
+    // nicknames first, then characters, then groups (e.g. `C&C` -> `Blue Archive|Millennium|C&C`),
     // keeping the first one in case of homonyms
     for (final entry in entries) {
       byFranchiseAndName.putIfAbsent(_key(TagPath.root(entry), TagPath.leaf(entry)), () => entry);

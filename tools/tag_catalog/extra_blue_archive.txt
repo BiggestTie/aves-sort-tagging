@@ -1,0 +1,21 @@
+# Blue Archive students missing from the SchaleDB data snapshot (August 2024)
+Blue Archive|Abydos|Foreclosure Task Force|Shiroko Terror
+Blue Archive|Arius|Subaru
+Blue Archive|Gehenna|Pandemonium Society|Chiaki
+Blue Archive|Gehenna|Pandemonium Society|Satsuki
+Blue Archive|Highlander|Hikari
+Blue Archive|Highlander|Nozomi
+Blue Archive|Hyakkiyako|Hyakkaryouran Resolution Council|Nagusa
+Blue Archive|Hyakkiyako|Yin-Yang Club|Niya
+Blue Archive|Millennium|Game Development Department|Kei
+Blue Archive|Millennium|Seminar|Rio
+Blue Archive|Red Winter|Takane
+Blue Archive|Red Winter|Yakumo
+Blue Archive|Shanhaijing|Genryumon|Kisaki
+Blue Archive|Shanhaijing|Reijo
+Blue Archive|SRT|FOX Squad|Kurumi
+Blue Archive|SRT|FOX Squad|Niko
+Blue Archive|Trinity|Tea Party|Seia
+Blue Archive|Valkyrie|Konoka
+Blue Archive|Wildhunt|Eri
+Blue Archive|Wildhunt|Miyo

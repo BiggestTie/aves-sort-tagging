@@ -6,19 +6,21 @@ Each file lists nested tag paths, one per line, e.g.
 
 Sources (shallow git clones):
 - Blue Archive: SchaleDB/SchaleDB, data/en/students.json + localization.json
-- Azur Lane: AzurAPI/azurapi-js-setup, ships.json
+- Azur Lane: AzurLaneTools/AzurLaneData, EN/sharecfgdata/ship_data_statistics.json,
+  and AzurAPI/azurapi-js-setup, ships.json for older entries
 - Genshin: theBowja/genshin-db, src/data/English/characters/*.json
 
 Extra entries, for characters missing from those sources, are kept by hand
 in tools/tag_catalog/extra_<franchise>.txt and merged in.
 
-Usage: build.py <schale dir> <azurapi dir> <genshin-db dir>
+Usage: build.py <schale dir> <azurapi dir> <AzurLaneData dir> <genshin-db dir>
 """
 import glob
 import json
 import os
 import re
 import sys
+from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.join(HERE, '..', '..', 'assets')
@@ -56,30 +58,68 @@ def blue_archive(schale_dir):
     return set(paths.values())
 
 
-AZUR_LANE_COLLABS = {
-    'Neptunia', 'SSSS', 'The Idolmaster', 'Venus Vacation', 'Hololive',
-    'Utawarerumono', 'Atelier Ryza', 'Kizuna AI',
+AZUR_LANE_NATIONS = {
+    1: 'Eagle Union', 2: 'Royal Navy', 3: 'Sakura Empire', 4: 'Iron Blood',
+    5: 'Dragon Empery', 6: 'Sardegna Empire', 7: 'Northern Parliament',
+    8: 'Iris Libre', 9: 'Vichya Dominion', 11: 'Kingdom of Tulipa', 96: 'Tempesta',
 }
+AZUR_LANE_COLLABS = {
+    101: 'Neptunia', 103: 'Utawarerumono', 104: 'Kizuna AI', 105: 'Hololive',
+    106: 'Venus Vacation', 107: 'The Idolmaster', 108: 'SSSS', 109: 'Atelier Ryza',
+    110: 'Senran Kagura', 111: 'To LOVE-Ru', 112: 'Black Rock Shooter',
+    113: 'Atelier Yumia', 114: 'DanMachi', 115: 'Date A Live',
+}
+# META (alternate versions), Universal (Bulins, event units) and Sirens are left out
 
 
-def azur_lane(azurapi_dir):
-    ships = json.load(open(os.path.join(azurapi_dir, 'ships.json')))
-    base_names = {s['names']['en'] for s in ships if s.get('nationality') != 'META'}
+def azur_lane_base_name(name):
+    # `Köln (Retrofit)`, `Roon μ` -> base ship: alternate versions are not listed
+    name = re.sub(r'\s*\(?Retrofit\)?\s*$', '', name.strip())
+    name = re.sub(r'\s*μ\s*$', '', name)
+    return name.strip()
+
+
+def azur_lane(azurapi_dir, ald_dir):
     paths = set()
-    for s in ships:
-        name = s['names']['en'].strip()
-        nation = s.get('nationality') or 'Other'
-        if nation == 'META':
-            # META ships are alternate versions of existing ships
-            base = re.sub(r'[\s.]*META$', '', name)
-            if base in base_names:
-                continue
-        if nation in AZUR_LANE_COLLABS:
-            paths.add(path('Azur Lane', 'Collab', nation, name))
-        elif nation in ('Universal', 'Bilibili'):
-            paths.add(path('Azur Lane', 'Other', name))
+
+    def add(nation_name, collab, name):
+        name = name.strip()
+        # skip untranslated names
+        if not re.search('[A-Za-z]', name):
+            return
+        if collab:
+            paths.add(path('Azur Lane', 'Collab', nation_name, name))
         else:
-            paths.add(path('Azur Lane', nation, name))
+            paths.add(path('Azur Lane', nation_name, name))
+
+    # game data (AzurLaneTools/AzurLaneData, EN client)
+    # each ship has several entries (limit breaks, retrofits, event versions),
+    # some with another nationality, so the most common one is kept
+    stats = json.load(open(os.path.join(ald_dir, 'EN/sharecfgdata/ship_data_statistics.json')))
+    codes_by_name = {}
+    for v in stats.values():
+        if not isinstance(v, dict):
+            continue
+        name = azur_lane_base_name(v['name'])
+        codes_by_name.setdefault(name, Counter())[v.get('nationality')] += 1
+    known = set()
+    for name, codes in codes_by_name.items():
+        code = codes.most_common(1)[0][0]
+        if code in AZUR_LANE_NATIONS:
+            add(AZUR_LANE_NATIONS[code], False, name)
+            known.add(name)
+        elif code in AZUR_LANE_COLLABS:
+            add(AZUR_LANE_COLLABS[code], True, name)
+            known.add(name)
+
+    # older community data (AzurAPI), for ships missing from the game data
+    collab_names = set(AZUR_LANE_COLLABS.values())
+    for s in json.load(open(os.path.join(azurapi_dir, 'ships.json'))):
+        name = azur_lane_base_name(s['names']['en'])
+        nation = s.get('nationality')
+        if name in known or nation in (None, 'META', 'Universal', 'Bilibili'):
+            continue
+        add(nation, nation in collab_names, name)
     return paths
 
 
@@ -119,9 +159,15 @@ def extras(key):
 
 def write(key, paths):
     # drop entries replaced by a corrected extra entry (same franchise + leaf name)
+    # (extra lines may end with nicknames: `path ; nickname ; nickname`)
     extra = extras(key)
-    extra_leaves = {(p.split('|')[0], p.split('|')[-1]) for p in extra}
-    paths = {p for p in paths if (p.split('|')[0], p.split('|')[-1]) not in extra_leaves} | extra
+
+    def franchise_and_leaf(line):
+        segments = line.split(';')[0].strip().split('|')
+        return segments[0], segments[-1]
+
+    extra_leaves = {franchise_and_leaf(p) for p in extra}
+    paths = {p for p in paths if franchise_and_leaf(p) not in extra_leaves} | extra
     out = os.path.join(ASSETS, f'tag_catalog_{key}.txt')
     with open(out, 'w', encoding='utf-8') as f:
         f.write('\n'.join(sorted(paths, key=lambda v: [s.lower() for s in v.split('|')])) + '\n')
@@ -129,7 +175,7 @@ def write(key, paths):
 
 
 if __name__ == '__main__':
-    schale_dir, azurapi_dir, gdb_dir = sys.argv[1:4]
+    schale_dir, azurapi_dir, ald_dir, gdb_dir = sys.argv[1:5]
     write('blue_archive', blue_archive(schale_dir))
-    write('azur_lane', azur_lane(azurapi_dir))
+    write('azur_lane', azur_lane(azurapi_dir, ald_dir))
     write('genshin', genshin(gdb_dir))

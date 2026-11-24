@@ -1,0 +1,63 @@
+# Zenless Zone Zero agents by faction (hand-maintained, November 2026)
+# alternate versions are listed as nicknames of the base agent
+ZZZ|Phaethon|Belle
+ZZZ|Phaethon|Wise
+ZZZ|Cunning Hares|Anby Demara ; Anby ; Soldier 0 Anby
+ZZZ|Cunning Hares|Billy Kid ; Billy ; Starlight Billy ; Starlight - Billy Kid
+ZZZ|Cunning Hares|Nekomiya Mana ; Nekomata
+ZZZ|Cunning Hares|Nicole Demara ; Nicole
+ZZZ|Victoria Housekeeping|Alexandrina Sebastiane ; Rina
+ZZZ|Victoria Housekeeping|Corin Wickes ; Corin
+ZZZ|Victoria Housekeeping|Ellen Joe ; Ellen
+ZZZ|Victoria Housekeeping|Von Lycaon ; Lycaon
+ZZZ|Belobog Heavy Industries|Anton Ivanov ; Anton
+ZZZ|Belobog Heavy Industries|Ben Bigger ; Ben
+ZZZ|Belobog Heavy Industries|Grace Howard ; Grace
+ZZZ|Belobog Heavy Industries|Koleda Belobog ; Koleda
+ZZZ|Criminal Investigation Special Response Team|Jane Doe ; Jane
+ZZZ|Criminal Investigation Special Response Team|Qingyi
+ZZZ|Criminal Investigation Special Response Team|Seth Lowell ; Seth
+ZZZ|Criminal Investigation Special Response Team|Zhu Yuan
+ZZZ|Metropolitan Order Division|Cissia
+ZZZ|Metropolitan Order Division|Severian Lowell ; Severian
+ZZZ|Section 6|Asaba Harumasa ; Harumasa
+ZZZ|Section 6|Hoshimi Miyabi ; Miyabi
+ZZZ|Section 6|Soukaku
+ZZZ|Section 6|Tsukishiro Yanagi ; Yanagi
+ZZZ|Sons of Calydon|Burnice White ; Burnice
+ZZZ|Sons of Calydon|Caesar King ; Caesar
+ZZZ|Sons of Calydon|Lighter
+ZZZ|Sons of Calydon|Luciana de Montefio ; Lucy
+ZZZ|Sons of Calydon|Piper Wheel ; Piper
+ZZZ|Sons of Calydon|Pulchra Fellini ; Pulchra
+ZZZ|Obol Squad|Orphie Magnusson & Magus ; Orphie
+ZZZ|Obol Squad|Seed
+ZZZ|Obol Squad|Soldier 11
+ZZZ|Obol Squad|Trigger
+ZZZ|Stars of Lyra|Astra Yao ; Astra
+ZZZ|Stars of Lyra|Evelyn Chevalier ; Evelyn
+ZZZ|Mockingbird|Hugo Vlad ; Hugo
+ZZZ|Mockingbird|Vivian Banshee ; Vivian
+ZZZ|Yunkui Summit|Ju Fufu
+ZZZ|Yunkui Summit|Pan Yinhu
+ZZZ|Yunkui Summit|Ye Shunguang
+ZZZ|Yunkui Summit|Yixuan
+ZZZ|Spook Shack|Alice Thymefield ; Alice
+ZZZ|Spook Shack|Komano Manato ; Manato
+ZZZ|Spook Shack|Lucia Elowen ; Lucia
+ZZZ|Spook Shack|Ukinami Yuzuha ; Yuzuha
+ZZZ|Spook Shack|Yidhari Murphy ; Yidhari
+ZZZ|Angels of Delusion|Aria
+ZZZ|Angels of Delusion|Nangong Yu
+ZZZ|Angels of Delusion|Sunna
+ZZZ|Krampus Compliance Authority|Banyue
+ZZZ|Krampus Compliance Authority|Dialyn
+ZZZ|Krampus Compliance Authority|Phoenix Reffaella ; Phoenix
+ZZZ|Krampus Compliance Authority|Promeia
+ZZZ|Krampus Compliance Authority|Zhao
+ZZZ|Flint Workshop|Claret Flint ; Claret
+ZZZ|Flint Workshop|Roxy
+ZZZ|Airspace Patrol Department|Sigrid de L'Azur ; Sigrid
+ZZZ|External Strategy Department|Norma Hollowell ; Norma
+ZZZ|External Strategy Department|Velina Airgid ; Velina
+ZZZ|Covenant of Dayat|Remielle Dan ; Remielle
