@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:aves/model/tags/online/online_tag_suggester.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
@@ -49,12 +50,20 @@ class OnlineTagSearchResult {
   final int? shortRemaining;
   final int? longRemaining;
 
+  // why the full tags could not be fetched, if they could not
+  final String? tagError;
+
+  // Danbooru post of the match, if any
+  final int? danbooruId;
+
   const new({
     required this.match,
     required this.tagSource,
     required this.tags,
     this.shortRemaining,
     this.longRemaining,
+    this.tagError,
+    this.danbooruId,
   });
 }
 
@@ -119,29 +128,34 @@ class OnlineTagSearch {
     final best = matches.first;
     final danbooruMatch = matches.firstWhere((v) => v.danbooruId != null && v.similarity >= best.similarity - 5, orElse: () => best);
     final danbooruId = danbooruMatch.danbooruId;
+    String? tagError;
     if (danbooruId != null) {
       try {
-        final tags = await _fetchDanbooruTags(danbooruId);
+        final tags = await fetchDanbooruTags(danbooruId);
         return OnlineTagSearchResult(
           match: danbooruMatch,
           tagSource: 'Danbooru',
           tags: tags,
           shortRemaining: shortRemaining,
           longRemaining: longRemaining,
+          danbooruId: danbooruId,
         );
       } catch (error) {
         debugPrint('failed to fetch Danbooru post id=$danbooruId error=$error');
+        tagError = '$error';
       }
     }
 
-    // otherwise, the tags SauceNAO has for the best match with some
+    // otherwise, the short tags SauceNAO has for the best match with some
     final withTags = matches.firstWhere((v) => !v.tags.isEmpty, orElse: () => best);
     return OnlineTagSearchResult(
       match: withTags,
-      tagSource: withTags.sourceName,
+      tagSource: 'SauceNAO (${withTags.sourceName} summary)',
       tags: withTags.tags,
       shortRemaining: shortRemaining,
       longRemaining: longRemaining,
+      tagError: tagError,
+      danbooruId: danbooruId,
     );
   }
 
@@ -170,21 +184,50 @@ class OnlineTagSearch {
 
   static int? _parseInt(Object? value) => value is int ? value : int.tryParse('${value ?? ''}');
 
-  static Future<OnlinePostTags> _fetchDanbooruTags(int id) async {
-    final response = await http.get(
+  // tries the post endpoint, then the search endpoint, which some networks handle differently
+  static Future<OnlinePostTags> fetchDanbooruTags(int id) async {
+    final attempts = [
       Uri.parse('https://danbooru.donmai.us/posts/$id.json'),
-      headers: {'User-Agent': userAgent},
-    ).timeout(const Duration(seconds: 30));
-    if (response.statusCode != 200) {
-      throw OnlineTagSearchException('Danbooru error (HTTP ${response.statusCode})');
+      Uri.parse('https://danbooru.donmai.us/posts.json?tags=id%3A$id&limit=1'),
+    ];
+    final errors = <String>[];
+    for (final uri in attempts) {
+      try {
+        final response = await http.get(
+          uri,
+          headers: {
+            'User-Agent': userAgent,
+            'Accept': 'application/json',
+          },
+        ).timeout(const Duration(seconds: 30));
+        if (response.statusCode != 200) {
+          errors.add('HTTP ${response.statusCode}');
+          continue;
+        }
+        final Object? decoded;
+        try {
+          decoded = jsonDecode(utf8.decode(response.bodyBytes));
+        } on FormatException {
+          // e.g. a bot check page
+          errors.add('got a web page instead of data');
+          continue;
+        }
+        final post = decoded is List ? decoded.firstOrNull : decoded;
+        if (post is! Map<String, dynamic>) {
+          errors.add('post not found');
+          continue;
+        }
+        List<String> split(String key) => '${post[key] ?? ''}'.split(' ').where((v) => v.isNotEmpty).toList();
+        return OnlinePostTags(
+          characters: split('tag_string_character'),
+          franchises: split('tag_string_copyright'),
+          artists: split('tag_string_artist'),
+          general: split('tag_string_general'),
+        );
+      } catch (error) {
+        errors.add('$error');
+      }
     }
-    final post = jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
-    List<String> split(String key) => '${post[key] ?? ''}'.split(' ').where((v) => v.isNotEmpty).toList();
-    return OnlinePostTags(
-      characters: split('tag_string_character'),
-      franchises: split('tag_string_copyright'),
-      artists: split('tag_string_artist'),
-      general: split('tag_string_general'),
-    );
+    throw OnlineTagSearchException('Danbooru: ${errors.join(', then ')}');
   }
 }

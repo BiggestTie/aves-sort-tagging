@@ -52,7 +52,7 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
   bool _noMatch = false;
   List<TagSuggestion> _suggestions = [];
   final Set<int> _checked = {};
-  bool _showOther = false;
+  bool _retryingDanbooru = false;
 
   @override
   void initState() {
@@ -223,9 +223,17 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
 
     final result = _result!;
     final match = result.match;
-    final main = _suggestions.indexed.where((kv) => kv.$2.recommended || _checked.contains(kv.$1)).toList();
-    final other = _suggestions.indexed.whereNot((kv) => kv.$2.recommended || _checked.contains(kv.$1)).toList();
+    final main = _suggestions.indexed.where((kv) => kv.$2.recommended).toList();
+    final other = _suggestions.indexed.whereNot((kv) => kv.$2.recommended).toList();
     final link = match.urls.firstOrNull;
+    final tagError = result.tagError;
+
+    // other tags in collapsed groups, to look through without being overwhelmed
+    final otherGroups = <(String, List<(int, TagSuggestion)>)>[
+      ('Characters & series', other.where((kv) => kv.$2.category == .character || kv.$2.category == .franchise).toList()),
+      ('Artists', other.where((kv) => kv.$2.category == .artist).toList()),
+      ('Other tags', other.where((kv) => kv.$2.category == .general).toList()),
+    ].where((v) => v.$2.isNotEmpty).toList();
 
     return ListView(
       padding: const EdgeInsets.only(bottom: 96),
@@ -255,24 +263,77 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
           _header(context, 'Suggested'),
           ...main.map((kv) => _buildSuggestion(context, kv.$1, kv.$2)),
         ],
-        if (other.isNotEmpty) ...[
+        if (tagError != null)
           ListTile(
-            title: Text('Other tags from ${result.tagSource} (${other.length})'),
-            subtitle: const Text('Not matching your tags, so not ticked'),
-            trailing: Icon(_showOther ? AIcons.collapse : AIcons.expand),
-            onTap: () => setState(() => _showOther = !_showOther),
+            leading: const Icon(AIcons.error),
+            title: const Text('Could not get the full tag list from Danbooru'),
+            subtitle: Text('Only the short summary from SauceNAO is shown.\n$tagError'),
+            isThreeLine: true,
+            trailing: result.danbooruId != null
+                ? (_retryingDanbooru
+                      ? const SizedBox.square(dimension: 24, child: CircularProgressIndicator(strokeWidth: 2))
+                      : IconButton(
+                          icon: const Icon(AIcons.refresh),
+                          onPressed: () => _retryDanbooru(result),
+                          tooltip: 'Try Danbooru again',
+                        ))
+                : null,
           ),
-          if (_showOther) ...other.map((kv) => _buildSuggestion(context, kv.$1, kv.$2)),
+        if (otherGroups.isNotEmpty) ...[
+          _header(context, 'Not in your tags'),
+          ...otherGroups.map(
+            (group) => ExpansionTile(
+              title: Text('${group.$1} (${group.$2.length})'),
+              subtitle: Text('${group.$2.where((kv) => _checked.contains(kv.$1)).length} ticked'),
+              children: group.$2.map((kv) => _buildSuggestion(context, kv.$1, kv.$2)).toList(),
+            ),
+          ),
         ],
         Padding(
           padding: const EdgeInsets.all(16),
           child: Text(
-            'Tap the pencil to use one of your tags instead. Your choice is remembered for next time.',
+            'Tick any tag to add it. Tap the pencil to use one of your tags instead: your choice is remembered for next time.',
             style: theme.textTheme.bodySmall,
           ),
         ),
       ],
     );
+  }
+
+  // fetches the full Danbooru tags again, without a new SauceNAO search
+  Future<void> _retryDanbooru(OnlineTagSearchResult result) async {
+    final id = result.danbooruId;
+    if (id == null) return;
+    setState(() => _retryingDanbooru = true);
+    try {
+      final tags = await OnlineTagSearch.fetchDanbooruTags(id);
+      if (!mounted) return;
+      _setResult(
+        OnlineTagSearchResult(
+          match: result.match,
+          tagSource: 'Danbooru',
+          tags: tags,
+          shortRemaining: result.shortRemaining,
+          longRemaining: result.longRemaining,
+          danbooruId: id,
+        ),
+      );
+    } catch (error) {
+      if (!mounted) return;
+      _setResult(
+        OnlineTagSearchResult(
+          match: result.match,
+          tagSource: result.tagSource,
+          tags: result.tags,
+          shortRemaining: result.shortRemaining,
+          longRemaining: result.longRemaining,
+          tagError: '$error',
+          danbooruId: id,
+        ),
+      );
+    } finally {
+      if (mounted) setState(() => _retryingDanbooru = false);
+    }
   }
 
   Widget _header(BuildContext context, String title) => Padding(
