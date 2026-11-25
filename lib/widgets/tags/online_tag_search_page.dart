@@ -243,6 +243,8 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
     return ListView(
       padding: const EdgeInsets.only(bottom: 96),
       children: [
+        // the item and the match side by side, scrolling away with the list
+        _buildComparison(context, result),
         ListTile(
           title: Text('${match.similarity.toStringAsFixed(1)}% match on ${match.sourceName}'),
           subtitle: Text(
@@ -339,6 +341,57 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
     } finally {
       if (mounted) setState(() => _retryingDanbooru = false);
     }
+  }
+
+  Widget _buildComparison(BuildContext context, OnlineTagSearchResult result) {
+    final theme = Theme.of(context);
+    final imageUrl = result.imageUrl;
+    final link = result.match.urls.firstOrNull;
+
+    Widget frame(Widget child, String caption, {VoidCallback? onTap}) => Expanded(
+      child: Column(
+        children: [
+          AspectRatio(
+            aspectRatio: 3 / 4,
+            child: Material(
+              color: theme.colorScheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(12),
+              clipBehavior: .antiAlias,
+              child: InkWell(onTap: onTap, child: child),
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(caption, style: theme.textTheme.labelMedium),
+        ],
+      ),
+    );
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      child: Row(
+        crossAxisAlignment: .start,
+        children: [
+          frame(
+            Image(image: widget.entry.getThumbnail(extent: 512), fit: .contain),
+            'Your image',
+          ),
+          const SizedBox(width: 12),
+          frame(
+            imageUrl != null
+                ? Image.network(
+                    imageUrl,
+                    headers: const {'User-Agent': OnlineTagSearch.userAgent},
+                    fit: .contain,
+                    loadingBuilder: (context, child, progress) => progress == null ? child : const Center(child: CircularProgressIndicator()),
+                    errorBuilder: (context, error, stackTrace) => const Center(child: Icon(AIcons.error)),
+                  )
+                : const Center(child: Icon(AIcons.image)),
+            'Match (${result.match.similarity.toStringAsFixed(0)}%)',
+            onTap: link != null ? () => AvesApp.launchUrl(link) : null,
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _header(BuildContext context, String title) => Padding(

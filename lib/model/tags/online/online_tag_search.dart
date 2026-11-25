@@ -21,6 +21,9 @@ class SauceNaoMatch {
   final int? danbooruId;
   final List<String> urls;
 
+  // small preview of the matched image, hosted by SauceNAO for a while
+  final String? thumbnailUrl;
+
   // tags given by SauceNAO itself for booru sources, e.g. `asuna (blue archive)`
   final OnlinePostTags tags;
 
@@ -29,6 +32,7 @@ class SauceNaoMatch {
     required this.indexName,
     required this.danbooruId,
     required this.urls,
+    required this.thumbnailUrl,
     required this.tags,
   });
 
@@ -55,6 +59,9 @@ class OnlineTagSearchResult {
 
   // Danbooru post of the match, if any
   final int? danbooruId;
+
+  // image to compare with: from the post when available, otherwise SauceNAO's preview
+  String? get imageUrl => tags.imageUrl ?? match.thumbnailUrl;
 
   const new({
     required this.match,
@@ -181,6 +188,7 @@ class OnlineTagSearch {
       indexName: '${header['index_name'] ?? ''}',
       danbooruId: _parseInt(data['danbooru_id']),
       urls: (data['ext_urls'] as List? ?? []).whereType<String>().toList(),
+      thumbnailUrl: header['thumbnail'] is String ? header['thumbnail'] as String : null,
       tags: OnlinePostTags(
         characters: split(data['characters']),
         franchises: split(data['material']),
@@ -232,6 +240,7 @@ class OnlineTagSearch {
           franchises: split('tag_string_copyright'),
           artists: split('tag_string_artist'),
           general: split('tag_string_general'),
+          imageUrl: (post['large_file_url'] ?? post['preview_file_url']) as String?,
         );
       } catch (error) {
         errors.add('$error');

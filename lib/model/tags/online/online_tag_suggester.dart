@@ -40,11 +40,15 @@ class OnlinePostTags {
   final List<String> artists;
   final List<String> general;
 
+  // image of the post, to compare with
+  final String? imageUrl;
+
   const new({
     this.characters = const [],
     this.franchises = const [],
     this.artists = const [],
     this.general = const [],
+    this.imageUrl,
   });
 
   bool get isEmpty => characters.isEmpty && franchises.isEmpty && artists.isEmpty && general.isEmpty;
