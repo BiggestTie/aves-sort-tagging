@@ -53,6 +53,7 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
   List<TagSuggestion> _suggestions = [];
   final Set<int> _checked = {};
   bool _retryingDanbooru = false;
+  bool _askedForKey = false;
 
   @override
   void initState() {
@@ -69,24 +70,22 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
       _result = null;
     });
 
+    // without a SauceNAO key, the other search engines are still tried
     var apiKey = settings.sauceNaoApiKey;
-    if (apiKey == null) {
+    if (apiKey == null && !_askedForKey) {
+      _askedForKey = true;
       apiKey = await showSauceNaoKeyDialog(context);
       if (!mounted) return;
-      if (apiKey == null) {
-        Navigator.maybeOf(context)?.pop();
-        return;
-      }
     }
 
     try {
       setState(() => _status = 'Preparing image…');
       final bytes = await _encodeImage();
       if (!mounted) return;
-      setState(() => _status = 'Searching SauceNAO…');
+      setState(() => _status = 'Searching online…');
       final result = await OnlineTagSearch.search(
         bytes,
-        apiKey: apiKey,
+        sauceNaoApiKey: apiKey,
         danbooruLogin: settings.danbooruLogin,
         danbooruApiKey: settings.danbooruApiKey,
       );
@@ -211,7 +210,7 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
             mainAxisSize: .min,
             children: [
               Text(
-                error ?? 'No confident match found online.\nThe image may be too new, edited, or cropped.',
+                error ?? 'No confident match found online (SauceNAO, Danbooru, IQDB).\nThe image may be too new, edited, or cropped.',
                 textAlign: .center,
               ),
               const SizedBox(height: 16),
@@ -249,8 +248,9 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
           title: Text('${match.similarity.toStringAsFixed(1)}% match on ${match.sourceName}'),
           subtitle: Text(
             [
+              'Found by ${result.engine}',
               'Tags from ${result.tagSource}',
-              if (result.longRemaining != null) '${result.longRemaining} searches left today',
+              if (result.longRemaining != null) '${result.longRemaining} SauceNAO searches left today',
             ].join(' · '),
           ),
           trailing: link != null
@@ -323,6 +323,7 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
           shortRemaining: result.shortRemaining,
           longRemaining: result.longRemaining,
           danbooruId: id,
+          engine: result.engine,
         ),
       );
     } catch (error) {
@@ -336,6 +337,7 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
           longRemaining: result.longRemaining,
           tagError: '$error',
           danbooruId: id,
+          engine: result.engine,
         ),
       );
     } finally {
