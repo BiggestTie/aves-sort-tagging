@@ -66,6 +66,7 @@ class AIcons {
   static const trackAudio = Symbols.audiotrack;
   static const trackText = Symbols.closed_caption;
   static const tag = Symbols.sell;
+  static const portrait = Symbols.face;
   static const tagUntagged = MdiIcons.tagOffOutline;
   static const text = Symbols.format_quote;
   static const thumbnails = Symbols.dashboard_2;

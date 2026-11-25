@@ -3,10 +3,12 @@ import 'dart:math';
 
 import 'package:aves/app_mode.dart';
 import 'package:aves/model/covers.dart';
+import 'package:aves/model/filters/covered/tag.dart';
 import 'package:aves/model/filters/filters.dart';
 import 'package:aves/model/filters/rating.dart';
 import 'package:aves/model/settings/enums/accessibility_animations.dart';
 import 'package:aves/model/settings/settings.dart';
+import 'package:aves/model/tags/tag_portraits.dart';
 import 'package:aves/theme/colors.dart';
 import 'package:aves/theme/icons.dart';
 import 'package:aves/theme/themes.dart';
@@ -18,6 +20,7 @@ import 'package:aves/widgets/common/basic/popup/menu_row.dart';
 import 'package:aves/widgets/common/extensions/build_context.dart';
 import 'package:aves/widgets/common/providers/media_query_data_provider.dart';
 import 'package:aves/widgets/filter_grids/common/action_delegates/chip.dart';
+import 'package:aves/widgets/tags/tag_portrait_popup.dart';
 import 'package:aves_model/aves_model.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:material_ui/material_ui.dart';
@@ -77,7 +80,35 @@ class const AvesFilterChip({
     return (mqWidth - mqHorizontalPadding - chipPadding * minChipPerRow - rowPadding) / minChipPerRow;
   }
 
+  // tags with a portrait show it first, with the usual menu one tap away
   static Future<void> showDefaultLongPressMenu(
+    BuildContext context,
+    CollectionFilter filter,
+    Offset tapPosition, {
+    bool? canNavigate,
+  }) async {
+    if (filter is TagFilter && TagPortraits.instance.has(filter.tag)) {
+      await showTagPortraitPopup(
+        context,
+        tag: filter.tag,
+        actions: [
+          TagPopupAction(
+            label: 'More',
+            icon: AIcons.more,
+            onTap: () {
+              if (context.mounted) {
+                return _showDefaultMenu(context, filter, tapPosition, canNavigate: canNavigate);
+              }
+            },
+          ),
+        ],
+      );
+      return;
+    }
+    await _showDefaultMenu(context, filter, tapPosition, canNavigate: canNavigate);
+  }
+
+  static Future<void> _showDefaultMenu(
     BuildContext context,
     CollectionFilter filter,
     Offset tapPosition, {

@@ -1,6 +1,7 @@
 import 'package:aves/model/filters/covered/tag.dart';
 import 'package:aves/model/source/collection_source.dart';
 import 'package:aves/model/tags/tag_path.dart';
+import 'package:aves/model/tags/tag_portraits.dart';
 import 'package:aves/theme/icons.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -15,6 +16,9 @@ class TagTreeList extends StatelessWidget {
   final String upQuery;
   final void Function(String tag) onTap;
 
+  // e.g. to show the tag portrait
+  final void Function(String tag)? onLongPress;
+
   // tags to show as already chosen (e.g. in the tag editor)
   final Set<String> selected;
 
@@ -26,6 +30,7 @@ class TagTreeList extends StatelessWidget {
     required this.source,
     required this.upQuery,
     required this.onTap,
+    this.onLongPress,
     this.selected = const {},
     this.extraTags = const {},
   });
@@ -61,12 +66,13 @@ class TagTreeList extends StatelessWidget {
           final isSelected = selected.contains(tag);
           return InkWell(
             onTap: () => onTap(tag),
+            onLongPress: onLongPress != null ? () => onLongPress!(tag) : null,
             child: Padding(
               padding: EdgeInsetsDirectional.only(start: 16.0 + depth * 20, end: 16, top: 10, bottom: 10),
               child: Row(
                 children: [
                   Icon(
-                    isSelected ? AIcons.apply : (hasChildren ? AIcons.group : AIcons.tag),
+                    isSelected ? AIcons.apply : (TagPortraits.instance.has(tag) ? AIcons.portrait : (hasChildren ? AIcons.group : AIcons.tag)),
                     size: 20,
                     color: isMatch ? null : dimColor,
                   ),

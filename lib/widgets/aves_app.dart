@@ -17,6 +17,7 @@ import 'package:aves/model/settings/settings.dart';
 import 'package:aves/model/source/collection_lens.dart';
 import 'package:aves/model/source/collection_source.dart';
 import 'package:aves/model/source/media_store_source.dart';
+import 'package:aves/model/tags/tag_portraits.dart';
 import 'package:aves/ref/locale/usage.dart';
 import 'package:aves/ref/mime_types.dart';
 import 'package:aves/services/accessibility_service.dart';
@@ -454,6 +455,8 @@ class _AvesAppState extends State<AvesApp> with WidgetsBindingObserver {
     unawaited(deviceService.setLocaleConfig(AvesApp.supportedLocales));
     unawaited(storageService.deleteTempDirectory());
     unawaited(_setupErrorReporting());
+    // portraits are needed to show which tags have one
+    unawaited(TagPortraits.instance.ensureLoaded());
 
     debugPrint('App setup in ${stopwatch.elapsed.inMilliseconds}ms');
   }

@@ -6,6 +6,7 @@ import 'package:aves/model/settings/settings.dart';
 import 'package:aves/model/source/collection_source.dart';
 import 'package:aves/model/tags/tag_catalog.dart';
 import 'package:aves/model/tags/tag_path.dart';
+import 'package:aves/model/tags/tag_portraits.dart';
 import 'package:aves/theme/durations.dart';
 import 'package:aves/theme/icons.dart';
 import 'package:aves/theme/themes.dart';
@@ -17,6 +18,8 @@ import 'package:aves/widgets/common/identity/aves_filter_chip.dart';
 import 'package:aves/widgets/dialogs/aves_confirmation_dialog.dart';
 import 'package:aves/widgets/dialogs/aves_dialog.dart';
 import 'package:aves/widgets/dialogs/entry_editors/tag_implication_dialog.dart';
+import 'package:aves/widgets/tags/tag_portrait_crop_page.dart';
+import 'package:aves/widgets/tags/tag_portrait_popup.dart';
 import 'package:aves/widgets/tags/tag_tree_list.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
@@ -209,12 +212,8 @@ class _TagEditorPageState extends State<TagEditorPage> {
                               }
                             },
                             onRemove: _removeTag,
-                            // long press a tag to choose the tags it implies
-                            onLongPress: (context, filter, tapPosition) {
-                              if (filter is TagFilter) {
-                                _editImplications(filter.tag);
-                              }
-                            },
+                            // long press a tag to see its portrait, and change it or its implied tags
+                            onLongPress: _onTagLongPress,
                           ),
                           crossFadeState: sortedTags.isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                           duration: ADurations.tagEditorTransition,
@@ -228,6 +227,7 @@ class _TagEditorPageState extends State<TagEditorPage> {
                           upQuery: upQuery,
                           selected: _commonTags,
                           extraTags: TagCatalog.instance.tags,
+                          onLongPress: _showTagPopup,
                           // keeps the text, so several tags of the same franchise can be picked in a row
                           onTap: (tag) {
                             final filter = TagFilter(tag);
@@ -245,18 +245,21 @@ class _TagEditorPageState extends State<TagEditorPage> {
                         filters: topTagFilters,
                         expandedNotifier: _expandedSectionNotifier,
                         onTap: _addTag,
+                        onLongPress: _onTagLongPress,
                       ),
                       _FilterRow(
                         title: l10n.tagEditorSectionRecent,
                         filters: recentFilters,
                         expandedNotifier: _expandedSectionNotifier,
                         onTap: _addTag,
+                        onLongPress: _onTagLongPress,
                       ),
                       _FilterRow(
                         title: l10n.tagEditorSectionPlaceholders,
                         filters: placeholderFilters,
                         expandedNotifier: _expandedSectionNotifier,
                         onTap: _addTag,
+                        onLongPress: _onTagLongPress,
                       ),
                     ],
                   );
@@ -351,6 +354,54 @@ class _TagEditorPageState extends State<TagEditorPage> {
     setState(() {});
   }
 
+  void _onTagLongPress(BuildContext context, CollectionFilter filter, Offset tapPosition) {
+    if (filter is TagFilter && filter.tag.isNotEmpty) {
+      _showTagPopup(filter.tag);
+    }
+  }
+
+  // portrait of the tag, with actions to change it and the tags it implies
+  Future<void> _showTagPopup(String tag) async {
+    final portraits = TagPortraits.instance;
+    final singleEntry = filtersByEntry.length == 1 ? filtersByEntry.keys.first : null;
+    await showTagPortraitPopup(
+      context,
+      tag: tag,
+      actions: [
+        if (singleEntry != null)
+          TagPopupAction(
+            label: portraits.has(tag) ? 'Use this image' : 'Set from this image',
+            icon: AIcons.portrait,
+            onTap: () => _setPortrait(singleEntry, tag),
+          ),
+        if (portraits.has(tag))
+          TagPopupAction(
+            label: 'Remove portrait',
+            icon: AIcons.delete,
+            onTap: () async {
+              await portraits.remove(tag);
+              if (mounted) setState(() {});
+            },
+          ),
+        TagPopupAction(
+          label: 'Implied tags',
+          icon: AIcons.tag,
+          onTap: () => _editImplications(tag),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _setPortrait(AvesEntry entry, String tag) async {
+    await Navigator.maybeOf(context)?.push(
+      MaterialPageRoute(
+        settings: const RouteSettings(name: TagPortraitCropPage.routeName),
+        builder: (context) => TagPortraitCropPage(entry: entry, tag: tag),
+      ),
+    );
+    if (mounted) setState(() {});
+  }
+
   Future<void> _editImplications(String tag) async {
     final implications = settings.tagImplications;
     final implied = await showAvesDialog<Set<String>>(
@@ -388,6 +439,7 @@ class const _FilterRow({
   required final List<CollectionFilter> filters,
   required final ValueNotifier<String?> expandedNotifier,
   required final void Function(CollectionFilter filter) onTap,
+  final OffsetFilterCallback? onLongPress,
 }) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -399,7 +451,7 @@ class const _FilterRow({
             expandedNotifier: expandedNotifier,
             showGenericIcon: false,
             onTap: onTap,
-            onLongPress: null,
+            onLongPress: onLongPress,
           );
   }
 }

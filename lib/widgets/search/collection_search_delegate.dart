@@ -35,6 +35,7 @@ import 'package:aves/widgets/common/extensions/build_context.dart';
 import 'package:aves/widgets/common/identity/aves_filter_chip.dart';
 import 'package:aves/widgets/common/search/delegate.dart';
 import 'package:aves/widgets/common/search/page.dart';
+import 'package:aves/widgets/tags/tag_portrait_popup.dart';
 import 'package:aves/widgets/tags/tag_tree_list.dart';
 import 'package:aves/widgets/viewer/controls/notifications.dart';
 import 'package:material_ui/material_ui.dart';
@@ -319,6 +320,7 @@ class CollectionSearchDelegate extends AvesSearchDelegate with FeedbackMixin, Va
             TagTreeList(
               source: source,
               upQuery: upQuery,
+              onLongPress: (tag) => showTagPortraitPopup(context, tag: tag),
               onTap: (tag) {
                 final filter = TagFilter(tag);
                 if (!hiddenFilters.contains(filter)) {
