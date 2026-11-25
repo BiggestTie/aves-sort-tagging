@@ -247,6 +247,14 @@ class Settings
 
   set sauceNaoApiKey(String? newValue) => set(SettingKeys.sauceNaoApiKeyKey, newValue == null || newValue.trim().isEmpty ? null : newValue.trim());
 
+  String? get danbooruLogin => getString(SettingKeys.danbooruLoginKey);
+
+  set danbooruLogin(String? newValue) => set(SettingKeys.danbooruLoginKey, newValue == null || newValue.trim().isEmpty ? null : newValue.trim());
+
+  String? get danbooruApiKey => getString(SettingKeys.danbooruApiKeyKey);
+
+  set danbooruApiKey(String? newValue) => set(SettingKeys.danbooruApiKeyKey, newValue == null || newValue.trim().isEmpty ? null : newValue.trim());
+
   // tags found online -> tag chosen by the user (empty for tags the user does not want)
   Map<String, String> get onlineTagMappings {
     final json = getString(SettingKeys.onlineTagMappingsKey);

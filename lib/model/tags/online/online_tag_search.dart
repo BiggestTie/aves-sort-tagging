@@ -68,7 +68,9 @@ class OnlineTagSearchResult {
 }
 
 class OnlineTagSearch {
-  static const userAgent = 'AvesTagging/1.0 (personal gallery tagging)';
+  // Danbooru's bot check rejects some user agents, so a few plain ones are tried
+  static const userAgent = 'AvesTagging/1.0';
+  static const _danbooruUserAgents = ['AvesTagging/1.0', 'aves-tagging/1.0.0'];
 
   // below this similarity, matches are usually other images
   static const minSimilarity = 70.0;
@@ -77,7 +79,12 @@ class OnlineTagSearch {
 
   // finds the image online and returns the tags of the best match,
   // or null when there is no confident match
-  static Future<OnlineTagSearchResult?> search(Uint8List imageBytes, {required String apiKey}) async {
+  static Future<OnlineTagSearchResult?> search(
+    Uint8List imageBytes, {
+    required String apiKey,
+    String? danbooruLogin,
+    String? danbooruApiKey,
+  }) async {
     final request =
         http.MultipartRequest(
             'POST',
@@ -131,7 +138,7 @@ class OnlineTagSearch {
     String? tagError;
     if (danbooruId != null) {
       try {
-        final tags = await fetchDanbooruTags(danbooruId);
+        final tags = await fetchDanbooruTags(danbooruId, login: danbooruLogin, apiKey: danbooruApiKey);
         return OnlineTagSearchResult(
           match: danbooruMatch,
           tagSource: 'Danbooru',
@@ -184,24 +191,26 @@ class OnlineTagSearch {
 
   static int? _parseInt(Object? value) => value is int ? value : int.tryParse('${value ?? ''}');
 
-  // tries the post endpoint, then the search endpoint, which some networks handle differently
-  static Future<OnlinePostTags> fetchDanbooruTags(int id) async {
+  // tries the post endpoint, then the search endpoint, with a few user agents,
+  // and with the user's Danbooru login when set (which may get past the bot check)
+  static Future<OnlinePostTags> fetchDanbooruTags(int id, {String? login, String? apiKey}) async {
+    final auth = login != null && login.isNotEmpty && apiKey != null && apiKey.isNotEmpty ? {'login': login, 'api_key': apiKey} : <String, String>{};
     final attempts = [
-      Uri.parse('https://danbooru.donmai.us/posts/$id.json'),
-      Uri.parse('https://danbooru.donmai.us/posts.json?tags=id%3A$id&limit=1'),
+      for (final agent in _danbooruUserAgents) ...[
+        (agent, Uri.https('danbooru.donmai.us', '/posts/$id.json', auth.isEmpty ? null : auth)),
+        (agent, Uri.https('danbooru.donmai.us', '/posts.json', {'tags': 'id:$id', 'limit': '1', ...auth})),
+      ],
     ];
-    final errors = <String>[];
-    for (final uri in attempts) {
+    final errors = <String>{};
+    for (final (agent, uri) in attempts) {
       try {
         final response = await http.get(
           uri,
-          headers: {
-            'User-Agent': userAgent,
-            'Accept': 'application/json',
-          },
+          headers: {'User-Agent': agent},
         ).timeout(const Duration(seconds: 30));
         if (response.statusCode != 200) {
-          errors.add('HTTP ${response.statusCode}');
+          final isChallenge = response.body.contains('Just a moment') || response.headers['cf-mitigated'] != null;
+          errors.add('HTTP ${response.statusCode}${isChallenge ? ' (Cloudflare bot check)' : ''}');
           continue;
         }
         final Object? decoded;
@@ -228,6 +237,6 @@ class OnlineTagSearch {
         errors.add('$error');
       }
     }
-    throw OnlineTagSearchException('Danbooru: ${errors.join(', then ')}');
+    throw OnlineTagSearchException('Danbooru refused: ${errors.join(', ')}');
   }
 }

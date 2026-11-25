@@ -84,7 +84,12 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
       final bytes = await _encodeImage();
       if (!mounted) return;
       setState(() => _status = 'Searching SauceNAO…');
-      final result = await OnlineTagSearch.search(bytes, apiKey: apiKey);
+      final result = await OnlineTagSearch.search(
+        bytes,
+        apiKey: apiKey,
+        danbooruLogin: settings.danbooruLogin,
+        danbooruApiKey: settings.danbooruApiKey,
+      );
       if (!mounted) return;
       await TagCatalog.instance.ensureLoaded();
       if (!mounted) return;
@@ -267,7 +272,7 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
           ListTile(
             leading: const Icon(AIcons.error),
             title: const Text('Could not get the full tag list from Danbooru'),
-            subtitle: Text('Only the short summary from SauceNAO is shown.\n$tagError'),
+            subtitle: Text('Only the short summary from SauceNAO is shown.\n$tagError\nAdding your Danbooru login in ⚙ may help.'),
             isThreeLine: true,
             trailing: result.danbooruId != null
                 ? (_retryingDanbooru
@@ -306,7 +311,7 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
     if (id == null) return;
     setState(() => _retryingDanbooru = true);
     try {
-      final tags = await OnlineTagSearch.fetchDanbooruTags(id);
+      final tags = await OnlineTagSearch.fetchDanbooruTags(id, login: settings.danbooruLogin, apiKey: settings.danbooruApiKey);
       if (!mounted) return;
       _setResult(
         OnlineTagSearchResult(
@@ -392,13 +397,16 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
   }
 }
 
-// Asks for the SauceNAO API key, and stores it. Returns null when cancelled.
+// Asks for the SauceNAO API key (and optional Danbooru login), and stores them.
+// Returns the SauceNAO key, or null when cancelled.
 Future<String?> showSauceNaoKeyDialog(BuildContext context) async {
   final controller = TextEditingController(text: settings.sauceNaoApiKey ?? '');
+  final danbooruLoginController = TextEditingController(text: settings.danbooruLogin ?? '');
+  final danbooruKeyController = TextEditingController(text: settings.danbooruApiKey ?? '');
   final key = await showAvesDialog<String>(
     context: context,
     builder: (context) => AvesDialog(
-      title: 'SauceNAO API key',
+      title: 'Online search keys',
       scrollableContent: [
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
@@ -426,6 +434,27 @@ Future<String?> showSauceNaoKeyDialog(BuildContext context) async {
             decoration: const InputDecoration(labelText: 'API key'),
           ),
         ),
+        const Padding(
+          padding: EdgeInsets.fromLTRB(24, 24, 24, 0),
+          child: Text(
+            'Optional: your Danbooru login, used to get full tag lists when Danbooru blocks anonymous apps. '
+            'Make an API key on danbooru.donmai.us in My Account › API Key.',
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: TextField(
+            controller: danbooruLoginController,
+            decoration: const InputDecoration(labelText: 'Danbooru username'),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: TextField(
+            controller: danbooruKeyController,
+            decoration: const InputDecoration(labelText: 'Danbooru API key'),
+          ),
+        ),
       ],
       actions: [
         const CancelButton(),
@@ -436,9 +465,15 @@ Future<String?> showSauceNaoKeyDialog(BuildContext context) async {
       ],
     ),
   );
+  final danbooruLogin = danbooruLoginController.text;
+  final danbooruKey = danbooruKeyController.text;
   controller.dispose();
+  danbooruLoginController.dispose();
+  danbooruKeyController.dispose();
   if (key == null || key.isEmpty) return null;
   settings.sauceNaoApiKey = key;
+  settings.danbooruLogin = danbooruLogin;
+  settings.danbooruApiKey = danbooruKey;
   return key;
 }
 
