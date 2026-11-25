@@ -1,5 +1,7 @@
 import 'package:aves/model/filters/container/album_group.dart';
 import 'package:aves/model/filters/covered/stored_album.dart';
+import 'package:aves/model/filters/filters.dart';
+import 'package:aves/model/filters/saved_filter_set.dart';
 import 'package:aves/model/filters/trash.dart';
 import 'package:aves/model/settings/settings.dart';
 import 'package:aves/model/source/album.dart';
@@ -21,6 +23,7 @@ import 'package:aves/widgets/common/extensions/build_context.dart';
 import 'package:aves/widgets/common/extensions/media_query.dart';
 import 'package:aves/widgets/common/identity/aves_logo.dart';
 import 'package:aves/widgets/debug/app_debug_page.dart';
+import 'package:aves/widgets/dialogs/aves_dialog.dart';
 import 'package:aves/widgets/explorer/page.dart';
 import 'package:aves/widgets/filter_grids/albums_page.dart';
 import 'package:aves/widgets/filter_grids/countries_page.dart';
@@ -121,6 +124,7 @@ class _AppDrawerState extends State<AppDrawer> with WidgetsBindingObserver {
       _buildHeader(context),
       _buildHomeLink(),
       ..._buildTypeLinks(),
+      ..._buildSavedFilterLinks(context),
       _buildAlbumLinks(context),
       ..._buildPageLinks(context),
       const Divider(),
@@ -334,6 +338,112 @@ class _AppDrawerState extends State<AppDrawer> with WidgetsBindingObserver {
       if (tiles.isNotEmpty) const SizedBox(height: 8),
       ...tiles,
     ];
+  }
+
+  // filter sets saved in the app, like home screen shortcuts
+  List<Widget> _buildSavedFilterLinks(BuildContext context) {
+    final sets = settings.savedFilterSets;
+    final currentFilters = currentCollection?.filters;
+    final canSave = currentFilters != null && currentFilters.isNotEmpty && !sets.any((v) => setEquals(v.filters, currentFilters));
+    if (sets.isEmpty && !canSave) return [];
+
+    return [
+      const Divider(),
+      Padding(
+        padding: const EdgeInsetsDirectional.only(start: 16, end: 16, top: 8, bottom: 4),
+        child: Text('Saved filters', style: Theme.of(context).textTheme.titleSmall),
+      ),
+      ...sets.indexed.map((kv) {
+        final (index, filterSet) = kv;
+        // long press to rename or delete
+        return GestureDetector(
+          onLongPress: () => _editSavedFilterSet(context, index),
+          child: CollectionNavTile(
+            leading: const Icon(AIcons.savedFilters),
+            title: Text(filterSet.name),
+            filters: filterSet.filters,
+            isSelected: () => setEquals(currentFilters, filterSet.filters),
+          ),
+        );
+      }),
+      if (canSave)
+        SafeArea(
+          top: false,
+          bottom: false,
+          child: ListTile(
+            leading: const Icon(AIcons.add),
+            title: const Text('Save current filters'),
+            onTap: () => _saveCurrentFilters(context, currentFilters),
+          ),
+        ),
+    ];
+  }
+
+  Future<void> _saveCurrentFilters(BuildContext context, Set<CollectionFilter> filters) async {
+    final defaultName = filters.map((v) => '${v.reversed ? 'not ' : ''}${v.getLabel(context)}').join(' + ');
+    final result = await _showSavedFilterSetDialog(context, title: 'Save filters', name: defaultName, canDelete: false);
+    if (result == null || !mounted) return;
+    final (name, _) = result;
+    if (name.isEmpty) return;
+    settings.savedFilterSets = [...settings.savedFilterSets, SavedFilterSet(name, filters)];
+    setState(() {});
+  }
+
+  Future<void> _editSavedFilterSet(BuildContext context, int index) async {
+    final sets = settings.savedFilterSets;
+    if (index >= sets.length) return;
+    final filterSet = sets[index];
+    final result = await _showSavedFilterSetDialog(context, title: 'Saved filters', name: filterSet.name, canDelete: true);
+    if (result == null || !mounted) return;
+    final (name, delete) = result;
+    if (delete) {
+      sets.removeAt(index);
+    } else if (name.isNotEmpty) {
+      sets[index] = SavedFilterSet(name, filterSet.filters);
+    }
+    settings.savedFilterSets = sets;
+    setState(() {});
+  }
+
+  // returns the name, and whether to delete
+  Future<(String, bool)?> _showSavedFilterSetDialog(
+    BuildContext context, {
+    required String title,
+    required String name,
+    required bool canDelete,
+  }) async {
+    final controller = TextEditingController(text: name);
+    final result = await showAvesDialog<(String, bool)>(
+      context: context,
+      builder: (context) => AvesDialog(
+        title: title,
+        scrollableContent: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+            child: TextField(
+              controller: controller,
+              autofocus: !canDelete,
+              decoration: const InputDecoration(labelText: 'Name'),
+              onSubmitted: (value) => Navigator.maybeOf(context)?.pop((value.trim(), false)),
+            ),
+          ),
+        ],
+        actions: [
+          if (canDelete)
+            TextButton(
+              onPressed: () => Navigator.maybeOf(context)?.pop((controller.text.trim(), true)),
+              child: const Text('Delete'),
+            ),
+          const CancelButton(),
+          TextButton(
+            onPressed: () => Navigator.maybeOf(context)?.pop((controller.text.trim(), false)),
+            child: const Text('Save'),
+          ),
+        ],
+      ),
+    );
+    controller.dispose();
+    return result;
   }
 
   Widget _buildAlbumLinks(BuildContext context) {

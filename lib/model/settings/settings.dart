@@ -6,6 +6,7 @@ import 'package:aves/model/device.dart';
 import 'package:aves/model/dynamic_albums.dart';
 import 'package:aves/model/filters/favourite.dart';
 import 'package:aves/model/filters/mime.dart';
+import 'package:aves/model/filters/saved_filter_set.dart';
 import 'package:aves/model/grouping/common.dart';
 import 'package:aves/model/settings/defaults.dart';
 import 'package:aves/model/settings/enums/accessibility_animations.dart';
@@ -237,6 +238,10 @@ class Settings
 
   set tagImplications(TagImplications newValue) => set(SettingKeys.tagImplicationsKey, newValue.isEmpty ? null : newValue.toJson());
 
+  List<SavedFilterSet> get savedFilterSets => SavedFilterSet.listFromJson(getString(SettingKeys.savedFilterSetsKey));
+
+  set savedFilterSets(List<SavedFilterSet> newValue) => set(SettingKeys.savedFilterSetsKey, newValue.isEmpty ? null : SavedFilterSet.listToJson(newValue));
+
   // converter
 
   String get convertMimeType => getString(SettingKeys.convertMimeTypeKey) ?? SettingsDefaults.convertMimeType;
@@ -441,6 +446,7 @@ class Settings
           case SettingKeys.albumGroupsKey:
           case SettingKeys.tagGroupsKey:
           case SettingKeys.tagImplicationsKey:
+          case SettingKeys.savedFilterSetsKey:
           case SettingKeys.imageBackgroundKey:
           case SettingKeys.videoAutoPlayModeKey:
           case SettingKeys.videoBackgroundModeKey:

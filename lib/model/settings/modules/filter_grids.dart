@@ -59,7 +59,8 @@ mixin FilterGridsSettings on SettingsAccess {
 
   set pinnedFilters(Set<CollectionFilter> newValue) => set(SettingKeys.pinnedFiltersKey, newValue.map((filter) => filter.toJsonString()).toList());
 
-  bool getShowTitleQuery(String routeName) => getBool(SettingKeys.showTitleQueryPrefixKey + routeName) ?? false;
+  // the album picker shows its filter field unless hidden, to quickly find albums by name
+  bool getShowTitleQuery(String routeName) => getBool(SettingKeys.showTitleQueryPrefixKey + routeName) ?? (routeName == '/album_pick');
 
   void setShowTitleQuery(String routeName, bool newValue) => set(SettingKeys.showTitleQueryPrefixKey + routeName, newValue);
 
