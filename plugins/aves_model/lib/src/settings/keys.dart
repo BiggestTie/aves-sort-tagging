@@ -109,6 +109,8 @@ class SettingKeys {
   static const tagGroupsKey = 'tag_groups';
   static const tagImplicationsKey = 'tag_implications';
   static const savedFilterSetsKey = 'saved_filter_sets';
+  static const sauceNaoApiKeyKey = 'saucenao_api_key';
+  static const onlineTagMappingsKey = 'online_tag_mappings';
   static const pinnedFiltersKey = 'pinned_filters';
   static const hiddenFiltersKey = 'hidden_filters';
   static const deactivatedHiddenFiltersKey = 'deactivated_hidden_filters';

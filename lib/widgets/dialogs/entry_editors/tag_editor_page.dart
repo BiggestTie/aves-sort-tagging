@@ -18,6 +18,7 @@ import 'package:aves/widgets/common/identity/aves_filter_chip.dart';
 import 'package:aves/widgets/dialogs/aves_confirmation_dialog.dart';
 import 'package:aves/widgets/dialogs/aves_dialog.dart';
 import 'package:aves/widgets/dialogs/entry_editors/tag_implication_dialog.dart';
+import 'package:aves/widgets/tags/online_tag_search_page.dart';
 import 'package:aves/widgets/tags/tag_portrait_crop_page.dart';
 import 'package:aves/widgets/tags/tag_portrait_popup.dart';
 import 'package:aves/widgets/tags/tag_tree_list.dart';
@@ -103,6 +104,13 @@ class _TagEditorPageState extends State<TagEditorPage> {
         appBar: AppBar(
           title: Text(l10n.tagEditorPageTitle),
           actions: [
+            // looks the image up online, for a single item
+            if (filtersByEntry.length == 1)
+              IconButton(
+                icon: const Icon(AIcons.onlineTagSearch),
+                onPressed: _findTagsOnline,
+                tooltip: 'Find tags online',
+              ),
             IconButton(
               icon: const Icon(AIcons.reset),
               onPressed: _reset,
@@ -390,6 +398,20 @@ class _TagEditorPageState extends State<TagEditorPage> {
         ),
       ],
     );
+  }
+
+  Future<void> _findTagsOnline() async {
+    final entry = filtersByEntry.keys.first;
+    final currentTags = filtersByEntry[entry]!.whereType<TagFilter>().map((v) => v.tag).toSet();
+    final tags = await Navigator.maybeOf(context)?.push<Set<String>>(
+      MaterialPageRoute(
+        settings: const RouteSettings(name: OnlineTagSearchPage.routeName),
+        builder: (context) => OnlineTagSearchPage(entry: entry, currentTags: currentTags),
+      ),
+    );
+    if (tags == null || !mounted) return;
+    // added like typed tags, with their implied tags
+    tags.forEach((tag) => _addTag(TagFilter(tag), clearQuery: false));
   }
 
   Future<void> _setPortrait(AvesEntry entry, String tag) async {

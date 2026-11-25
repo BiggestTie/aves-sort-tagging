@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:aves/app_flavor.dart';
@@ -242,6 +243,23 @@ class Settings
 
   set savedFilterSets(List<SavedFilterSet> newValue) => set(SettingKeys.savedFilterSetsKey, newValue.isEmpty ? null : SavedFilterSet.listToJson(newValue));
 
+  String? get sauceNaoApiKey => getString(SettingKeys.sauceNaoApiKeyKey);
+
+  set sauceNaoApiKey(String? newValue) => set(SettingKeys.sauceNaoApiKeyKey, newValue == null || newValue.trim().isEmpty ? null : newValue.trim());
+
+  // tags found online -> tag chosen by the user (empty for tags the user does not want)
+  Map<String, String> get onlineTagMappings {
+    final json = getString(SettingKeys.onlineTagMappingsKey);
+    if (json == null || json.isEmpty) return {};
+    try {
+      return (jsonDecode(json) as Map).map((key, value) => MapEntry('$key', '$value'));
+    } catch (error) {
+      return {};
+    }
+  }
+
+  set onlineTagMappings(Map<String, String> newValue) => set(SettingKeys.onlineTagMappingsKey, newValue.isEmpty ? null : jsonEncode(newValue));
+
   // converter
 
   String get convertMimeType => getString(SettingKeys.convertMimeTypeKey) ?? SettingsDefaults.convertMimeType;
@@ -447,6 +465,7 @@ class Settings
           case SettingKeys.tagGroupsKey:
           case SettingKeys.tagImplicationsKey:
           case SettingKeys.savedFilterSetsKey:
+          case SettingKeys.onlineTagMappingsKey:
           case SettingKeys.imageBackgroundKey:
           case SettingKeys.videoAutoPlayModeKey:
           case SettingKeys.videoBackgroundModeKey:

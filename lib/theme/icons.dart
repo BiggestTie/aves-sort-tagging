@@ -68,6 +68,7 @@ class AIcons {
   static const tag = Symbols.sell;
   static const portrait = Symbols.face;
   static const savedFilters = Symbols.bookmarks;
+  static const onlineTagSearch = Symbols.travel_explore;
   static const tagUntagged = MdiIcons.tagOffOutline;
   static const text = Symbols.format_quote;
   static const thumbnails = Symbols.dashboard_2;
