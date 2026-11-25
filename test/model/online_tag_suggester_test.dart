@@ -7,9 +7,15 @@ void main() {
   String? catalog(String franchise, String name) => franchise == 'Blue Archive' && name == 'Toki' ? 'Blue Archive|Millennium|C&C|Toki' : null;
 
   test('split character tags', () {
-    expect(OnlineTagSuggester.splitCharacter('asuna_(bunny)_(blue_archive)'), ('Asuna', ['bunny', 'blue_archive']));
-    expect(OnlineTagSuggester.splitCharacter('hu_tao_(genshin_impact)'), ('Hu Tao', ['genshin_impact']));
-    expect(OnlineTagSuggester.splitCharacter('raiden_shogun'), ('Raiden Shogun', <String>[]));
+    void check(String source, String name, List<String> qualifiers) {
+      final (actualName, actualQualifiers) = OnlineTagSuggester.splitCharacter(source);
+      expect(actualName, name);
+      expect(actualQualifiers, qualifiers);
+    }
+
+    check('asuna_(bunny)_(blue_archive)', 'Asuna', ['bunny', 'blue_archive']);
+    check('hu_tao_(genshin_impact)', 'Hu Tao', ['genshin_impact']);
+    check('raiden_shogun', 'Raiden Shogun', []);
   });
 
   test('suggests the user tags', () {
