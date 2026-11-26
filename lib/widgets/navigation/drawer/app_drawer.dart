@@ -18,6 +18,7 @@ import 'package:aves/utils/android_file_utils.dart';
 import 'package:aves/utils/file_utils.dart';
 import 'package:aves/widgets/about/about_page.dart';
 import 'package:aves/widgets/collection/collection_page.dart';
+import 'package:aves/widgets/comics/comics_page.dart';
 import 'package:aves/widgets/common/basic/text/outlined.dart';
 import 'package:aves/widgets/common/extensions/build_context.dart';
 import 'package:aves/widgets/common/extensions/media_query.dart';
@@ -128,6 +129,7 @@ class _AppDrawerState extends State<AppDrawer> with WidgetsBindingObserver {
       _buildAlbumLinks(context),
       ..._buildPageLinks(context),
       const Divider(),
+      comicsTile(context),
       convertTagsTile(context),
       if (settings.enableBin) ...[
         const Divider(),
@@ -513,6 +515,27 @@ class _AppDrawerState extends State<AppDrawer> with WidgetsBindingObserver {
         );
       }),
     ];
+  }
+
+  Widget comicsTile(BuildContext context) {
+    return SafeArea(
+      top: false,
+      bottom: false,
+      child: ListTile(
+        leading: const Icon(AIcons.comic),
+        title: const Text('Comics'),
+        onTap: () {
+          final navigator = Navigator.maybeOf(context);
+          navigator?.pop();
+          navigator?.push(
+            MaterialPageRoute(
+              settings: const RouteSettings(name: ComicsPage.routeName),
+              builder: (context) => const ComicsPage(),
+            ),
+          );
+        },
+      ),
+    );
   }
 
   Widget convertTagsTile(BuildContext context) {

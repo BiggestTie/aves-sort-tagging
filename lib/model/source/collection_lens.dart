@@ -11,6 +11,7 @@ import 'package:aves/model/entry/sort.dart';
 import 'package:aves/model/favourites.dart';
 import 'package:aves/model/filters/covered/location.dart';
 import 'package:aves/model/filters/covered/stored_album.dart';
+import 'package:aves/model/filters/covered/tag.dart';
 import 'package:aves/model/filters/favourite.dart';
 import 'package:aves/model/filters/filters.dart';
 import 'package:aves/model/filters/query.dart';
@@ -22,6 +23,7 @@ import 'package:aves/model/source/events.dart';
 import 'package:aves/model/source/location/location.dart';
 import 'package:aves/model/source/section_keys.dart';
 import 'package:aves/model/source/tag.dart';
+import 'package:aves/model/tags/comics.dart';
 import 'package:aves/ref/mime_types.dart';
 import 'package:aves/widgets/collection/collection_page.dart';
 import 'package:aves_model/aves_model.dart';
@@ -87,6 +89,16 @@ class CollectionLens with ChangeNotifier {
     _subscriptions.add(sourceEvents.on<EntryDisposedEvent>().listen((e) => _onEntryDisposed(e.entries)));
 
     _subscriptions.add(settings.updateStream.where(_isLayoutFactorEvent).listen((_) => _onLayoutFactorChanged()));
+    // comic order or stacking changes
+    _subscriptions.add(
+      settings.updateStream.where((event) => event.key == SettingKeys.comicOrdersKey || event.key == SettingKeys.comicPagesShownKey).listen((_) {
+        _applyFilters();
+        _applySort();
+        _applySection();
+        filterChangeNotifier.notify();
+        layoutChangeNotifier.notify();
+      }),
+    );
     refresh();
   }
 
@@ -199,10 +211,36 @@ class CollectionLens with ChangeNotifier {
       if (tileLayout == .calendar) {
         _stackByDate();
       } else {
+        _stackComics();
         _stackBursts();
         _stackDevelopedRaws();
       }
     }
+  }
+
+  // each comic shows as a single tile, its cover, with its pages in reading order,
+  // except when browsing the comic itself
+  void _stackComics() {
+    if (!Comics.stackInGallery) return;
+    final browsedComics = filters.whereType<TagFilter>().map((v) => v.tag).where(Comics.isComicTag).toSet();
+    final pagesByComic = <String, List<AvesEntry>>{};
+    for (final entry in _filteredSortedEntries) {
+      if (entry.isStack) continue;
+      final comicTag = entry.tags.firstWhereOrNull(Comics.isComicTag);
+      if (comicTag != null && !browsedComics.contains(comicTag)) {
+        pagesByComic.putIfAbsent(comicTag, () => []).add(entry);
+      }
+    }
+    pagesByComic.forEach((comicTag, pages) {
+      if (pages.length < 2) return;
+      final ordered = Comics.ordered(comicTag, pages);
+      final cover = ordered.first;
+      final stackEntry = cover.copyWith(stackedEntries: ordered);
+      _syntheticEntries.add(stackEntry);
+      final others = ordered.skip(1).toSet();
+      _filteredSortedEntries.removeWhere(others.contains);
+      _filteredSortedEntries.replace(cover, stackEntry);
+    });
   }
 
   void _stackByDate() {

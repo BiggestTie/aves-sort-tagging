@@ -4,6 +4,7 @@ import 'package:aves/model/filters/filters.dart';
 import 'package:aves/model/filters/placeholder.dart';
 import 'package:aves/model/settings/settings.dart';
 import 'package:aves/model/source/collection_source.dart';
+import 'package:aves/model/tags/comics.dart';
 import 'package:aves/model/tags/tag_catalog.dart';
 import 'package:aves/model/tags/tag_path.dart';
 import 'package:aves/model/tags/tag_portraits.dart';
@@ -104,6 +105,13 @@ class _TagEditorPageState extends State<TagEditorPage> {
         appBar: AppBar(
           title: Text(l10n.tagEditorPageTitle),
           actions: [
+            // groups several items as a comic
+            if (filtersByEntry.length > 1)
+              IconButton(
+                icon: const Icon(AIcons.comic),
+                onPressed: _makeComic,
+                tooltip: 'Make comic',
+              ),
             // looks the image up online, for a single item
             if (filtersByEntry.length == 1)
               IconButton(
@@ -414,6 +422,63 @@ class _TagEditorPageState extends State<TagEditorPage> {
       selection: TextSelection.collapsed(offset: text.length),
     );
     _newTagTextFocusNode.requestFocus();
+  }
+
+  // tags the items as pages of a new or existing comic, and orders them
+  Future<void> _makeComic() async {
+    final source = context.read<CollectionSource>();
+    final existing = Comics.collect(source).keys.map(Comics.title).toList()..sort();
+    final controller = TextEditingController();
+    final title = await showAvesDialog<String>(
+      context: context,
+      builder: (context) => AvesDialog(
+        title: 'Make comic',
+        scrollableContent: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+            child: TextField(
+              controller: controller,
+              autofocus: true,
+              decoration: const InputDecoration(
+                labelText: 'Comic title',
+                helperText: 'Use | for series, e.g. My Series|Chapter 1',
+              ),
+              onSubmitted: (value) => Navigator.maybeOf(context)?.pop(value),
+            ),
+          ),
+          if (existing.isNotEmpty) ...[
+            const Padding(
+              padding: EdgeInsets.fromLTRB(24, 8, 24, 0),
+              child: Text('Or add these pages to a comic:'),
+            ),
+            ...existing.map(
+              (v) => ListTile(
+                leading: const Icon(AIcons.comic),
+                title: Text(v),
+                onTap: () => Navigator.maybeOf(context)?.pop(v.replaceAll(' › ', TagPath.separator)),
+              ),
+            ),
+          ],
+        ],
+        actions: [
+          const CancelButton(),
+          TextButton(
+            onPressed: () => Navigator.maybeOf(context)?.pop(controller.text),
+            child: const Text('Make comic'),
+          ),
+        ],
+      ),
+    );
+    controller.dispose();
+    if (title == null || !mounted) return;
+    final comicTag = Comics.tagFor(title);
+    if (!Comics.isComicTag(comicTag)) return;
+
+    // existing pages keep their order, new pages follow by file name
+    final existingPages = Comics.pagesOf(source, comicTag);
+    final newPages = filtersByEntry.keys.where((v) => !existingPages.contains(v)).toList()..sort(Comics.compareByFileName);
+    Comics.saveOrder(comicTag, [...existingPages, ...newPages]);
+    _addTag(TagFilter(comicTag));
   }
 
   Future<void> _findTagsOnline() async {

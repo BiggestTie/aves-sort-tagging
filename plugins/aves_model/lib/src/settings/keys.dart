@@ -109,6 +109,9 @@ class SettingKeys {
   static const tagGroupsKey = 'tag_groups';
   static const tagImplicationsKey = 'tag_implications';
   static const savedFilterSetsKey = 'saved_filter_sets';
+  static const comicOrdersKey = 'comic_orders';
+  static const comicReadingModesKey = 'comic_reading_modes';
+  static const comicPagesShownKey = 'comic_pages_shown';
   static const sauceNaoApiKeyKey = 'saucenao_api_key';
   static const danbooruLoginKey = 'danbooru_login';
   static const danbooruApiKeyKey = 'danbooru_api_key';

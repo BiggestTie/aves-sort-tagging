@@ -69,6 +69,9 @@ class AIcons {
   static const portrait = Symbols.face;
   static const savedFilters = Symbols.bookmarks;
   static const onlineTagSearch = Symbols.travel_explore;
+  static const comic = Symbols.auto_stories;
+  static const read = Symbols.menu_book;
+  static const sortByName = Symbols.sort_by_alpha;
   static const tagUntagged = MdiIcons.tagOffOutline;
   static const text = Symbols.format_quote;
   static const thumbnails = Symbols.dashboard_2;

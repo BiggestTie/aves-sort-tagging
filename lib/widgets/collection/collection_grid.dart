@@ -13,6 +13,7 @@ import 'package:aves/model/settings/settings.dart';
 import 'package:aves/model/source/collection_lens.dart';
 import 'package:aves/model/source/collection_source.dart';
 import 'package:aves/model/source/section_keys.dart';
+import 'package:aves/model/tags/comics.dart';
 import 'package:aves/ref/mime_types.dart';
 import 'package:aves/theme/durations.dart';
 import 'package:aves/theme/icons.dart';
@@ -23,6 +24,7 @@ import 'package:aves/widgets/collection/grid/list_details_theme.dart';
 import 'package:aves/widgets/collection/grid/section_layout.dart';
 import 'package:aves/widgets/collection/grid/tile.dart';
 import 'package:aves/widgets/collection/loading.dart';
+import 'package:aves/widgets/comics/comic_reader_page.dart';
 import 'package:aves/widgets/common/basic/draggable_scrollbar/scrollbar.dart';
 import 'package:aves/widgets/common/basic/insets.dart';
 import 'package:aves/widgets/common/behaviour/routes.dart';
@@ -185,7 +187,14 @@ class _CollectionGridContentState extends State<_CollectionGridContent> {
 
                         return NotificationListener<OpenViewerNotification>(
                           onNotification: (notification) {
-                            _goToViewer(collection, notification.entry);
+                            // a comic tile opens the comic reader
+                            final entry = notification.entry;
+                            final comicTag = Comics.comicOfStack(entry);
+                            if (comicTag != null) {
+                              _goToComicReader(comicTag, entry.stackedEntries!);
+                            } else {
+                              _goToViewer(collection, entry);
+                            }
                             return true;
                           },
                           child: StreamBuilder<AspectRatioChangedEvent>(
@@ -262,6 +271,15 @@ class _CollectionGridContentState extends State<_CollectionGridContent> {
         );
         return sectionedListLayoutProvider;
       },
+    );
+  }
+
+  Future<void> _goToComicReader(String comicTag, List<AvesEntry> pages) async {
+    await Navigator.maybeOf(context)?.push(
+      MaterialPageRoute(
+        settings: const RouteSettings(name: ComicReaderPage.routeName),
+        builder: (context) => ComicReaderPage(comicTag: comicTag, pages: List.of(pages)),
+      ),
     );
   }
 

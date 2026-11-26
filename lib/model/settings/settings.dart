@@ -243,6 +243,35 @@ class Settings
 
   set savedFilterSets(List<SavedFilterSet> newValue) => set(SettingKeys.savedFilterSetsKey, newValue.isEmpty ? null : SavedFilterSet.listToJson(newValue));
 
+  // comic tag -> page keys, in reading order
+  Map<String, List<String>> get comicOrders {
+    final json = getString(SettingKeys.comicOrdersKey);
+    if (json == null || json.isEmpty) return {};
+    try {
+      return (jsonDecode(json) as Map).map((key, value) => MapEntry('$key', (value as List).map((v) => '$v').toList()));
+    } catch (error) {
+      return {};
+    }
+  }
+
+  set comicOrders(Map<String, List<String>> newValue) => set(SettingKeys.comicOrdersKey, newValue.isEmpty ? null : jsonEncode(newValue));
+
+  Map<String, String> get comicReadingModes {
+    final json = getString(SettingKeys.comicReadingModesKey);
+    if (json == null || json.isEmpty) return {};
+    try {
+      return (jsonDecode(json) as Map).map((key, value) => MapEntry('$key', '$value'));
+    } catch (error) {
+      return {};
+    }
+  }
+
+  set comicReadingModes(Map<String, String> newValue) => set(SettingKeys.comicReadingModesKey, newValue.isEmpty ? null : jsonEncode(newValue));
+
+  bool get comicPagesShown => getBool(SettingKeys.comicPagesShownKey) ?? false;
+
+  set comicPagesShown(bool newValue) => set(SettingKeys.comicPagesShownKey, newValue);
+
   String? get sauceNaoApiKey => getString(SettingKeys.sauceNaoApiKeyKey);
 
   set sauceNaoApiKey(String? newValue) => set(SettingKeys.sauceNaoApiKeyKey, newValue == null || newValue.trim().isEmpty ? null : newValue.trim());
@@ -474,6 +503,8 @@ class Settings
           case SettingKeys.tagImplicationsKey:
           case SettingKeys.savedFilterSetsKey:
           case SettingKeys.onlineTagMappingsKey:
+          case SettingKeys.comicOrdersKey:
+          case SettingKeys.comicReadingModesKey:
           case SettingKeys.imageBackgroundKey:
           case SettingKeys.videoAutoPlayModeKey:
           case SettingKeys.videoBackgroundModeKey:
