@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:aves/model/tags/tag_path.dart';
 import 'package:aves/model/tags/tag_portraits.dart';
 import 'package:aves/theme/icons.dart';
+import 'package:flutter/services.dart';
 import 'package:material_ui/material_ui.dart';
 
 class TagPopupAction {
@@ -48,7 +49,7 @@ Future<void> showTagPortraitPopup(
   }
 }
 
-class _TagPortraitPopup extends StatelessWidget {
+class _TagPortraitPopup extends StatefulWidget {
   final String tag;
   final List<TagPopupAction> actions;
 
@@ -56,6 +57,23 @@ class _TagPortraitPopup extends StatelessWidget {
     required this.tag,
     required this.actions,
   });
+
+  @override
+  State<_TagPortraitPopup> createState() => _TagPortraitPopupState();
+}
+
+class _TagPortraitPopupState extends State<_TagPortraitPopup> {
+  bool _copied = false;
+
+  String get tag => widget.tag;
+
+  List<TagPopupAction> get actions => widget.actions;
+
+  // copies the full tag path, e.g. `Outfit|Lingerie|Thighhighs`
+  Future<void> _copyPath() async {
+    await Clipboard.setData(ClipboardData(text: tag));
+    if (mounted) setState(() => _copied = true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,20 +112,33 @@ class _TagPortraitPopup extends StatelessWidget {
                         ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
-                  child: Text(
-                    TagPath.leaf(tag),
-                    style: theme.textTheme.titleLarge,
+                  padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 4, 0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: .start,
+                          children: [
+                            Text(
+                              TagPath.leaf(tag),
+                              style: theme.textTheme.titleLarge,
+                            ),
+                            if (TagPath.isNested(tag))
+                              Text(
+                                TagPath.segments(tag).join(' › '),
+                                style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                              ),
+                          ],
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(_copied ? AIcons.apply : AIcons.copy),
+                        onPressed: _copyPath,
+                        tooltip: _copied ? 'Copied' : 'Copy tag path',
+                      ),
+                    ],
                   ),
                 ),
-                if (TagPath.isNested(tag))
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      TagPath.segments(tag).join(' › '),
-                      style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant),
-                    ),
-                  ),
                 if (actions.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.all(8),

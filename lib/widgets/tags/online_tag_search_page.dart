@@ -14,6 +14,7 @@ import 'package:aves/theme/icons.dart';
 import 'package:aves/widgets/aves_app.dart';
 import 'package:aves/widgets/common/basic/scaffold.dart';
 import 'package:aves/widgets/dialogs/aves_dialog.dart';
+import 'package:aves/widgets/tags/tag_portrait_popup.dart';
 import 'package:aves/widgets/tags/tag_tree_list.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -434,7 +435,11 @@ class _OnlineTagSearchPageState extends State<OnlineTagSearchPage> {
     final source = context.read<CollectionSource>();
     final tag = await showAvesDialog<String>(
       context: context,
-      builder: (context) => _PickTagDialog(source: source, initialQuery: TagPath.leaf(suggestion.target)),
+      builder: (context) => _PickTagDialog(
+        source: source,
+        initialQuery: TagPath.leaf(suggestion.target),
+        suggestedName: TagPath.leaf(suggestion.target),
+      ),
     );
     if (tag == null || !mounted) return;
 
@@ -537,9 +542,13 @@ class _PickTagDialog extends StatefulWidget {
   final CollectionSource source;
   final String initialQuery;
 
+  // name of the tag found online, e.g. `Long Sleeves`, to place under a chosen tag
+  final String suggestedName;
+
   const new({
     required this.source,
     required this.initialQuery,
+    required this.suggestedName,
   });
 
   @override
@@ -548,6 +557,7 @@ class _PickTagDialog extends StatefulWidget {
 
 class _PickTagDialogState extends State<_PickTagDialog> {
   late final TextEditingController _controller;
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -558,7 +568,41 @@ class _PickTagDialogState extends State<_PickTagDialog> {
   @override
   void dispose() {
     _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
+  }
+
+  // long press a tag to build a new tag below it
+  Future<void> _onLongPress(String tag) async {
+    final suggested = TagPath.normalize(widget.suggestedName);
+    await showTagPortraitPopup(
+      context,
+      tag: tag,
+      actions: [
+        if (suggested.isNotEmpty && TagPath.leaf(tag).toLowerCase() != suggested.toLowerCase())
+          TagPopupAction(
+            label: 'Add “$suggested” under it',
+            icon: AIcons.apply,
+            onTap: () {
+              if (mounted) Navigator.maybeOf(context)?.pop('$tag${TagPath.separator}$suggested');
+            },
+          ),
+        TagPopupAction(
+          label: 'Type a new tag under it',
+          icon: AIcons.add,
+          onTap: () {
+            if (!mounted) return;
+            final text = '$tag${TagPath.separator}';
+            _controller.value = TextEditingValue(
+              text: text,
+              selection: TextSelection.collapsed(offset: text.length),
+            );
+            setState(() {});
+            _focusNode.requestFocus();
+          },
+        ),
+      ],
+    );
   }
 
   @override
@@ -570,10 +614,12 @@ class _PickTagDialogState extends State<_PickTagDialog> {
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
           child: TextField(
             controller: _controller,
+            focusNode: _focusNode,
             autofocus: true,
             decoration: const InputDecoration(
               labelText: 'Search your tags',
-              helperText: 'Or type a new tag, with | for nested tags',
+              helperText: 'Or type a new tag, with | for nested tags.\nHold a tag to build a new one under it.',
+              helperMaxLines: 2,
             ),
             onChanged: (_) => setState(() {}),
           ),
@@ -583,6 +629,7 @@ class _PickTagDialogState extends State<_PickTagDialog> {
           upQuery: _controller.text.trim().toUpperCase(),
           extraTags: TagCatalog.instance.tags,
           onTap: (tag) => Navigator.maybeOf(context)?.pop(tag),
+          onLongPress: _onLongPress,
         ),
       ],
       actions: [

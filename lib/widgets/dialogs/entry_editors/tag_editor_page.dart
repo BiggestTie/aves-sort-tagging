@@ -392,12 +392,28 @@ class _TagEditorPageState extends State<TagEditorPage> {
             },
           ),
         TagPopupAction(
+          label: 'New tag under it',
+          icon: AIcons.add,
+          onTap: () => _startTagUnder(tag),
+        ),
+        TagPopupAction(
           label: 'Implied tags',
           icon: AIcons.tag,
           onTap: () => _editImplications(tag),
         ),
       ],
     );
+  }
+
+  // fills the text field with the tag path, ready to type the new last part,
+  // e.g. `Outfit|Lingerie|Thighhighs|`
+  void _startTagUnder(String tag) {
+    final text = '$tag${TagPath.separator}';
+    _newTagTextController.value = TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
+    );
+    _newTagTextFocusNode.requestFocus();
   }
 
   Future<void> _findTagsOnline() async {
