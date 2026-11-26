@@ -78,7 +78,7 @@ class _ComicPageState extends State<ComicPage> {
                   ),
                 ),
                 itemCount: _pages.length,
-                onReorder: _onReorder,
+                onReorderItem: _onReorder,
                 itemBuilder: (context, index) {
                   final entry = _pages[index];
                   return ListTile(
@@ -112,9 +112,9 @@ class _ComicPageState extends State<ComicPage> {
     );
   }
 
+  // `newIndex` is already adjusted for the removed page
   void _onReorder(int oldIndex, int newIndex) {
     setState(() {
-      if (newIndex > oldIndex) newIndex -= 1;
       final page = _pages.removeAt(oldIndex);
       _pages.insert(newIndex, page);
     });
